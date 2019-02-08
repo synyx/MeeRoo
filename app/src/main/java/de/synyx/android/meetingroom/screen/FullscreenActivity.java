@@ -3,6 +3,7 @@ package de.synyx.android.meetingroom.screen;
 import android.support.v7.app.AppCompatActivity;
 
 import android.view.View;
+import android.view.WindowManager;
 
 
 /**
@@ -15,6 +16,13 @@ public abstract class FullscreenActivity extends AppCompatActivity {
 
         super.onResume();
         enableFullscreen();
+        keepScreenOn();
+    }
+
+
+    private void keepScreenOn() {
+
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
 
 
