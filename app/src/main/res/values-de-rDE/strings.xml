@@ -35,7 +35,7 @@
     <string name="status_availability_time_available">für %1$s</string>
     <string name="unavailable">Belegt</string>
     <string name="reserved">Verfügbar</string>
-    <string name="free">Available</string>
+    <string name="free">Verfügbar</string>
     <string name="resourcesMode">Ressourcen</string>
     <string name="calendarMode">Kalender</string>
     <string name="loadingText">lädt</string>
@@ -47,7 +47,7 @@
     <string name="selectMode">Wähle Kalendermodus</string>
     <string name="calendarError">Fehler: Kalender</string>
     <string name="noCalendarsError">"Es wurde kein Meetingraum Kalender gefunden. Bitte stell sicher, dass ein Konto auf diesem Gerät konfiguriert wurde und der Kalender eingestellt wurde, um den Meetingraum Kalender zu synchronisieren. "</string>
-    <string name="calendarPending">Kalender lädt…</string>
+    <string name="calendarPending">Kalender werden geladen...</string>
     <string name="dialog_calendar_permission_massage">Diese Anwendung benötigt Zugriff auf den Kalender. Bitte vergebe die Berechtigung in den Android Einstellungen.</string>
     <string name="dialog_accounts_permission_massage">Diese Anwendung benötigt Zugriff auf die Benutzeraccounts. Bitte vergebe die Berechtigung in den Android Einstellungen.</string>
     <string name="dialog_sync_settings_permission_massage">Diese Anwendung benötigt Zugriff auf die Accountsynchronisation. Bitte vergebe die Berechtigung in den Android Einstellungen.</string>
