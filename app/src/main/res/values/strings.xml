@@ -1,0 +1,70 @@
+<resources>
+    <string name="app_name">Meeting Room</string>
+
+    <!-- Permissions-->
+    <string name="permission_dialog_positive" translatable="false">OK</string>
+    <string name="permission_dialog_negative">Cancel</string>
+
+    <string name="dialog_calendar_permission_massage">This app needs access to calendar to work, please enable it in the permission settings.</string>
+    <string name="dialog_calendar_permission_title">Calendar permission required</string>
+
+    <string name="dialog_accounts_permission_massage">This app needs access to account data, please enable it in the permission settings.</string>
+    <string name="dialog_accounts_permission_title">Accounts permission required</string>
+
+    <string name="dialog_sync_settings_permission_massage">This app needs access to sync settings, please enable it in the permission settings.</string>
+    <string name="dialog_sync_settings_permission_title">Sync settings permission required</string>
+
+    <string name="dialog_contacts_permission_massage">This app needs access to contact data to work, please enable it in the permission settings.</string>
+    <string name="dialog_contacts_permission_title">Contact permission required</string>
+    <!-- end Permissions-->
+
+    <string name="navigation_item_status" translatable="false">STATUS</string>
+    <string name="navigation_item_agenda" translatable="false">AGENDA</string>
+    <string name="navigation_item_all_rooms">ALL ROOMS</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="pref_default_room_title">Default Room</string>
+    <string name="main_acitivity_settings_button_description">Settings</string>
+    <string name="header_title_lobby">All rooms</string>
+    <string name="settings_hidden_rooms_title">Rooms to hide</string>
+    <string name="settings_languages_title">Display language</string>
+    <string name="agenda_title">Agenda for %1$s</string>
+    <string name="time_suffix_day">day</string>
+    <string name="time_suffix_days">days</string>
+    <string name="time_suffix_hour">hour</string>
+    <string name="time_suffix_hours">hours</string>
+    <string name="time_suffix_minute">minute</string>
+    <string name="time_suffix_minutes">minutes</string>
+    <string name="book_now_dialog_title">Book now?</string>
+    <string name="book_now_dialog_message">Do you want to book this meeting room for 30 minutes starting now?</string>
+    <string name="book_now_dialog_confirm">Book now</string>
+    <string name="book_now_dialog_cancel">Cancel</string>
+    <string name="event_name_hint">Name of event</string>
+    <string name="event_date_hint">Date</string>
+    <string name="btn_save">save</string>
+    <string name="reservation_heading">Add new reservation</string>
+    <string name="status_next_event">Upcoming reservation: %1$s</string>
+    <string name="status_next_event_placeholder">No upcoming reservation</string>
+    <string name="lobby_room_item_next_event_placeholder">No upcoming reservation</string>
+    <string name="lobby_room_item_next_event" translatable="false">➔ %1$s</string>
+    <string name="status_availability_time_placeholder">for the rest of the day</string>
+    <string name="lobby_room_availability_time_placeholder">free</string>
+    <string name="lobby_room_availability_time_unavailable">free in %1$s</string>
+    <string name="lobby_room_availability_time_available">free for %1$s</string>
+    <string name="status_availability_time_unavailable">free in %1$s</string>
+    <string name="status_availability_time_available">for %1$s</string>
+    <string name="unavailable">Reserved</string>
+    <string name="reserved">Free</string>
+    <string name="free">Free</string>
+    <string name="resourcesMode">Resources</string>
+    <string name="calendarMode">Calendars</string>
+    <string name="loadingText">Loading</string>
+    <string name="reserve">reserve</string>
+    <string name="book_now">Book now</string>
+    <string name="selectAccount">Select Account</string>
+    <string name="selectMode">Select Mode for Calendar</string>
+    <string name="calendarError">Calendar error</string>
+    <string name="noCalendarsError">No meeting room calendars found. Please ensure that an Account has been configured on this device and that a Calendar has been set to sync the meeting room calendars.</string>
+    <string name="close">Close</string>
+    <string name="calendarPending">Calendar pending…</string>
+
+</resources>

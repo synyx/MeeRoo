@@ -1,0 +1,11 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ListPreference
+        android:defaultValue="-1"
+        android:key="defaultRoom"
+        android:title="@string/pref_default_room_title" />
+
+    <MultiSelectListPreference
+        android:key="hidden_rooms"
+        android:title="@string/settings_hidden_rooms_title" />
+</PreferenceScreen>
