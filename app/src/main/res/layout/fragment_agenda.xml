@@ -15,10 +15,10 @@
         android:id="@+id/agenda_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:paddingBottom="12dp"
+        android:layout_marginTop="40dp"
+        android:paddingBottom="20dp"
         android:textColor="@color/room_status_available"
-        android:textSize="20sp"
+        android:textSize="24sp"
         app:layout_constraintTop_toTopOf="parent" />
 
 
