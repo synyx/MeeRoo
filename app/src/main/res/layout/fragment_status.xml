@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#fff"
-        android:textSize="60sp"
+        android:textSize="72sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/event_duration"
         app:layout_constraintEnd_toEndOf="parent"

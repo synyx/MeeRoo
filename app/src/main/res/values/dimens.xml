@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <dimen name="header_margin_top">8dp</dimen>
     <dimen name="header_padding_bottom">12dp</dimen>
-    <dimen name="header_font_size">16sp</dimen>
+    <dimen name="header_font_size">24sp</dimen>
     <dimen name="header_height">48dp</dimen>
+
+    <!-- Bottom navigation font size -->
+    <dimen name="design_bottom_navigation_text_size" tools:override="true">16sp</dimen>
+    <dimen name="design_bottom_navigation_active_text_size" tools:override="true">16sp</dimen>
 </resources>
