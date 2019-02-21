@@ -9,12 +9,14 @@ public class RoomCalendarModel {
     private final String name;
     private final long calendarId;
     private final String owner;
+    private final Integer capacity;
 
-    public RoomCalendarModel(long calendarId, String name, String owner) {
+    public RoomCalendarModel(long calendarId, String name, String owner, Integer capacity) {
 
         this.calendarId = calendarId;
         this.name = name;
         this.owner = owner;
+        this.capacity = capacity;
     }
 
     public String getName() {
@@ -32,5 +34,11 @@ public class RoomCalendarModel {
     public String getOwner() {
 
         return owner;
+    }
+
+
+    public Integer getCapacity() {
+
+        return capacity;
     }
 }

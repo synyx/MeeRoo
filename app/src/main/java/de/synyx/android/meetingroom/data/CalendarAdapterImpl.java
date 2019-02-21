@@ -142,7 +142,14 @@ public class CalendarAdapterImpl implements CalendarAdapter {
     @NonNull
     private static Function<Cursor, RoomCalendarModel> toRoomCalendar() {
 
-        return c -> new RoomCalendarModel(getIdFrom(c), getNameFrom(c), getOwnerAccountFrom(c));
+        return
+            cursor -> {
+            String namePlusCapacity = getNameFrom(cursor);
+            String name = RegexMatcher.removeNumberInBracketsFromString(namePlusCapacity);
+            Integer capacity = RegexMatcher.getFirstNumberInBracketsFromString(namePlusCapacity);
+
+            return new RoomCalendarModel(getIdFrom(cursor), name, getOwnerAccountFrom(cursor), capacity);
+        };
     }
 
 
