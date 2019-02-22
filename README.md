@@ -14,3 +14,5 @@ On the first start of the app you have to choose the calendar mode (for synchron
 
 ## Current version
 1.0
+
+The idea and design of this app is inspired by https://github.com/futurice/meeting-room-tablet.
