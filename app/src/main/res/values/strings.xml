@@ -42,7 +42,7 @@
     <string name="event_date_hint">Date</string>
     <string name="btn_save">save</string>
     <string name="reservation_heading">Add new reservation</string>
-    <string name="status_next_event">Upcoming reservation: %1$s</string>
+    <string name="status_next_event">Upcoming reservation (%2$s): %1$s</string>
     <string name="status_next_event_placeholder">No upcoming reservation</string>
     <string name="lobby_room_item_next_event_placeholder">No upcoming reservation</string>
     <string name="lobby_room_item_next_event" translatable="false">➔ %1$s</string>

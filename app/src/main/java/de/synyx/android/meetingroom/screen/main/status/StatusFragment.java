@@ -27,6 +27,7 @@ import de.synyx.android.meetingroom.screen.main.MainActivity;
 import de.synyx.android.meetingroom.util.DateFormatter;
 import de.synyx.android.meetingroom.util.livedata.SingleEvent;
 
+import org.joda.time.DateTime;
 import org.joda.time.Duration;
 
 import static android.support.design.widget.Snackbar.LENGTH_LONG;
@@ -160,8 +161,18 @@ public class StatusFragment extends Fragment {
 
         Reservation upcomingReservation = meetingRoom.getUpcomingReservation();
 
-        return upcomingReservation != null ? getString(R.string.status_next_event, upcomingReservation.getTitle())
-                                           : getString(R.string.status_next_event_placeholder);
+        if (upcomingReservation == null) {
+            return getString(R.string.status_next_event_placeholder);
+        }
+
+        return getString(R.string.status_next_event, upcomingReservation.getTitle(),
+                formatAsTime(upcomingReservation.begin));
+    }
+
+
+    private String formatAsTime(DateTime time) {
+
+        return time.toString("HH:mm");
     }
 
 
