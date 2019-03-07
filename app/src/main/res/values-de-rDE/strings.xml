@@ -33,7 +33,7 @@
     <string name="lobby_room_availability_time_available">verfügbar für %1$s</string>
     <string name="status_availability_time_unavailable">verfügbar in %1$s</string>
     <string name="status_availability_time_available">für %1$s</string>
-    <string name="unavailable">Belegt</string>
+    <string name="unavailable">In Benutzung</string>
     <string name="reserved">Verfügbar</string>
     <string name="free">Verfügbar</string>
     <string name="resourcesMode">Ressourcen</string>
