@@ -17,4 +17,7 @@ public interface EventAdapter {
 
 
     Maybe<Long> insertEvent(long calendarId, DateTime start, DateTime end, String title);
+
+
+    boolean updateEvent(long eventId, DateTime end);
 }

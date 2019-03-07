@@ -24,6 +24,7 @@ public class MeetingRoomViewModel extends ViewModel {
     private final LoadRoomUseCase loadRoomUseCase;
     private final BookNowUseCase bookNowUseCase;
     private final SchedulerFacade schedulerFacade;
+    private final EndNowUseCase endNowUseCase;
 
     private long calendarId;
     private Disposable disposable;
@@ -33,6 +34,7 @@ public class MeetingRoomViewModel extends ViewModel {
         loadRoomUseCase = new LoadRoomUseCase();
         bookNowUseCase = new BookNowUseCase();
         schedulerFacade = Registry.get(SchedulerFacade.class);
+        endNowUseCase = new EndNowUseCase();
     }
 
     public LiveData<MeetingRoom> getRoom() {
@@ -94,6 +96,13 @@ public class MeetingRoomViewModel extends ViewModel {
 
         BookingResult result = bookNowUseCase.execute(calendarId, room.getValue());
         this.bookingResult.postValue(SingleEvent.withContent(result));
+        tick();
+    }
+
+
+    public void endNow() {
+
+        endNowUseCase.execute(room.getValue());
         tick();
     }
 }

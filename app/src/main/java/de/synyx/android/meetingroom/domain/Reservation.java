@@ -113,4 +113,10 @@ public class Reservation extends TimeSpan implements Comparable<Reservation> {
 
         return title;
     }
+
+
+    public Long getEventId() {
+
+        return eventId;
+    }
 }

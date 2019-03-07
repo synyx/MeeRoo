@@ -38,6 +38,10 @@
     <string name="book_now_dialog_message">Do you want to book this meeting room for 30 minutes starting now?</string>
     <string name="book_now_dialog_confirm">Book now</string>
     <string name="book_now_dialog_cancel">Cancel</string>
+    <string name="end_now_dialog_title">Release room?</string>
+    <string name="end_now_dialog_message">Do you want to end the current reservation for this meeting room?</string>
+    <string name="end_now_dialog_confirm">End now</string>
+    <string name="end_now_dialog_cancel">Cancel</string>
     <string name="event_name_hint">Name of event</string>
     <string name="event_date_hint">Date</string>
     <string name="btn_save">save</string>
@@ -60,6 +64,7 @@
     <string name="loadingText">Loading</string>
     <string name="reserve">reserve</string>
     <string name="book_now">Book now</string>
+    <string name="end_now">Release room</string>
     <string name="selectAccount">Select Account</string>
     <string name="selectMode">Select Mode for Calendar</string>
     <string name="calendarError">Calendar error</string>

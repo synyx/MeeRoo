@@ -20,19 +20,19 @@ import de.synyx.android.meetingroom.R;
 /**
  * @author  Max Dobler - dobler@synyx.de
  */
-public class BookNowDialogFragment extends DialogFragment {
+public class EndNowDialogFragment extends DialogFragment {
 
-    BookNowDialogListener bookNowDialogListener;
+    EndNowOnDialogListener endNowDialogListener;
 
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
 
         return new AlertDialog.Builder(getActivity()) //
-            .setTitle(R.string.book_now_dialog_title)
-            .setMessage(R.string.book_now_dialog_message)
-            .setPositiveButton(R.string.book_now_dialog_confirm, (dialog, which) -> bookNowDialogListener.bookNow())
-            .setNegativeButton(R.string.book_now_dialog_cancel, (dialog, which) -> { })
+            .setTitle(R.string.end_now_dialog_title)
+            .setMessage(R.string.end_now_dialog_message)
+            .setPositiveButton(R.string.end_now_dialog_confirm, (dialog, which) -> endNowDialogListener.endNow())
+            .setNegativeButton(R.string.end_now_dialog_cancel, (dialog, which) -> { })
             .create();
     }
 
@@ -43,10 +43,10 @@ public class BookNowDialogFragment extends DialogFragment {
         super.onAttach(context);
 
         try {
-            bookNowDialogListener = (BookNowDialogListener) context;
+            endNowDialogListener = (EndNowOnDialogListener) context;
         } catch (ClassCastException exception) {
             throw new ClassCastException(getActivity().getClass().getSimpleName()
-                + " must implement BookNowDialogListener");
+                + " must implement EndNowOnDialogListener and OnDialogDismissListener");
         }
     }
 
@@ -55,14 +55,14 @@ public class BookNowDialogFragment extends DialogFragment {
     public void onDismiss(DialogInterface dialog) {
 
         super.onDismiss(dialog);
-        bookNowDialogListener.onBookNowDialogDismiss();
+        endNowDialogListener.onEndNowDialogDismiss();
     }
 
-    public interface BookNowDialogListener {
+    public interface EndNowOnDialogListener {
 
-        void bookNow();
+        void endNow();
 
 
-        void onBookNowDialogDismiss();
+        void onEndNowDialogDismiss();
     }
 }

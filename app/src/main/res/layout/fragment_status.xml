@@ -94,4 +94,15 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/reserve" />
+
+    <Button
+        android:id="@+id/end_now"
+        style="@style/ReserveButton"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:text="@string/end_now"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/reserve" />
 </android.support.constraint.ConstraintLayout>

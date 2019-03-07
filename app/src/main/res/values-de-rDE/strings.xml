@@ -19,6 +19,10 @@
     <string name="book_now_dialog_message">Willst du diesen Meeingraum ab sofort für 30 Minuten buchen?</string>
     <string name="book_now_dialog_confirm">Ab sofort buchen</string>
     <string name="book_now_dialog_cancel">Abbrechen</string>
+    <string name="end_now_dialog_title">Raum freigeben?</string>
+    <string name="end_now_dialog_message">Möchten Sie die aktuelle Reservierung für diesen Raum beenden und den Raum freigeben?</string>
+    <string name="end_now_dialog_confirm">Raum freigeben</string>
+    <string name="end_now_dialog_cancel">Abbrechen</string>
     <string name="reservation_heading">Neue Reservierung hinzufügen</string>
     <string name="btn_save">speichern</string>
     <string name="event_date_hint">Datum</string>
@@ -41,6 +45,7 @@
     <string name="loadingText">lädt</string>
     <string name="reserve">reservieren</string>
     <string name="book_now">Ab sofort buchen</string>
+    <string name="end_now">Raum freigeben</string>
     <string name="close">Schließen</string>
     <string name="title_activity_settings">Einstellungen</string>
     <string name="selectAccount">Wähle Account</string>
