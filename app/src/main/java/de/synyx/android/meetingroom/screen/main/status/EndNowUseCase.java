@@ -1,5 +1,7 @@
 package de.synyx.android.meetingroom.screen.main.status;
 
+import android.support.annotation.NonNull;
+
 import de.synyx.android.meetingroom.business.event.EventRepository;
 import de.synyx.android.meetingroom.config.Registry;
 import de.synyx.android.meetingroom.domain.MeetingRoom;
@@ -24,6 +26,24 @@ public class EndNowUseCase {
 
         Reservation currentMeeting = room.getCurrentMeeting();
 
-        eventRepository.updateEvent(currentMeeting.getEventId(), DateTime.now().minusMinutes(1));
+        DateTime end = setEndToOneMinuteInThePast(currentMeeting);
+        eventRepository.updateEvent(currentMeeting.getEventId(), end);
+    }
+
+
+    /**
+     * New end time of the reservation is set to now minus one minute, so the reservation is not visible in the view.
+     * If the reservation is not one minute old the end time is set equal to the start time.
+     */
+    @NonNull
+    private DateTime setEndToOneMinuteInThePast(Reservation currentMeeting) {
+
+        DateTime end = DateTime.now().minusMinutes(1);
+
+        if (end.isBefore(currentMeeting.begin)) {
+            end = new DateTime(currentMeeting.begin);
+        }
+
+        return end;
     }
 }
