@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="header_padding_bottom">40dp</dimen>
+    <dimen name="header_font_size">24sp</dimen>
+
+    <dimen name="font_size_extra_large">58sp</dimen>
+    <dimen name="font_size_large">36sp</dimen>
+
+    <dimen name="book_button_height">80dp</dimen>
+
+
+</resources>

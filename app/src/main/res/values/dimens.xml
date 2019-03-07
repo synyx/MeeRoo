@@ -5,7 +5,12 @@
     <dimen name="header_font_size">24sp</dimen>
     <dimen name="header_height">48dp</dimen>
 
+    <dimen name="font_size_extra_large">36sp</dimen>
+    <dimen name="font_size_large">22sp</dimen>
+
     <!-- Bottom navigation font size -->
     <dimen name="design_bottom_navigation_text_size" tools:override="true">16sp</dimen>
     <dimen name="design_bottom_navigation_active_text_size" tools:override="true">16sp</dimen>
+
+    <dimen name="book_button_height">50dp</dimen>
 </resources>
