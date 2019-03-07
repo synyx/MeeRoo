@@ -41,7 +41,7 @@ import static de.synyx.android.meetingroom.util.rx.CursorIterable.fromCursor;
 public class EventAdapterImpl implements EventAdapter {
 
     private static final String TAG = EventAdapterImpl.class.getSimpleName();
-    public static final int TRUE = 1;
+    private static final int TRUE = 1;
     private final ContentResolver contentResolver;
 
     public EventAdapterImpl() {
