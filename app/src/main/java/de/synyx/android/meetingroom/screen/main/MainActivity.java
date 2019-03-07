@@ -46,8 +46,7 @@ import static de.synyx.android.meetingroom.screen.ScreenSize.XSMALL;
 
 
 public class MainActivity extends FullscreenActivity implements LobbyFragment.RoomSelectionListener,
-    BookNowDialogFragment.BookNowOnClickListener, BookNowDialogFragment.OnDialogDismissListener,
-    EndNowDialogFragment.EndNowOnClickListener, EndNowDialogFragment.OnDialogDismissListener {
+    BookNowDialogFragment.BookNowDialogListener, EndNowDialogFragment.EndNowOnDialogListener {
 
     private PreferencesService preferencesService;
     private TextView headerTitle;

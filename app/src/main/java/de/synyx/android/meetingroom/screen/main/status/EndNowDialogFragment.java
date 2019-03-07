@@ -22,8 +22,7 @@ import de.synyx.android.meetingroom.R;
  */
 public class EndNowDialogFragment extends DialogFragment {
 
-    EndNowOnClickListener endNowClickListener;
-    OnDialogDismissListener onDismissListener;
+    EndNowOnDialogListener endNowDialogListener;
 
     @NonNull
     @Override
@@ -32,7 +31,7 @@ public class EndNowDialogFragment extends DialogFragment {
         return new AlertDialog.Builder(getActivity()) //
             .setTitle(R.string.end_now_dialog_title)
             .setMessage(R.string.end_now_dialog_message)
-            .setPositiveButton(R.string.end_now_dialog_confirm, (dialog, which) -> endNowClickListener.endNow())
+            .setPositiveButton(R.string.end_now_dialog_confirm, (dialog, which) -> endNowDialogListener.endNow())
             .setNegativeButton(R.string.end_now_dialog_cancel, (dialog, which) -> { })
             .create();
     }
@@ -44,11 +43,10 @@ public class EndNowDialogFragment extends DialogFragment {
         super.onAttach(context);
 
         try {
-            endNowClickListener = (EndNowOnClickListener) context;
-            onDismissListener = (OnDialogDismissListener) context;
+            endNowDialogListener = (EndNowOnDialogListener) context;
         } catch (ClassCastException exception) {
             throw new ClassCastException(getActivity().getClass().getSimpleName()
-                + " must implement EndNowOnClickListener and OnDialogDismissListener");
+                + " must implement EndNowOnDialogListener and OnDialogDismissListener");
         }
     }
 
@@ -57,15 +55,13 @@ public class EndNowDialogFragment extends DialogFragment {
     public void onDismiss(DialogInterface dialog) {
 
         super.onDismiss(dialog);
-        onDismissListener.onEndNowDialogDismiss();
+        endNowDialogListener.onEndNowDialogDismiss();
     }
 
-    public interface EndNowOnClickListener {
+    public interface EndNowOnDialogListener {
 
         void endNow();
-    }
 
-    public interface OnDialogDismissListener {
 
         void onEndNowDialogDismiss();
     }

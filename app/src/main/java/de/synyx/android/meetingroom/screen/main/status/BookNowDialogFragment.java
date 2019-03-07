@@ -22,8 +22,7 @@ import de.synyx.android.meetingroom.R;
  */
 public class BookNowDialogFragment extends DialogFragment {
 
-    BookNowOnClickListener bookNowClickListener;
-    OnDialogDismissListener onDismissListener;
+    BookNowDialogListener bookNowDialogListener;
 
     @NonNull
     @Override
@@ -32,7 +31,7 @@ public class BookNowDialogFragment extends DialogFragment {
         return new AlertDialog.Builder(getActivity()) //
             .setTitle(R.string.book_now_dialog_title)
             .setMessage(R.string.book_now_dialog_message)
-            .setPositiveButton(R.string.book_now_dialog_confirm, (dialog, which) -> bookNowClickListener.bookNow())
+            .setPositiveButton(R.string.book_now_dialog_confirm, (dialog, which) -> bookNowDialogListener.bookNow())
             .setNegativeButton(R.string.book_now_dialog_cancel, (dialog, which) -> { })
             .create();
     }
@@ -44,11 +43,10 @@ public class BookNowDialogFragment extends DialogFragment {
         super.onAttach(context);
 
         try {
-            bookNowClickListener = (BookNowOnClickListener) context;
-            onDismissListener = (OnDialogDismissListener) context;
+            bookNowDialogListener = (BookNowDialogListener) context;
         } catch (ClassCastException exception) {
             throw new ClassCastException(getActivity().getClass().getSimpleName()
-                + " must implement BookNowOnClickListener");
+                + " must implement BookNowDialogListener");
         }
     }
 
@@ -57,15 +55,13 @@ public class BookNowDialogFragment extends DialogFragment {
     public void onDismiss(DialogInterface dialog) {
 
         super.onDismiss(dialog);
-        onDismissListener.onBookNowDialogDismiss();
+        bookNowDialogListener.onBookNowDialogDismiss();
     }
 
-    public interface BookNowOnClickListener {
+    public interface BookNowDialogListener {
 
         void bookNow();
-    }
 
-    public interface OnDialogDismissListener {
 
         void onBookNowDialogDismiss();
     }
