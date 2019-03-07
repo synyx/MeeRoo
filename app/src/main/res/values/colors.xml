@@ -5,4 +5,5 @@
     <color name="room_status_reserved">#f4a800</color>
     <color name="room_status_unavailable">#e04c2f</color>
     <color name="background_dark">#111</color>
+    <color name="text_white_almost">#CDFFFFFF</color>
 </resources>

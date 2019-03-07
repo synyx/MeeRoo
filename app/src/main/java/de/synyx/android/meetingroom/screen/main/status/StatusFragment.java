@@ -101,17 +101,23 @@ public class StatusFragment extends Fragment {
         MainActivity activity = (MainActivity) getActivity();
         activity.setTitle(meetingRoom.getName());
 
-        RoomAvailability roomAvailablility = meetingRoom.getAvailability();
-        fragmentContainer.setBackgroundColor(getActivity().getColor(roomAvailablility.getColorRes()));
+        RoomAvailability roomAvailability = meetingRoom.getAvailability();
+        fragmentContainer.setBackgroundColor(getActivity().getColor(roomAvailability.getColorRes()));
 
         setupReserveButton(roomAvailablility);
         setupBookNowButton(roomAvailablility);
         setupEndNowButton(roomAvailablility);
 
-        tvAvailability.setText(roomAvailablility.getStringRes());
-        tvEventDuration.setText(getTextForEventDuration(meetingRoom.getAvailabilityTime(), roomAvailablility));
-        tvEventName.setText(getCurrentMeetingText(meetingRoom));
+        tvAvailability.setText(roomAvailability.getStringRes());
+        tvEventDuration.setText(getTextForEventDuration(meetingRoom.getAvailabilityTime(), roomAvailability));
         tvNextEventName.setText(getNextReservationText(meetingRoom));
+
+        String currentMeetingText = getCurrentMeetingText(meetingRoom);
+        tvEventName.setVisibility(currentMeetingText != null ? View.VISIBLE : View.GONE);
+
+        if (currentMeetingText != null) {
+            tvEventName.setText(currentMeetingText);
+        }
     }
 
 
@@ -173,6 +179,6 @@ public class StatusFragment extends Fragment {
 
         Reservation currentMeeting = meetingRoom.getCurrentMeeting();
 
-        return currentMeeting != null ? currentMeeting.getTitle() : "";
+        return currentMeeting != null ? currentMeeting.getTitle() : null;
     }
 }
