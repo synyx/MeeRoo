@@ -43,6 +43,13 @@ public class EventRepositoryImpl implements EventRepository {
     }
 
 
+    @Override
+    public boolean updateEvent(long eventId, DateTime end) {
+
+        return eventAdapter.updateEvent(eventId, end);
+    }
+
+
     @NonNull
     private Function<EventModel, Observable<EventModel>> loadAttendees() {
 

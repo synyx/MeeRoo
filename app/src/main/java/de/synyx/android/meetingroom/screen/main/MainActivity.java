@@ -5,8 +5,6 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.content.IntentFilter;
 
-import android.content.res.Configuration;
-
 import android.os.Bundle;
 
 import android.support.design.widget.BottomNavigationView;
@@ -29,6 +27,7 @@ import de.synyx.android.meetingroom.screen.ScreenSize;
 import de.synyx.android.meetingroom.screen.main.agenda.AgendaFragment;
 import de.synyx.android.meetingroom.screen.main.lobby.LobbyFragment;
 import de.synyx.android.meetingroom.screen.main.status.BookNowDialogFragment;
+import de.synyx.android.meetingroom.screen.main.status.EndNowDialogFragment;
 import de.synyx.android.meetingroom.screen.main.status.MeetingRoomViewModel;
 import de.synyx.android.meetingroom.screen.main.status.StatusFragment;
 import de.synyx.android.meetingroom.screen.main.status.TimeTickReceiver;
@@ -47,7 +46,8 @@ import static de.synyx.android.meetingroom.screen.ScreenSize.XSMALL;
 
 
 public class MainActivity extends FullscreenActivity implements LobbyFragment.RoomSelectionListener,
-    BookNowDialogFragment.BookNowOnClickListener, BookNowDialogFragment.OnDialogDismissListener {
+    BookNowDialogFragment.BookNowOnClickListener, BookNowDialogFragment.OnDialogDismissListener,
+    EndNowDialogFragment.EndNowOnClickListener, EndNowDialogFragment.OnDialogDismissListener {
 
     private PreferencesService preferencesService;
     private TextView headerTitle;
@@ -177,13 +177,6 @@ public class MainActivity extends FullscreenActivity implements LobbyFragment.Ro
 
 
     @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-
-        super.onConfigurationChanged(newConfig);
-    }
-
-
-    @Override
     protected void onPause() {
 
         super.onPause();
@@ -215,7 +208,7 @@ public class MainActivity extends FullscreenActivity implements LobbyFragment.Ro
 
 
     @Override
-    public void onDialogDissmiss() {
+    public void onBookNowDialogDismiss() {
 
         enableFullscreen();
     }
@@ -230,5 +223,19 @@ public class MainActivity extends FullscreenActivity implements LobbyFragment.Ro
     public void openReservationFragment() {
 
         replaceFragment(ReservationFragment.getInstance());
+    }
+
+
+    @Override
+    public void endNow() {
+
+        roomViewModel.endNow();
+    }
+
+
+    @Override
+    public void onEndNowDialogDismiss() {
+
+        enableFullscreen();
     }
 }

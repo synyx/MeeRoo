@@ -43,6 +43,7 @@ public class StatusFragment extends Fragment {
     private TextView tvNextEventName;
     private Button btnReserve;
     private Button btnBookNow;
+    private Button btnEndNow;
     private ViewGroup fragmentContainer;
 
     public StatusFragment() {
@@ -81,6 +82,7 @@ public class StatusFragment extends Fragment {
 
         btnReserve = view.findViewById(R.id.reserve);
         btnBookNow = view.findViewById(R.id.book_now);
+        btnEndNow = view.findViewById(R.id.end_now);
     }
 
 
@@ -104,6 +106,7 @@ public class StatusFragment extends Fragment {
 
         setupReserveButton(roomAvailablility);
         setupBookNowButton(roomAvailablility);
+        setupEndNowButton(roomAvailablility);
 
         tvAvailability.setText(roomAvailablility.getStringRes());
         tvEventDuration.setText(getTextForEventDuration(meetingRoom.getAvailabilityTime(), roomAvailablility));
@@ -147,6 +150,13 @@ public class StatusFragment extends Fragment {
         btnBookNow.setTextColor(getActivity().getColor(roomAvailablility.getColorRes()));
         btnBookNow.setOnClickListener(view -> new BookNowDialogFragment().show(getFragmentManager(), "BookNowDialog"));
         btnBookNow.setVisibility(roomAvailablility == AVAILABLE ? View.VISIBLE : View.GONE);
+    }
+
+
+    private void setupEndNowButton(RoomAvailability roomAvailablility) {
+
+        btnEndNow.setOnClickListener(view -> new EndNowDialogFragment().show(getFragmentManager(), "EndNowDialog"));
+        btnEndNow.setVisibility(roomAvailablility == RoomAvailability.UNAVAILABLE ? View.VISIBLE : View.GONE);
     }
 
 

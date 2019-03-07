@@ -20,9 +20,9 @@ import de.synyx.android.meetingroom.R;
 /**
  * @author  Max Dobler - dobler@synyx.de
  */
-public class BookNowDialogFragment extends DialogFragment {
+public class EndNowDialogFragment extends DialogFragment {
 
-    BookNowOnClickListener bookNowClickListener;
+    EndNowOnClickListener endNowClickListener;
     OnDialogDismissListener onDismissListener;
 
     @NonNull
@@ -30,10 +30,10 @@ public class BookNowDialogFragment extends DialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
 
         return new AlertDialog.Builder(getActivity()) //
-            .setTitle(R.string.book_now_dialog_title)
-            .setMessage(R.string.book_now_dialog_message)
-            .setPositiveButton(R.string.book_now_dialog_confirm, (dialog, which) -> bookNowClickListener.bookNow())
-            .setNegativeButton(R.string.book_now_dialog_cancel, (dialog, which) -> { })
+            .setTitle(R.string.end_now_dialog_title)
+            .setMessage(R.string.end_now_dialog_message)
+            .setPositiveButton(R.string.end_now_dialog_confirm, (dialog, which) -> endNowClickListener.endNow())
+            .setNegativeButton(R.string.end_now_dialog_cancel, (dialog, which) -> { })
             .create();
     }
 
@@ -44,11 +44,11 @@ public class BookNowDialogFragment extends DialogFragment {
         super.onAttach(context);
 
         try {
-            bookNowClickListener = (BookNowOnClickListener) context;
+            endNowClickListener = (EndNowOnClickListener) context;
             onDismissListener = (OnDialogDismissListener) context;
         } catch (ClassCastException exception) {
             throw new ClassCastException(getActivity().getClass().getSimpleName()
-                + " must implement BookNowOnClickListener");
+                + " must implement EndNowOnClickListener and OnDialogDismissListener");
         }
     }
 
@@ -57,16 +57,16 @@ public class BookNowDialogFragment extends DialogFragment {
     public void onDismiss(DialogInterface dialog) {
 
         super.onDismiss(dialog);
-        onDismissListener.onBookNowDialogDismiss();
+        onDismissListener.onEndNowDialogDismiss();
     }
 
-    public interface BookNowOnClickListener {
+    public interface EndNowOnClickListener {
 
-        void bookNow();
+        void endNow();
     }
 
     public interface OnDialogDismissListener {
 
-        void onBookNowDialogDismiss();
+        void onEndNowDialogDismiss();
     }
 }

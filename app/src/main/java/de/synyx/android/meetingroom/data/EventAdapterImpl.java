@@ -41,6 +41,7 @@ import static de.synyx.android.meetingroom.util.rx.CursorIterable.fromCursor;
 public class EventAdapterImpl implements EventAdapter {
 
     private static final String TAG = EventAdapterImpl.class.getSimpleName();
+    public static final int TRUE = 1;
     private final ContentResolver contentResolver;
 
     public EventAdapterImpl() {
@@ -77,6 +78,7 @@ public class EventAdapterImpl implements EventAdapter {
         values.put(Events.TITLE, title);
         values.put(Events.CALENDAR_ID, calendarId);
         values.put(Events.EVENT_TIMEZONE, TimeZone.getDefault().getID());
+        values.put(Events.GUESTS_CAN_MODIFY, TRUE);
 
         try {
             Uri insert = contentResolver.insert(Events.CONTENT_URI, values);
@@ -87,6 +89,19 @@ public class EventAdapterImpl implements EventAdapter {
 
             return Maybe.empty();
         }
+    }
+
+
+    @Override
+    public boolean updateEvent(long eventId, DateTime end) {
+
+        ContentValues values = new ContentValues();
+        values.put(Events.DTEND, end.getMillis());
+
+        Uri eventUri = ContentUris.withAppendedId(Events.CONTENT_URI, eventId);
+        int rows = contentResolver.update(eventUri, values, null, null);
+
+        return rows == 1;
     }
 
 

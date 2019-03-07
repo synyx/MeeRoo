@@ -41,6 +41,7 @@
     <string name="loadingText">lädt</string>
     <string name="reserve">reservieren</string>
     <string name="book_now">Ab sofort buchen</string>
+    <string name="end_now">Raum freigeben</string>
     <string name="close">Schließen</string>
     <string name="title_activity_settings">Einstellungen</string>
     <string name="selectAccount">Wähle Account</string>
