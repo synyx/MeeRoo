@@ -24,7 +24,7 @@ class RegexMatcher {
 
         try {
             return Integer.valueOf(matcher.group(0));
-        } catch (NumberFormatException exception) {
+        } catch (NumberFormatException | IllegalStateException exception) {
             return null;
         }
     }
