@@ -28,7 +28,7 @@
     <string name="event_date_hint">Datum</string>
     <string name="event_name_hint">Title der Reservierung</string>
     <string name="permission_dialog_negative">Abbrechen</string>
-    <string name="status_next_event">Nächster Termin: %1$s</string>
+    <string name="status_next_event">Nächster Termin (%2$s): %1$s</string>
     <string name="status_next_event_placeholder">Kein Folgetermin vorhanden</string>
     <string name="lobby_room_item_next_event_placeholder">Kein Folgetermin</string>
     <string name="status_availability_time_placeholder">für den ganzen Tag</string>
