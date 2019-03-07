@@ -105,9 +105,9 @@ public class StatusFragment extends Fragment {
         RoomAvailability roomAvailability = meetingRoom.getAvailability();
         fragmentContainer.setBackgroundColor(getActivity().getColor(roomAvailability.getColorRes()));
 
-        setupReserveButton(roomAvailablility);
-        setupBookNowButton(roomAvailablility);
-        setupEndNowButton(roomAvailablility);
+        setupReserveButton(roomAvailability);
+        setupBookNowButton(roomAvailability);
+        setupEndNowButton(roomAvailability);
 
         tvAvailability.setText(roomAvailability.getStringRes());
         tvEventDuration.setText(getTextForEventDuration(meetingRoom.getAvailabilityTime(), roomAvailability));
