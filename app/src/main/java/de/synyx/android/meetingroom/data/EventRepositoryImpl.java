@@ -13,6 +13,8 @@ import io.reactivex.functions.Function;
 
 import org.joda.time.DateTime;
 
+import java.util.concurrent.ConcurrentHashMap;
+
 
 /**
  * @author  Max Dobler - dobler@synyx.de
@@ -21,18 +23,32 @@ public class EventRepositoryImpl implements EventRepository {
 
     private final EventAdapter eventAdapter;
     private final AttendeeAdapter attendeeAdapter;
+    private final ConcurrentHashMap<Long, DateTime> eventEndCache;
 
     public EventRepositoryImpl() {
 
         eventAdapter = Registry.get(EventAdapter.class);
         attendeeAdapter = Registry.get(AttendeeAdapter.class);
+        eventEndCache = new ConcurrentHashMap<>();
     }
 
     @Override
     public Observable<EventModel> loadAllEventsForRoom(long roomId) {
 
         return eventAdapter.getEventsForRoom(roomId) //
-            .flatMap(loadAttendees());
+            .map(this::setEndIfCached).flatMap(loadAttendees());
+    }
+
+
+    private EventModel setEndIfCached(EventModel event) {
+
+        DateTime end = eventEndCache.get(event.getId());
+
+        if (end != null) {
+            return new EventModel(event.getId(), event.getName(), event.getBegin(), end);
+        }
+
+        return event;
     }
 
 
@@ -45,6 +61,8 @@ public class EventRepositoryImpl implements EventRepository {
 
     @Override
     public boolean updateEvent(long eventId, DateTime end) {
+
+        eventEndCache.put(eventId, end);
 
         return eventAdapter.updateEvent(eventId, end);
     }
