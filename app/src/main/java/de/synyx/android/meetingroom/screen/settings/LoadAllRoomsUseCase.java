@@ -60,7 +60,7 @@ public class LoadAllRoomsUseCase {
     @NonNull
     private Reservation toReservation(EventModel event) {
 
-        return new Reservation(event.getId(), event.getName(), event.getBegin(), event.getEnd());
+        return new Reservation(event.getId(), event.getName(), event.getBegin(), event.getEnd(), event.isRecurring());
     }
 
 

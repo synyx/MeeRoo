@@ -27,7 +27,8 @@ public class EndNowUseCase {
         Reservation currentMeeting = room.getCurrentMeeting();
 
         DateTime end = setEndToOneMinuteInThePast(currentMeeting);
-        eventRepository.updateEvent(currentMeeting.getEventId(), end);
+        eventRepository.updateEvent(currentMeeting.getEventId(), currentMeeting.begin, end,
+            currentMeeting.isRecurring());
     }
 
 

@@ -36,7 +36,9 @@ public class LoadRoomUseCase {
     private Maybe<MeetingRoom> addReservations(MeetingRoom meetingRoom) {
 
         return loadEventsFor(meetingRoom) //
-            .map(event -> new Reservation(event.getId(), event.getName(), event.getBegin(), event.getEnd())) //
+            .map(event ->
+                        new Reservation(event.getId(), event.getName(), event.getBegin(), event.getEnd(),
+                            event.isRecurring())) //
             .collectInto(meetingRoom, MeetingRoom::addReservation) //
             .toMaybe();
     }

@@ -24,6 +24,7 @@ import io.reactivex.Observable;
 import io.reactivex.functions.Function;
 
 import org.joda.time.DateTime;
+import org.joda.time.Duration;
 import org.joda.time.LocalDateTime;
 
 import java.security.AccessControlException;
@@ -56,7 +57,8 @@ public class EventAdapterImpl implements EventAdapter {
             Instances.EVENT_ID, //
             Instances.TITLE, //
             Instances.BEGIN, //
-            Instances.END,
+            Instances.END, //
+            Instances.DURATION
         };
         String selection = Instances.CALENDAR_ID + " = " + roomId;
         String sortChronological = Instances.BEGIN + " ASC";
@@ -93,7 +95,33 @@ public class EventAdapterImpl implements EventAdapter {
 
 
     @Override
-    public boolean updateEvent(long eventId, DateTime end) {
+    public boolean updateEvent(long eventId, DateTime start, DateTime end, boolean recurring) {
+
+        if (recurring) {
+            return updateRecurringEvent(eventId, start, end);
+        }
+
+        return updateSingleEvent(eventId, end);
+    }
+
+
+    private boolean updateRecurringEvent(long eventId, DateTime start, DateTime end) {
+
+        ContentValues values = new ContentValues();
+        values.put(Events.ORIGINAL_INSTANCE_TIME, start.getMillis());
+        values.put(Events.DURATION, getNewDuration(start, end));
+
+        Uri.Builder eventUriBuilder = Events.CONTENT_EXCEPTION_URI.buildUpon();
+        ContentUris.appendId(eventUriBuilder, eventId);
+
+        final Uri resultUri = contentResolver.insert(eventUriBuilder.build(), values);
+        Integer.parseInt(resultUri.getLastPathSegment());
+
+        return true;
+    }
+
+
+    private boolean updateSingleEvent(long eventId, DateTime end) {
 
         ContentValues values = new ContentValues();
         values.put(Events.DTEND, end.getMillis());
@@ -102,6 +130,15 @@ public class EventAdapterImpl implements EventAdapter {
         int rows = contentResolver.update(eventUri, values, null, null);
 
         return rows == 1;
+    }
+
+
+    @NonNull
+    private String getNewDuration(DateTime start, DateTime end) {
+
+        long seconds = new Duration(start, end).getStandardSeconds();
+
+        return String.format("P%dS", seconds);
     }
 
 
@@ -126,11 +163,24 @@ public class EventAdapterImpl implements EventAdapter {
             String title = cursor.getString(cursor.getColumnIndex(Instances.TITLE));
             long beginMillis = cursor.getLong(cursor.getColumnIndex(Instances.BEGIN));
             long endMillis = cursor.getLong(cursor.getColumnIndex(Instances.END));
+            String durationString = cursor.getString(cursor.getColumnIndex(Instances.DURATION));
 
             DateTime begin = new DateTime(beginMillis);
             DateTime end = new DateTime(endMillis);
 
-            return new EventModel(eventId, title, begin, end);
+            return new EventModel(eventId, title, begin, end, parseDuration(durationString));
         };
+    }
+
+
+    private Duration parseDuration(String durationString) {
+
+        if (durationString == null) {
+            return null;
+        }
+
+        String substring = durationString.substring(1, durationString.length() - 1);
+
+        return Duration.standardSeconds(Long.valueOf(substring));
     }
 }

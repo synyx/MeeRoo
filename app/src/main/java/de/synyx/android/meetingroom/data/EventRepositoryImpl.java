@@ -45,7 +45,7 @@ public class EventRepositoryImpl implements EventRepository {
         DateTime end = eventEndCache.get(event.getId());
 
         if (end != null) {
-            return new EventModel(event.getId(), event.getName(), event.getBegin(), end);
+            return new EventModel(event.getId(), event.getName(), event.getBegin(), end, null);
         }
 
         return event;
@@ -60,11 +60,11 @@ public class EventRepositoryImpl implements EventRepository {
 
 
     @Override
-    public boolean updateEvent(long eventId, DateTime end) {
+    public boolean updateEvent(long eventId, DateTime start, DateTime end, boolean recurring) {
 
         eventEndCache.put(eventId, end);
 
-        return eventAdapter.updateEvent(eventId, end);
+        return eventAdapter.updateEvent(eventId, start, end, recurring);
     }
 
 
