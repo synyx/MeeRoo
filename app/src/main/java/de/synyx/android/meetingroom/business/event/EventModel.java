@@ -3,6 +3,7 @@ package de.synyx.android.meetingroom.business.event;
 import de.synyx.android.meetingroom.domain.Attendee;
 
 import org.joda.time.DateTime;
+import org.joda.time.Duration;
 import org.joda.time.LocalDate;
 import org.joda.time.Period;
 
@@ -19,14 +20,16 @@ public class EventModel implements Comparable<EventModel> {
     private final String name;
     private final DateTime begin;
     private final DateTime end;
+    private final Duration duration;
     private List<Attendee> attendees = new ArrayList<>();
 
-    public EventModel(Long id, String name, DateTime begin, DateTime end) {
+    public EventModel(Long id, String name, DateTime begin, DateTime end, Duration duration) {
 
         this.id = id;
         this.name = name;
         this.begin = begin;
         this.end = end;
+        this.duration = duration;
     }
 
     public Long getId() {
@@ -107,5 +110,17 @@ public class EventModel implements Comparable<EventModel> {
         }
 
         return false;
+    }
+
+
+    public Duration getDuration() {
+
+        return duration;
+    }
+
+
+    public boolean isRecurring() {
+
+        return duration != null;
     }
 }

@@ -18,6 +18,7 @@ public class Reservation extends TimeSpan implements Comparable<Reservation> {
 
     private Long eventId;
     private String title;
+    private boolean recurring;
     private List<Attendee> attendees;
 
     public Reservation(DateTime begin, DateTime end) {
@@ -26,11 +27,12 @@ public class Reservation extends TimeSpan implements Comparable<Reservation> {
     }
 
 
-    public Reservation(Long eventId, String title, DateTime begin, DateTime end) {
+    public Reservation(Long eventId, String title, DateTime begin, DateTime end, boolean recurring) {
 
         super(begin, end);
         this.eventId = eventId;
         this.title = title;
+        this.recurring = recurring;
     }
 
     public static Reservation withBeginAndDuration(DateTime begin, Duration duration) {
@@ -118,5 +120,11 @@ public class Reservation extends TimeSpan implements Comparable<Reservation> {
     public Long getEventId() {
 
         return eventId;
+    }
+
+
+    public boolean isRecurring() {
+
+        return recurring;
     }
 }

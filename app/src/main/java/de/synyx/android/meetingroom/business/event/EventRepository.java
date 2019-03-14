@@ -17,5 +17,5 @@ public interface EventRepository {
     Maybe<Long> insertEvent(long calendarId, String title, DateTime start, DateTime end);
 
 
-    boolean updateEvent(long eventId, DateTime end);
+    boolean updateEvent(long eventId, DateTime start, DateTime end, boolean recurring);
 }
