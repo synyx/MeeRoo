@@ -10,7 +10,7 @@ import de.synyx.android.meetingroom.util.proxy.ProxyConfig;
 /**
  * @author  Max Dobler - dobler@synyx.de
  */
-public class MeetingRoomApplication extends Application {
+public class MeerooApplication extends Application {
 
     @Override
     public void onCreate() {
