@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Meeting Raum</string>
-
     <string name="navigation_item_all_rooms">ALLE RÄUME</string>
     <string name="pref_default_room_title">Standardraum</string>
     <string name="main_acitivity_settings_button_description">Einstellungen</string>
