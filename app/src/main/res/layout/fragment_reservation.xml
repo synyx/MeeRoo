@@ -8,7 +8,7 @@
 
         <variable
             name="viewModel"
-            type="de.synyx.android.meetingroom.screen.reservation.ReservationViewModel" />
+            type="de.synyx.android.meeroo.screen.reservation.ReservationViewModel" />
     </data>
 
     <android.support.constraint.ConstraintLayout

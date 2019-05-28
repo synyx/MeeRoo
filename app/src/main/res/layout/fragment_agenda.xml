@@ -9,7 +9,7 @@
     android:paddingTop="50dp"
     android:paddingEnd="16dp"
     android:paddingBottom="16dp"
-    tools:context="de.synyx.android.meetingroom.screen.main.MainActivity">
+    tools:context="de.synyx.android.meeroo.screen.main.MainActivity">
 
     <TextView
         android:id="@+id/agenda_title"

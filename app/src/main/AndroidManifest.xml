@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="de.synyx.android.meetingroom">
+    package="de.synyx.android.meeroo">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -11,14 +11,14 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:name=".MeerooApplication"
+        android:name="de.synyx.android.meeroo.MeerooApplication"
         android:allowBackup="true"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
         <activity
-            android:name="de.synyx.android.meetingroom.screen.login.LoginActivity"
+            android:name="de.synyx.android.meeroo.screen.login.LoginActivity"
             android:configChanges="orientation|screenSize"
             android:label="@string/app_name"
             android:screenOrientation="sensorLandscape">
@@ -30,10 +30,10 @@
         </activity>
 
         <activity
-            android:name="de.synyx.android.meetingroom.screen.main.MainActivity"
+            android:name="de.synyx.android.meeroo.screen.main.MainActivity"
             android:theme="@style/AppThemeDark" />
         <activity
-            android:name="de.synyx.android.meetingroom.screen.settings.SettingsActivity"
+            android:name="de.synyx.android.meeroo.screen.settings.SettingsActivity"
             android:label="@string/title_activity_settings" />
 
     </application>
