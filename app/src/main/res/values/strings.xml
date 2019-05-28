@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">MEEROO</string>
+    <string name="app_name" translatable="false">MeeRoo</string>
 
     <!-- Permissions-->
     <string name="permission_dialog_positive" translatable="false">OK</string>

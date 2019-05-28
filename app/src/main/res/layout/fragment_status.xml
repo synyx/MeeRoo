@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:paddingTop="50dp"
     tools:background="@color/room_status_available"
-    tools:context="de.synyx.android.meetingroom.screen.main.MainActivity">
+    tools:context="de.synyx.android.meeroo.screen.main.MainActivity">
 
     <TextView
         android:id="@+id/availability"
