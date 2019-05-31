@@ -11,36 +11,37 @@
 
     <TextView
         android:id="@+id/header_title"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:textColor="?android:attr/textColorPrimary"
         android:textSize="40sp"
         app:layout_constraintBottom_toTopOf="@id/header_clock"
+        app:layout_constraintEnd_toStartOf="@id/header_navigation"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="All Rooms" />
 
     <TextView
         android:id="@+id/header_clock"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:textColor="?android:attr/textColorPrimary"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@id/guideline_header"
+        app:layout_constraintEnd_toStartOf="@id/header_navigation"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/header_title"
-        tools:ignore="RelativeOverlap"
         tools:text="05.07.18 | 08:25" />
 
-    <FrameLayout
+    <include
         android:id="@+id/header_navigation"
+        layout="@layout/navigation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="@id/guideline_header"
-        app:layout_constraintLeft_toRightOf="@id/header_title"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.constraint.Guideline

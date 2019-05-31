@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="navigation_item_all_rooms">ALLE RÄUME</string>
+    <string name="navigation_item_all_rooms">Räume</string>
     <string name="pref_default_room_title">Standardraum</string>
     <string name="main_acitivity_settings_button_description">Einstellungen</string>
     <string name="header_title_lobby">Alle Räume</string>
@@ -59,4 +59,5 @@
     <string name="dialog_accounts_permission_title">Account Berechtigungen benötigt</string>
     <string name="dialog_sync_settings_permission_title">Berechtigungen für Accountsynchronisation benötigt</string>
     <string name="dialog_contacts_permission_title">Berechtigungen für Lesen von Kontakten benötigt</string>
+    <string name="navigation_item_settings">Einstellungen</string>
 </resources>
