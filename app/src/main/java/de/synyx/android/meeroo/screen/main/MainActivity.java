@@ -12,7 +12,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 
-import android.view.MenuItem;
+import android.view.View;
 
 import android.widget.TextView;
 
@@ -30,6 +30,7 @@ import de.synyx.android.meeroo.screen.main.status.MeetingRoomViewModel;
 import de.synyx.android.meeroo.screen.main.status.StatusFragment;
 import de.synyx.android.meeroo.screen.main.status.TimeTickReceiver;
 import de.synyx.android.meeroo.screen.reservation.ReservationFragment;
+import de.synyx.android.meeroo.screen.settings.SettingsActivity;
 
 import java.text.SimpleDateFormat;
 
@@ -97,45 +98,25 @@ public class MainActivity extends FullscreenActivity implements LobbyFragment.Ro
     }
 
 
-    private void setupSettingsButton() {
+    public void onNavigationSelect(View view) {
 
-//        ImageButton button = findViewById(R.id.settings_button);
-//        button.setOnClickListener(view -> startActivity(new Intent(this, SettingsActivity.class)));
-    }
+        int id = view.getId();
 
-
-    private void setupNavigation(int retainedNavItemId) {
-
-        navigationBar = findViewById(R.id.navigation_bar);
-        navigationBar.setOnNavigationItemSelectedListener(this::onNavigationSelect);
-        navigationBar.setLabelVisibilityMode(LABEL_VISIBILITY_LABELED);
-
-        if (retainedNavItemId != -1) {
-            navigationBar.setSelectedItemId(retainedNavItemId);
-        } else {
-            navigationBar.setSelectedItemId(R.id.menu_item_all_rooms);
-        }
-    }
-
-
-    private boolean onNavigationSelect(MenuItem menuItem) {
-
-        switch (menuItem.getItemId()) {
-            case R.id.menu_item_room_status:
-
-                replaceFragment(StatusFragment.newInstance());
-                break;
-
-            case R.id.menu_item_room_agenda:
-
-                replaceFragment(AgendaFragment.newInstance());
-                break;
-
-            default:
-                replaceFragment(LobbyFragment.newInstance());
+        if (id == R.id.menu_item_room_status) {
+            replaceFragment(StatusFragment.newInstance());
         }
 
-        return true;
+        if (id == R.id.menu_item_room_agenda) {
+            replaceFragment(AgendaFragment.newInstance());
+        }
+
+        if (id == R.id.menu_item_all_rooms) {
+            replaceFragment(LobbyFragment.newInstance());
+        }
+
+        if (id == R.id.menu_item_settings) {
+            startActivity(new Intent(this, SettingsActivity.class));
+        }
     }
 
 
