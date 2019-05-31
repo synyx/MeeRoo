@@ -18,4 +18,13 @@
         <item name="android:colorPrimaryDark">#888</item>
     </style>
 
+    <style name="NavigationItem">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:drawablePadding">8dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingStart">12dp</item>
+        <item name="android:paddingEnd">12dp</item>
+    </style>
+
 </resources>

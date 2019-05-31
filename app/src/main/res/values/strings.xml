@@ -18,9 +18,10 @@
     <string name="dialog_contacts_permission_title">Contact permission required</string>
     <!-- end Permissions-->
 
-    <string name="navigation_item_status" translatable="false">STATUS</string>
-    <string name="navigation_item_agenda" translatable="false">AGENDA</string>
-    <string name="navigation_item_all_rooms">ALL ROOMS</string>
+    <string name="navigation_item_status" translatable="false">Status</string>
+    <string name="navigation_item_agenda" translatable="false">Agenda</string>
+    <string name="navigation_item_all_rooms">Rooms</string>
+    <string name="navigation_item_settings">Settings</string>
     <string name="title_activity_settings">Settings</string>
     <string name="pref_default_room_title">Default Room</string>
     <string name="main_acitivity_settings_button_description">Settings</string>

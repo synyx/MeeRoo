@@ -1,6 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/menu_item_room_status"
+        style="@style/NavigationItem"
+        android:drawableTop="@drawable/ic_navigation_status"
+        android:text="@string/navigation_item_status"
+        app:layout_constraintEnd_toStartOf="@id/menu_item_room_agenda"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/menu_item_room_agenda"
+        style="@style/NavigationItem"
+        android:drawableTop="@drawable/ic_navigation_agenda"
+        android:text="@string/navigation_item_agenda"
+        app:layout_constraintEnd_toStartOf="@id/menu_item_all_rooms"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/menu_item_all_rooms"
+        style="@style/NavigationItem"
+        android:drawableTop="@drawable/ic_navigation_rooms"
+        android:text="@string/navigation_item_all_rooms"
+        app:layout_constraintEnd_toStartOf="@id/menu_item_settings"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/menu_item_settings"
+        style="@style/NavigationItem"
+        android:drawableTop="@drawable/ic_settings"
+        android:text="@string/navigation_item_settings"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
 </android.support.constraint.ConstraintLayout>
