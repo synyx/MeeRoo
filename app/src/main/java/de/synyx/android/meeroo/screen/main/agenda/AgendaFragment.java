@@ -16,8 +16,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import android.widget.TextView;
-
 import de.synyx.android.meeroo.R;
 import de.synyx.android.meeroo.screen.main.MainActivity;
 import de.synyx.android.meeroo.screen.main.status.MeetingRoomViewModel;
@@ -26,7 +24,6 @@ import de.synyx.android.meeroo.screen.main.status.MeetingRoomViewModel;
 public class AgendaFragment extends Fragment {
 
     private MeetingRoomViewModel viewModel;
-    private TextView agendaTitle;
     private ReservationsRecyclerAdapter reservationsRecyclerAdapter;
 
     public static AgendaFragment newInstance() {
@@ -49,8 +46,6 @@ public class AgendaFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         viewModel = ViewModelProviders.of(getActivity()).get(MeetingRoomViewModel.class);
 
-        agendaTitle = view.findViewById(R.id.agenda_title);
-
         setupReservationsRecyclerView(view);
 
         loadData();
@@ -65,8 +60,7 @@ public class AgendaFragment extends Fragment {
                 reservationsRecyclerAdapter.updateReservations(meetingRoom.getReservations());
 
                 String roomName = meetingRoom.getName();
-                agendaTitle.setText(getString(R.string.agenda_title, roomName));
-                setHeaderTitle(roomName);
+                setHeaderTitle(getString(R.string.agenda_title, roomName));
             });
     }
 
