@@ -7,8 +7,6 @@ import android.content.IntentFilter;
 
 import android.os.Bundle;
 
-import android.support.design.widget.BottomNavigationView;
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 
@@ -42,7 +40,6 @@ public class MainActivity extends FullscreenActivity implements LobbyFragment.Ro
 
     private PreferencesService preferencesService;
     private TextView headerTitle;
-    private BottomNavigationView navigationBar;
     protected MeetingRoomViewModel roomViewModel;
     private TimeTickReceiver timeTickReceiver;
     private AccountService accountSevice;
@@ -168,7 +165,6 @@ public class MainActivity extends FullscreenActivity implements LobbyFragment.Ro
     @Override
     public void onRoomSelected(long calendarId) {
 
-        navigationBar.setSelectedItemId(R.id.menu_item_room_status);
         roomViewModel.setCalendarId(calendarId);
         replaceFragment(StatusFragment.newInstance());
     }
