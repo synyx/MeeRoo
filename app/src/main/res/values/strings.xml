@@ -28,7 +28,7 @@
     <string name="header_title_lobby">All rooms</string>
     <string name="settings_hidden_rooms_title">Rooms to hide</string>
     <string name="settings_languages_title">Display language</string>
-    <string name="agenda_title">Agenda for %1$s</string>
+    <string name="agenda_title">Agenda %1$s</string>
     <string name="time_suffix_day">day</string>
     <string name="time_suffix_days">days</string>
     <string name="time_suffix_hour">hour</string>
