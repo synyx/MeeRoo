@@ -14,7 +14,6 @@ import android.support.v4.app.FragmentTransaction;
 
 import android.view.MenuItem;
 
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import de.synyx.android.meeroo.R;
@@ -23,7 +22,6 @@ import de.synyx.android.meeroo.config.Config;
 import de.synyx.android.meeroo.config.Registry;
 import de.synyx.android.meeroo.preferences.PreferencesService;
 import de.synyx.android.meeroo.screen.FullscreenActivity;
-import de.synyx.android.meeroo.screen.ScreenSize;
 import de.synyx.android.meeroo.screen.main.agenda.AgendaFragment;
 import de.synyx.android.meeroo.screen.main.lobby.LobbyFragment;
 import de.synyx.android.meeroo.screen.main.status.BookNowDialogFragment;
@@ -32,17 +30,11 @@ import de.synyx.android.meeroo.screen.main.status.MeetingRoomViewModel;
 import de.synyx.android.meeroo.screen.main.status.StatusFragment;
 import de.synyx.android.meeroo.screen.main.status.TimeTickReceiver;
 import de.synyx.android.meeroo.screen.reservation.ReservationFragment;
-import de.synyx.android.meeroo.screen.settings.SettingsActivity;
-import de.synyx.android.meeroo.util.ui.ScreenUtil;
 
 import java.text.SimpleDateFormat;
 
 import java.util.Date;
 import java.util.Locale;
-
-import static android.support.design.bottomnavigation.LabelVisibilityMode.LABEL_VISIBILITY_LABELED;
-
-import static de.synyx.android.meeroo.screen.ScreenSize.XSMALL;
 
 
 public class MainActivity extends FullscreenActivity implements LobbyFragment.RoomSelectionListener,
@@ -71,7 +63,7 @@ public class MainActivity extends FullscreenActivity implements LobbyFragment.Ro
 
         setContentView(R.layout.activity_main);
 
-        headerTitle = findViewById(R.id.main_header_title);
+        headerTitle = findViewById(R.id.header_title);
 
         replaceFragment(LobbyFragment.newInstance());
         setupNavigation();
@@ -91,17 +83,19 @@ public class MainActivity extends FullscreenActivity implements LobbyFragment.Ro
 
     private void setupSettingsButton() {
 
-        ImageButton button = findViewById(R.id.settings_button);
-        button.setOnClickListener(view -> startActivity(new Intent(this, SettingsActivity.class)));
+//        ImageButton button = findViewById(R.id.settings_button);
+//        button.setOnClickListener(view -> startActivity(new Intent(this, SettingsActivity.class)));
     }
 
 
     private void setupNavigation() {
 
-        navigationBar = findViewById(R.id.navigation_bar);
-        navigationBar.setOnNavigationItemSelectedListener(this::onNavigationSelect);
-        navigationBar.setLabelVisibilityMode(LABEL_VISIBILITY_LABELED);
-        navigationBar.setSelectedItemId(R.id.menu_item_all_rooms);
+        // TODO: 31.05.19 implement again
+
+//        navigationBar = findViewById(R.id.header_navigation);
+//        navigationBar.setOnNavigationItemSelectedListener(this::onNavigationSelect);
+//        navigationBar.setLabelVisibilityMode(LABEL_VISIBILITY_LABELED);
+//        navigationBar.setSelectedItemId(R.id.menu_item_all_rooms);
     }
 
 
@@ -138,7 +132,7 @@ public class MainActivity extends FullscreenActivity implements LobbyFragment.Ro
 
     private void setClock() {
 
-        TextView clockView = findViewById(R.id.clock);
+        TextView clockView = findViewById(R.id.header_clock);
         clockView.setText(formatDateAndTime());
     }
 
@@ -151,19 +145,7 @@ public class MainActivity extends FullscreenActivity implements LobbyFragment.Ro
 
     private String formatDateAndTime() {
 
-        String clockFormat = getClockFormat(ScreenUtil.getSizeOfScreen(this));
-
-        return new SimpleDateFormat(clockFormat, Locale.getDefault()).format(new Date());
-    }
-
-
-    private static String getClockFormat(ScreenSize screenSize) {
-
-        if (screenSize == XSMALL) {
-            return "HH:mm";
-        }
-
-        return "dd.MM.yy  |  HH:mm";
+        return new SimpleDateFormat("HH:mm  |  dd.MM.yy", Locale.getDefault()).format(new Date());
     }
 
 
