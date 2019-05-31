@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_dark"
-    android:paddingTop="@dimen/header_height"
+    android:padding="16dp"
+    android:layout_gravity="center"
     tools:context="de.synyx.android.meeroo.screen.main.MainActivity">
 
     <android.support.v7.widget.RecyclerView
