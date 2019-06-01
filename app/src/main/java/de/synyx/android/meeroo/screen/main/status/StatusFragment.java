@@ -76,10 +76,10 @@ public class StatusFragment extends Fragment {
 
         fragmentContainer = view.findViewById(R.id.status_fragment_container);
 
-        tvAvailability = view.findViewById(R.id.availability);
-        tvEventName = view.findViewById(R.id.event_name);
-        tvEventDuration = view.findViewById(R.id.event_duration);
-        tvNextEventName = view.findViewById(R.id.next_event_name);
+        tvAvailability = view.findViewById(R.id.status_text);
+        tvEventName = view.findViewById(R.id.next_event);
+        tvEventDuration = view.findViewById(R.id.time_info);
+        tvNextEventName = view.findViewById(R.id.second_next_event);
 
         btnReserve = view.findViewById(R.id.reserve);
         btnBookNow = view.findViewById(R.id.book_now);

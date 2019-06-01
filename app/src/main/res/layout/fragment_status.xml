@@ -10,65 +10,91 @@
     tools:context="de.synyx.android.meeroo.screen.main.MainActivity">
 
     <TextView
-        android:id="@+id/availability"
-        android:layout_width="wrap_content"
+        android:id="@+id/status_text"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/font_size_extra_large"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
         android:textColor="@android:color/white"
-        app:layout_constraintBottom_toTopOf="@+id/event_duration"
+        android:textSize="60sp"
+        app:layout_constraintBottom_toTopOf="@+id/time_info"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed"
         tools:text="Verfügbar" />
 
     <TextView
-        android:id="@+id/event_duration"
-        android:layout_width="wrap_content"
+        android:id="@+id/time_info"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:textSize="@dimen/font_size_large"
-        android:textColor="@color/text_white_almost"
-        android:textStyle="normal"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/event_name"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:textColor="@android:color/white"
+        android:textSize="40sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/availability"
-        tools:text="1 Stunde 25 Minuten" />
+        app:layout_constraintTop_toBottomOf="@+id/status_text"
+        tools:text="für 1 Stunde 25 Minuten" />
 
     <TextView
-        android:id="@+id/event_name"
+        android:id="@+id/next_event_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:textSize="@dimen/font_size_extra_large"
+        android:paddingStart="20dp"
+        android:paddingEnd="10dp"
         android:textColor="@android:color/white"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/next_event_name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/second_next_event_time"
+        app:layout_constraintEnd_toStartOf="@id/next_event"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/event_duration"
-        tools:text="Vorstellungsgespräch mit Fabian" />
+        app:layout_constraintTop_toBottomOf="@id/time_info"
+        tools:text="13:00" />
 
     <TextView
-        android:id="@+id/next_event_name"
+        android:id="@+id/next_event"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="20dp"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/second_next_event"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/next_event_time"
+        app:layout_constraintTop_toBottomOf="@+id/time_info"
+        tools:text="Vorstellungsgespräch mit Fabian" />
+
+
+    <TextView
+        android:id="@+id/second_next_event_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/font_size_large"
+        android:layout_marginTop="30dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="10dp"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@id/book_now"
+        app:layout_constraintEnd_toStartOf="@id/second_next_event"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/next_event_time"
+        tools:text="14:00" />
+
+    <TextView
+        android:id="@+id/second_next_event"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingStart="10dp"
+        android:paddingEnd="20dp"
         android:textColor="@color/text_white_almost"
-        android:textStyle="normal"
-        android:textAlignment="center"
-        app:layout_goneMarginTop="30dp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/book_now"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/event_name"
-        tools:text="Kein Folgetermin vorhanden" />
+        app:layout_constraintStart_toEndOf="@id/second_next_event_time"
+        app:layout_constraintTop_toBottomOf="@+id/next_event"
+        tools:text="Planning and Review" />
 
     <Button
         android:id="@+id/reserve"
@@ -88,9 +114,9 @@
         style="@style/ReserveButton"
         android:layout_width="0dp"
         android:layout_height="@dimen/book_button_height"
+        android:layout_margin="8dp"
         android:text="@string/book_now"
         android:textSize="24sp"
-        android:layout_margin="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/reserve" />
