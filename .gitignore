@@ -8,5 +8,6 @@
 /.idea/sonarlint
 .DS_Store
 /build
+/app/release
 /captures
 .externalNativeBuild
