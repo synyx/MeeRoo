@@ -12,11 +12,13 @@
     <TextView
         android:id="@+id/status_text"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:gravity="bottom"
         android:paddingStart="20dp"
         android:paddingEnd="20dp"
         android:textColor="@android:color/white"
-        android:textSize="60sp"
+        android:textSize="80sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/time_info"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,44 +28,41 @@
     <TextView
         android:id="@+id/time_info"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:paddingStart="20dp"
         android:paddingEnd="20dp"
         android:textColor="@android:color/white"
-        android:textSize="40sp"
+        android:textSize="50sp"
+        app:layout_constraintBottom_toTopOf="@id/next_event"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/status_text"
+        app:layout_constraintTop_toBottomOf="@id/status_text"
         tools:text="für 1 Stunde 25 Minuten" />
 
     <TextView
         android:id="@+id/next_event_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
         android:paddingStart="20dp"
         android:paddingEnd="10dp"
         android:textColor="@android:color/white"
-        android:textSize="20sp"
+        android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/second_next_event_time"
         app:layout_constraintEnd_toStartOf="@id/next_event"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/time_info"
         tools:text="13:00" />
 
     <TextView
         android:id="@+id/next_event"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
         android:paddingStart="10dp"
         android:paddingEnd="20dp"
         android:textColor="@android:color/white"
-        android:textSize="20sp"
+        android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/second_next_event"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/next_event_time"
-        app:layout_constraintTop_toBottomOf="@+id/time_info"
         tools:text="Vorstellungsgespräch mit Fabian" />
 
 
@@ -71,64 +70,78 @@
         android:id="@+id/second_next_event_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginBottom="40dp"
         android:paddingStart="20dp"
         android:paddingEnd="10dp"
         android:textColor="@android:color/white"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@id/book_now"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@id/buttonsBottomGuideline"
         app:layout_constraintEnd_toStartOf="@id/second_next_event"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/next_event_time"
         tools:text="14:00" />
 
     <TextView
         android:id="@+id/second_next_event"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
         android:paddingStart="10dp"
         android:paddingEnd="20dp"
         android:textColor="@color/text_white_almost"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/book_now"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonsBottomGuideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/second_next_event_time"
-        app:layout_constraintTop_toBottomOf="@+id/next_event"
         tools:text="Planning and Review" />
 
-    <Button
-        android:id="@+id/reserve"
-        style="@style/ReserveButton"
-        android:layout_width="0dp"
-        android:layout_height="80dp"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:text="@string/reserve"
-        android:textSize="24sp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/book_now"
-        app:layout_constraintStart_toStartOf="parent" />
+    <android.support.constraint.Guideline
+        android:id="@+id/buttonsBottomGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="80dp"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.8" />
 
     <Button
-        android:id="@+id/book_now"
-        style="@style/ReserveButton"
+        android:id="@+id/book_15"
+        style="@style/StatusButton"
         android:layout_width="0dp"
-        android:layout_height="@dimen/book_button_height"
-        android:layout_margin="8dp"
-        android:text="@string/book_now"
-        android:textSize="24sp"
+        android:text="15 min"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/book_30"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/buttonsBottomGuideline" />
+
+    <Button
+        android:id="@+id/book_30"
+        style="@style/StatusButton"
+        android:layout_width="0dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginEnd="2dp"
+        android:text="30 min"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/book_60"
+        app:layout_constraintStart_toEndOf="@id/book_15"
+        app:layout_constraintTop_toTopOf="@id/buttonsBottomGuideline" />
+
+    <Button
+        android:id="@+id/book_60"
+        style="@style/StatusButton"
+        android:layout_width="0dp"
+        android:text="60 min"
+        android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/reserve" />
+        app:layout_constraintStart_toEndOf="@id/book_30"
+        app:layout_constraintTop_toTopOf="@id/buttonsBottomGuideline" />
 
     <Button
         android:id="@+id/end_now"
-        style="@style/ReserveButton"
-        android:layout_width="0dp"
-        android:layout_height="80dp"
+        style="@style/UnavailableButton"
+        android:layout_width="match_parent"
         android:text="@string/end_now"
-        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/reserve" />
+        app:layout_constraintTop_toTopOf="@id/buttonsBottomGuideline" />
 </android.support.constraint.ConstraintLayout>
