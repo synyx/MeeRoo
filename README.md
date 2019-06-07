@@ -1,4 +1,7 @@
+![banner](meeroo_banner.png)
+
 # MeeRoo
+
 An android app to manage reservations for meeting rooms.
 
 Main purpose of this app is to display the availability of an meeting room. It is expected to have 
