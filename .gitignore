@@ -7,6 +7,8 @@
 /.idea/modules.xml
 /.idea/workspace.xml
 /.idea/sonarlint
+/.idea/markdown-navigator.xml
+/.idea/markdown-navigator/profiles_settings.xml
 .DS_Store
 /build
 /app/release
