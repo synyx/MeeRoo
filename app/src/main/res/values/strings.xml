@@ -63,7 +63,7 @@
     <string name="resourcesMode">Resources</string>
     <string name="calendarMode">Calendars</string>
     <string name="loadingText">Loading</string>
-    <string name="reserve">reserve</string>
+    <string name="reserve">Reserve</string>
     <string name="book_now">Book now</string>
     <string name="end_now">Release room</string>
     <string name="selectAccount">Select Account</string>

@@ -5,15 +5,6 @@
 
     <style name="AppThemeDark" parent="Theme.AppCompat.NoActionBar" />
 
-    <style name="ReserveButton" parent="Widget.AppCompat.Button">
-        <item name="android:background">@drawable/bg_white_rounded_corners</item>
-        <item name="android:textColor">#222</item>
-        <item name="android:textSize">20sp</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:textAllCaps">true</item>
-        <item name="android:layout_margin">4dp</item>
-    </style>
-
     <style name="BottomNav" parent="AppThemeDark">
         <item name="android:colorPrimaryDark">#888</item>
     </style>
@@ -25,6 +16,27 @@
         <item name="android:gravity">center</item>
         <item name="android:paddingStart">12dp</item>
         <item name="android:paddingEnd">12dp</item>
+    </style>
+
+    <style name="StatusButton">
+        <item name="android:layout_height">0dp</item>
+        <item name="android:background">@android:color/white</item>
+        <item name="android:textColor">@color/room_status_available</item>
+        <item name="android:textSize">48sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:visibility">visible</item>
+    </style>
+
+    <style name="AvailableButton" parent="StatusButton">
+        <item name="android:textColor">@color/room_status_available</item>
+    </style>
+
+    <style name="ReservedButton" parent="StatusButton">
+        <item name="android:textColor">@color/room_status_reserved</item>
+    </style>
+
+    <style name="UnavailableButton" parent="StatusButton">
+        <item name="android:textColor">@color/room_status_unavailable</item>
     </style>
 
 </resources>
