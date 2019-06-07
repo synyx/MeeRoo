@@ -17,8 +17,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="16dp"
         android:textColor="?android:attr/textColorPrimary"
-        android:textSize="40sp"
-        app:layout_constraintBottom_toTopOf="@id/header_clock"
+        android:textSize="36sp"
         app:layout_constraintEnd_toStartOf="@id/header_navigation"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -29,6 +28,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="20dp"
+        android:gravity="top"
         android:textColor="?android:attr/textColorPrimary"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@id/guideline_header"
@@ -52,7 +52,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="@dimen/header_height" />
+        app:layout_constraintGuide_begin="110dp" />
 
     <FrameLayout
         android:id="@+id/content_main"
