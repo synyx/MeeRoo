@@ -42,8 +42,9 @@ public class StatusFragment extends Fragment {
     private TextView tvEventName;
     private TextView tvEventDuration;
     private TextView tvNextEventName;
-    private Button btnReserve;
-    private Button btnBookNow;
+    private Button btnBook15;
+    private Button btnBook30;
+    private Button btnBook60;
     private Button btnEndNow;
     private ViewGroup fragmentContainer;
 
@@ -81,8 +82,9 @@ public class StatusFragment extends Fragment {
         tvEventDuration = view.findViewById(R.id.time_info);
         tvNextEventName = view.findViewById(R.id.second_next_event);
 
-        btnReserve = view.findViewById(R.id.reserve);
-        btnBookNow = view.findViewById(R.id.book_now);
+        btnBook15 = view.findViewById(R.id.book_15);
+        btnBook30 = view.findViewById(R.id.book_30);
+        btnBook60 = view.findViewById(R.id.book_60);
         btnEndNow = view.findViewById(R.id.end_now);
     }
 
@@ -105,8 +107,9 @@ public class StatusFragment extends Fragment {
         RoomAvailability roomAvailability = meetingRoom.getAvailability();
         fragmentContainer.setBackgroundColor(getActivity().getColor(roomAvailability.getColorRes()));
 
-        setupReserveButton(roomAvailability);
-        setupBookNowButton(roomAvailability);
+        setupBookNowButton(roomAvailability, btnBook15);
+        setupBookNowButton(roomAvailability, btnBook30);
+        setupBookNowButton(roomAvailability, btnBook60);
         setupEndNowButton(roomAvailability);
 
         tvAvailability.setText(roomAvailability.getStringRes());
@@ -142,21 +145,11 @@ public class StatusFragment extends Fragment {
     }
 
 
-    private void setupReserveButton(RoomAvailability roomAvailablility) {
+    private void setupBookNowButton(RoomAvailability roomAvailablility, Button button) {
 
-        btnReserve.setTextColor(getActivity().getColor(roomAvailablility.getColorRes()));
-        btnReserve.setOnClickListener(view -> {
-            MainActivity mainActivity = (MainActivity) getActivity();
-            mainActivity.openReservationFragment();
-        });
-    }
-
-
-    private void setupBookNowButton(RoomAvailability roomAvailablility) {
-
-        btnBookNow.setTextColor(getActivity().getColor(roomAvailablility.getColorRes()));
-        btnBookNow.setOnClickListener(view -> new BookNowDialogFragment().show(getFragmentManager(), "BookNowDialog"));
-        btnBookNow.setVisibility(roomAvailablility == AVAILABLE ? View.VISIBLE : View.GONE);
+        button.setTextColor(getActivity().getColor(roomAvailablility.getColorRes()));
+        button.setOnClickListener(view -> new BookNowDialogFragment().show(getFragmentManager(), "BookNowDialog"));
+        button.setVisibility(roomAvailablility == AVAILABLE ? View.VISIBLE : View.GONE);
     }
 
 
