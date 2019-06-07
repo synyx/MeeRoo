@@ -27,7 +27,6 @@ import de.synyx.android.meeroo.screen.main.status.EndNowDialogFragment;
 import de.synyx.android.meeroo.screen.main.status.MeetingRoomViewModel;
 import de.synyx.android.meeroo.screen.main.status.StatusFragment;
 import de.synyx.android.meeroo.screen.main.status.TimeTickReceiver;
-import de.synyx.android.meeroo.screen.reservation.ReservationFragment;
 import de.synyx.android.meeroo.screen.settings.SettingsActivity;
 
 import java.text.SimpleDateFormat;
@@ -176,12 +175,6 @@ public class MainActivity extends FullscreenActivity implements LobbyFragment.Ro
     public void openStatusFragment() {
 
         replaceFragment(StatusFragment.newInstance());
-    }
-
-
-    public void openReservationFragment() {
-
-        replaceFragment(ReservationFragment.getInstance());
     }
 
 
