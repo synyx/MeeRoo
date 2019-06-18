@@ -7,7 +7,7 @@ import android.content.Context;
 
 import android.os.Bundle;
 
-import de.synyx.android.meeroo.config.Config;
+import de.synyx.android.meeroo.preferences.PreferencesService;
 
 import io.reactivex.Observable;
 
@@ -19,12 +19,14 @@ import static android.content.ContentResolver.requestSync;
  */
 public class AccountServiceImpl implements AccountService {
 
-    private final String CALENDAR_SYNC_AUTHORITY = "com.android.calendar";
+    private static final String CALENDAR_SYNC_AUTHORITY = "com.android.calendar";
 
-    private Context context;
+    private final PreferencesService preferencesService;
+    private final Context context;
 
-    public AccountServiceImpl(Context context) {
+    public AccountServiceImpl(PreferencesService preferencesService, Context context) {
 
+        this.preferencesService = preferencesService;
         this.context = context;
     }
 
@@ -44,14 +46,14 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public String getUserAccountName() {
 
-        return Config.getInstance(context).getPreferencesService().getUserAccountName();
+        return preferencesService.getUserAccountName();
     }
 
 
     @Override
     public String getUserAccountType() {
 
-        return Config.getInstance(context).getPreferencesService().getUserAccountType();
+        return preferencesService.getUserAccountType();
     }
 
 

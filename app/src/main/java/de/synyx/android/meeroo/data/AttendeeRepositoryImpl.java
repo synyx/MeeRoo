@@ -1,7 +1,6 @@
 package de.synyx.android.meeroo.data;
 
 import de.synyx.android.meeroo.business.event.AttendeeRepository;
-import de.synyx.android.meeroo.config.Registry;
 
 
 /**
@@ -11,9 +10,9 @@ public class AttendeeRepositoryImpl implements AttendeeRepository {
 
     private final AttendeeAdapter attendeeAdapter;
 
-    public AttendeeRepositoryImpl() {
+    public AttendeeRepositoryImpl(AttendeeAdapterImpl attendeeAdapter) {
 
-        attendeeAdapter = Registry.get(AttendeeAdapter.class);
+        this.attendeeAdapter = attendeeAdapter;
     }
 
     @Override

@@ -13,7 +13,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import de.synyx.android.meeroo.R;
-import de.synyx.android.meeroo.config.Config;
 import de.synyx.android.meeroo.config.Registry;
 import de.synyx.android.meeroo.domain.CalendarMode;
 import de.synyx.android.meeroo.screen.main.MainActivity;
@@ -23,7 +22,6 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
 
     private static final int REQUEST_LOBBY = 0;
     private static final String FRAGMENT_TAG = "login-fragment";
-    private Config config;
 
     /**
      * Get an intent to create a new instance of this activity.
@@ -44,8 +42,6 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        config = Config.getInstance(this);
-
         FragmentManager fragmentManager = getSupportFragmentManager();
         Fragment fragment = fragmentManager.findFragmentByTag(FRAGMENT_TAG);
 
@@ -55,7 +51,9 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
         }
 
         LoginPresenterFactory presenterFactory = Registry.get(LoginPresenterFactory.class);
-        presenterFactory.createPresenter((LoginContract.LoginView) fragment, this, config.getPreferencesService());
+        LoginContract.LoginPresenter presenter = presenterFactory.createPresenter((LoginContract.LoginView) fragment,
+                this);
+        ((LoginFragment) fragment).setPresenter(presenter);
     }
 
 

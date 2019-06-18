@@ -44,12 +44,13 @@ public class CalendarAdapterImpl implements CalendarAdapter {
     private final AccountService accountService;
     private final PreferencesService preferencesService;
 
-    public CalendarAdapterImpl(PreferencesService preferencesService) {
+    public CalendarAdapterImpl(PreferencesService preferencesService, ContentResolver contentResolver,
+        CalendarModeService calendarModeService, AccountService accountService) {
 
-        this.contentResolver = Registry.get(ContentResolver.class);
-        this.calendarModeService = Registry.get(CalendarModeService.class);
-        this.accountService = Registry.get(AccountService.class);
         this.preferencesService = preferencesService;
+        this.contentResolver = contentResolver;
+        this.calendarModeService = calendarModeService;
+        this.accountService = accountService;
     }
 
     @Override

@@ -45,9 +45,9 @@ public class EventAdapterImpl implements EventAdapter {
     private static final int TRUE = 1;
     private final ContentResolver contentResolver;
 
-    public EventAdapterImpl() {
+    public EventAdapterImpl(ContentResolver contentResolver) {
 
-        contentResolver = Registry.get(ContentResolver.class);
+        this.contentResolver = contentResolver;
     }
 
     @Override

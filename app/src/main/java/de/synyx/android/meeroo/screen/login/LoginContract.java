@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface LoginContract {
 
-    interface LoginView extends BaseView<LoginPresenter> {
+    interface LoginView extends BaseView {
 
         void askForPermissions(List<String> neededPermissions);
 

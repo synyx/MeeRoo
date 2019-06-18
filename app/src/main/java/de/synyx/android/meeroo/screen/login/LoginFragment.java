@@ -137,7 +137,6 @@ public class LoginFragment extends Fragment implements LoginContract.LoginView {
     }
 
 
-    @Override
     public void setPresenter(LoginContract.LoginPresenter presenter) {
 
         this.presenter = presenter;

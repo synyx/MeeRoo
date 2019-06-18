@@ -18,7 +18,6 @@ import androidx.lifecycle.ViewModelProviders;
 
 import de.synyx.android.meeroo.R;
 import de.synyx.android.meeroo.business.account.AccountService;
-import de.synyx.android.meeroo.config.Config;
 import de.synyx.android.meeroo.config.Registry;
 import de.synyx.android.meeroo.preferences.PreferencesService;
 import de.synyx.android.meeroo.screen.FullscreenActivity;
@@ -47,6 +46,7 @@ public class MainActivity extends FullscreenActivity implements LobbyFragment.Ro
     private static final String SELECTED_FRAGMENT_AGENDA = "selected_agenda";
     private static final String SELECTED_FRAGMENT_LOBBY = "selected_lobby";
 
+    private PreferencesService preferencesService;
     private String selectedFragment;
     private TextView headerTitle;
     protected MeetingRoomViewModel roomViewModel;
@@ -59,7 +59,7 @@ public class MainActivity extends FullscreenActivity implements LobbyFragment.Ro
 
         super.onCreate(savedInstanceState);
 
-        PreferencesService preferencesService = Config.getInstance(this).getPreferencesService();
+        preferencesService = Registry.get(PreferencesService.class);
         accountService = Registry.get(AccountService.class);
 
         roomViewModel = ViewModelProviders.of(this).get(MeetingRoomViewModel.class);

@@ -1,10 +1,7 @@
 package de.synyx.android.meeroo.business.calendar;
 
-import android.content.Context;
-
-import de.synyx.android.meeroo.R;
-import de.synyx.android.meeroo.config.Config;
 import de.synyx.android.meeroo.domain.CalendarMode;
+import de.synyx.android.meeroo.preferences.PreferencesService;
 
 
 /**
@@ -12,15 +9,16 @@ import de.synyx.android.meeroo.domain.CalendarMode;
  */
 public class CalendarModeServiceImpl implements CalendarModeService {
 
-    private final String CALENDAR_VALUE;
-    private final String RESOURCES_VALUE;
+    private final String calendarValue;
+    private final String resourcesValue;
     private final String prefCalenderMode;
 
-    public CalendarModeServiceImpl(Context context) {
+    public CalendarModeServiceImpl(PreferencesService preferencesService, String calendarModeString,
+        String resourcesModeString) {
 
-        this.CALENDAR_VALUE = context.getString(R.string.calendarMode);
-        this.RESOURCES_VALUE = context.getString(R.string.resourcesMode);
-        this.prefCalenderMode = Config.getInstance(context).getPreferencesService().getSelectedCalenderMode();
+        this.calendarValue = calendarModeString;
+        this.resourcesValue = resourcesModeString;
+        this.prefCalenderMode = preferencesService.getSelectedCalenderMode();
     }
 
     @Override
@@ -28,10 +26,10 @@ public class CalendarModeServiceImpl implements CalendarModeService {
 
         switch (calendarMode) {
             case CALENDAR:
-                return CALENDAR_VALUE;
+                return calendarValue;
 
             case RESOURCES:
-                return RESOURCES_VALUE;
+                return resourcesValue;
 
             default:
                 return "";
@@ -42,9 +40,9 @@ public class CalendarModeServiceImpl implements CalendarModeService {
     @Override
     public CalendarMode getCalendarModeOfString(String calendarMode) {
 
-        if (calendarMode.equals(CALENDAR_VALUE)) {
+        if (calendarMode.equals(calendarValue)) {
             return CalendarMode.CALENDAR;
-        } else if (calendarMode.equals(RESOURCES_VALUE)) {
+        } else if (calendarMode.equals(resourcesValue)) {
             return CalendarMode.RESOURCES;
         } else {
             return CalendarMode.NO_SELECTED_MODE;
@@ -55,7 +53,7 @@ public class CalendarModeServiceImpl implements CalendarModeService {
     @Override
     public String[] getCalendarModes() {
 
-        return new String[] { CALENDAR_VALUE, RESOURCES_VALUE };
+        return new String[] { calendarValue, resourcesValue };
     }
 
 
