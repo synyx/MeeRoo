@@ -2,7 +2,6 @@ package de.synyx.android.meeroo.data;
 
 import de.synyx.android.meeroo.business.calendar.RoomCalendarModel;
 import de.synyx.android.meeroo.business.calendar.RoomCalendarRepository;
-import de.synyx.android.meeroo.config.Registry;
 
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
@@ -15,9 +14,9 @@ public class RoomCalendarRepositoryImpl implements RoomCalendarRepository {
 
     private CalendarAdapter calendarAdapter;
 
-    public RoomCalendarRepositoryImpl() {
+    public RoomCalendarRepositoryImpl(CalendarAdapter calendarAdapter) {
 
-        calendarAdapter = Registry.get(CalendarAdapter.class);
+        this.calendarAdapter = calendarAdapter;
     }
 
     @Override

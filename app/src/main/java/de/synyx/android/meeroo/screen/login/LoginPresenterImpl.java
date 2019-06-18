@@ -20,19 +20,19 @@ public class LoginPresenterImpl implements LoginPresenter {
     private final LoginListener listener;
     private final PreferencesService preferencesService;
     private final PermissionManager permissionManager;
-    private LoginView view;
+    private final CalendarModeService calendarModeService;
     private CalendarMode prefCalendarMode;
-    private CalendarModeService calendarModeService;
+    private LoginView view;
 
-    public LoginPresenterImpl(LoginView view, LoginListener listener, PreferencesService preferencesService) {
+    public LoginPresenterImpl(LoginView view, LoginListener listener, PreferencesService preferencesService,
+        CalendarModeService calendarModeService, PermissionManager permissionManager) {
 
         this.view = view;
-        this.view.setPresenter(this);
+        this.calendarModeService = calendarModeService;
         this.listener = listener;
         this.preferencesService = preferencesService;
-        this.calendarModeService = Registry.get(CalendarModeService.class);
         this.prefCalendarMode = calendarModeService.getPrefCalenderMode();
-        this.permissionManager = Registry.get(PermissionManager.class);
+        this.permissionManager = permissionManager;
     }
 
     @Override

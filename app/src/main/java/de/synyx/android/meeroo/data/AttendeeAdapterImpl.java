@@ -25,9 +25,9 @@ public class AttendeeAdapterImpl implements AttendeeAdapter {
 
     private final ContentResolver contentResolver;
 
-    public AttendeeAdapterImpl() {
+    public AttendeeAdapterImpl(ContentResolver contentResolver) {
 
-        contentResolver = Registry.get(ContentResolver.class);
+        this.contentResolver = contentResolver;
     }
 
     @Override

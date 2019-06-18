@@ -25,10 +25,11 @@ public class EventRepositoryImpl implements EventRepository {
     private final AttendeeAdapter attendeeAdapter;
     private final ConcurrentHashMap<Long, DateTime> eventEndCache;
 
-    public EventRepositoryImpl() {
+    public EventRepositoryImpl(EventAdapter eventAdapter, AttendeeAdapter attendeeAdapter) {
 
-        eventAdapter = Registry.get(EventAdapter.class);
-        attendeeAdapter = Registry.get(AttendeeAdapter.class);
+        this.eventAdapter = eventAdapter;
+        this.attendeeAdapter = attendeeAdapter;
+
         eventEndCache = new ConcurrentHashMap<>();
     }
 

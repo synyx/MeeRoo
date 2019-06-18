@@ -1,5 +1,7 @@
 package de.synyx.android.meeroo.screen.main.agenda;
 
+import android.app.Activity;
+
 import android.os.Bundle;
 
 import android.view.LayoutInflater;
@@ -17,7 +19,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import de.synyx.android.meeroo.R;
-import de.synyx.android.meeroo.screen.main.MainActivity;
 import de.synyx.android.meeroo.screen.main.status.MeetingRoomViewModel;
 
 
@@ -77,14 +78,7 @@ public class AgendaFragment extends Fragment {
 
     private void setHeaderTitle(String title) {
 
-        MainActivity activity = (MainActivity) getActivity();
+        Activity activity = getActivity();
         activity.setTitle(title);
-    }
-
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-
-        super.onActivityCreated(savedInstanceState);
     }
 }
