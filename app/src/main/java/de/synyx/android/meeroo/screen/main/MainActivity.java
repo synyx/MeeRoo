@@ -53,7 +53,7 @@ public class MainActivity extends FullscreenActivity implements LobbyFragment.Ro
     private BottomNavigationView navigationBar;
     protected MeetingRoomViewModel roomViewModel;
     private TimeTickReceiver timeTickReceiver;
-    private AccountService accountSevice;
+    private AccountService accountService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +61,7 @@ public class MainActivity extends FullscreenActivity implements LobbyFragment.Ro
         super.onCreate(savedInstanceState);
 
         preferencesService = Config.getInstance(this).getPreferencesService();
-        accountSevice = Registry.get(AccountService.class);
+        accountService = Registry.get(AccountService.class);
 
         roomViewModel = ViewModelProviders.of(this).get(MeetingRoomViewModel.class);
         roomViewModel.setCalendarId(preferencesService.getCalendarIdOfDefaultRoom());
@@ -83,7 +83,7 @@ public class MainActivity extends FullscreenActivity implements LobbyFragment.Ro
 
     private void doEveryMinute() {
 
-        accountSevice.syncCalendar();
+        accountService.syncCalendar();
         roomViewModel.tick();
         setClock();
     }
