@@ -19,21 +19,25 @@
 
     <TextView
         android:id="@+id/header_title"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="16dp"
         android:textColor="?android:attr/textColorPrimary"
         android:textSize="36sp"
-        app:layout_constraintStart_toStartOf="@+id/header_navigation"
-        app:layout_constraintTop_toBottomOf="@+id/header_navigation"
+        app:layout_constraintEnd_toStartOf="@+id/header_navigation"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="All Rooms"
         tools:textColor="#fff"/>
 
     <TextView
         android:id="@+id/header_clock"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textColor="?android:attr/textColorPrimary"
         android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/header_navigation"
         app:layout_constraintStart_toStartOf="@+id/header_title"
         app:layout_constraintTop_toBottomOf="@+id/header_title"
         tools:text="05.07.18 | 08:25"
@@ -44,10 +48,9 @@
         layout="@layout/navigation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:layout_marginStart="20dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        />
+        android:layout_marginEnd="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/header_clock"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
