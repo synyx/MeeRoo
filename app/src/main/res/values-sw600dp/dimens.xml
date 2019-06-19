@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <dimen name="header_height">100dp</dimen>
+    <dimen name="header_height">110dp</dimen>
 
     <dimen name="font_size_extra_large">80sp</dimen>
     <dimen name="font_size_larger">40sp</dimen>
