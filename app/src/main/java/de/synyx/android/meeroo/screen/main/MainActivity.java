@@ -1,5 +1,7 @@
 package de.synyx.android.meeroo.screen.main;
 
+import android.annotation.SuppressLint;
+
 import android.arch.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
@@ -48,42 +50,59 @@ import static de.synyx.android.meeroo.screen.ScreenSize.XSMALL;
 public class MainActivity extends FullscreenActivity implements LobbyFragment.RoomSelectionListener,
     BookNowDialogFragment.BookNowDialogListener, EndNowDialogFragment.EndNowOnDialogListener {
 
-    private PreferencesService preferencesService;
+    public static final String KEY_SELECTED_MENU_ITEM_ID = "selected_menu_item_id";
     private TextView headerTitle;
     private BottomNavigationView navigationBar;
     protected MeetingRoomViewModel roomViewModel;
     private TimeTickReceiver timeTickReceiver;
-    private AccountService accountSevice;
+    private AccountService accountService;
 
+    @SuppressLint("CheckResult")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
 
-        preferencesService = Config.getInstance(this).getPreferencesService();
-        accountSevice = Registry.get(AccountService.class);
+        PreferencesService preferencesService = Config.getInstance(this).getPreferencesService();
+        accountService = Registry.get(AccountService.class);
 
         roomViewModel = ViewModelProviders.of(this).get(MeetingRoomViewModel.class);
         roomViewModel.setCalendarId(preferencesService.getCalendarIdOfDefaultRoom());
 
         timeTickReceiver = new TimeTickReceiver();
+
+        // noinspection ResultOfMethodCallIgnored
         timeTickReceiver.getTicks().subscribe(ignored -> doEveryMinute());
 
         setContentView(R.layout.activity_main);
 
         headerTitle = findViewById(R.id.main_header_title);
 
-        replaceFragment(LobbyFragment.newInstance());
-        setupNavigation();
+        int retainedNavItemId = -1;
+
+        if (savedInstanceState != null && savedInstanceState.containsKey(KEY_SELECTED_MENU_ITEM_ID)) {
+            retainedNavItemId = savedInstanceState.getInt(KEY_SELECTED_MENU_ITEM_ID);
+        }
+
+        setupNavigation(retainedNavItemId);
         setupSettingsButton();
 
         setClock();
     }
 
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+
+        outState.putInt(KEY_SELECTED_MENU_ITEM_ID, navigationBar.getSelectedItemId());
+
+        super.onSaveInstanceState(outState);
+    }
+
+
     private void doEveryMinute() {
 
-        accountSevice.syncCalendar();
+        accountService.syncCalendar();
         roomViewModel.tick();
         setClock();
     }
@@ -96,12 +115,17 @@ public class MainActivity extends FullscreenActivity implements LobbyFragment.Ro
     }
 
 
-    private void setupNavigation() {
+    private void setupNavigation(int retainedNavItemId) {
 
         navigationBar = findViewById(R.id.navigation_bar);
         navigationBar.setOnNavigationItemSelectedListener(this::onNavigationSelect);
         navigationBar.setLabelVisibilityMode(LABEL_VISIBILITY_LABELED);
-        navigationBar.setSelectedItemId(R.id.menu_item_all_rooms);
+
+        if (retainedNavItemId != -1) {
+            navigationBar.setSelectedItemId(retainedNavItemId);
+        } else {
+            navigationBar.setSelectedItemId(R.id.menu_item_all_rooms);
+        }
     }
 
 
