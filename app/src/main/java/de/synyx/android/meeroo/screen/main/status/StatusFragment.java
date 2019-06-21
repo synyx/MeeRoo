@@ -145,18 +145,18 @@ public class StatusFragment extends Fragment {
     }
 
 
-    private void setupBookNowButton(RoomAvailability roomAvailablility, Button button) {
+    private void setupBookNowButton(RoomAvailability roomAvailability, Button button) {
 
-        button.setTextColor(getActivity().getColor(roomAvailablility.getColorRes()));
+        button.setTextColor(getActivity().getColor(roomAvailability.getColorRes()));
         button.setOnClickListener(view -> new BookNowDialogFragment().show(getFragmentManager(), "BookNowDialog"));
-        button.setVisibility(roomAvailablility == AVAILABLE ? View.VISIBLE : View.GONE);
+        button.setVisibility(roomAvailability == AVAILABLE ? View.VISIBLE : View.GONE);
     }
 
 
-    private void setupEndNowButton(RoomAvailability roomAvailablility) {
+    private void setupEndNowButton(RoomAvailability roomAvailability) {
 
         btnEndNow.setOnClickListener(view -> new EndNowDialogFragment().show(getFragmentManager(), "EndNowDialog"));
-        btnEndNow.setVisibility(roomAvailablility == RoomAvailability.UNAVAILABLE ? View.VISIBLE : View.GONE);
+        btnEndNow.setVisibility(roomAvailability == RoomAvailability.UNAVAILABLE ? View.VISIBLE : View.GONE);
     }
 
 
