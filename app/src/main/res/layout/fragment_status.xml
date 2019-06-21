@@ -47,7 +47,7 @@
         android:paddingEnd="10dp"
         android:textColor="@android:color/white"
         android:textSize="@dimen/font_size_medium"
-        app:layout_constraintBottom_toTopOf="@+id/second_next_event_time"
+        app:layout_constraintBottom_toTopOf="@+id/second_next_event"
         app:layout_constraintEnd_toStartOf="@id/next_event"
         app:layout_constraintStart_toStartOf="parent"
         tools:text="13:00" />

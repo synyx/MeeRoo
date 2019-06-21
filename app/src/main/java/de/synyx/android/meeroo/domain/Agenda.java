@@ -123,4 +123,15 @@ public class Agenda {
             .firstElement() //
             .blockingGet();
     }
+
+
+    public Reservation getSecondUpcomingReservation() {
+
+        return
+            fromIterable(reservations) //
+            .filter(Reservation::isUpcoming) //
+            .skip(1) //
+            .firstElement()
+            .blockingGet();
+    }
 }

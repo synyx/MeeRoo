@@ -111,4 +111,10 @@ public class MeetingRoom {
 
         return null;
     }
+
+
+    public Reservation getSecondUpcomingReserveration() {
+
+        return agenda.getSecondUpcomingReservation();
+    }
 }

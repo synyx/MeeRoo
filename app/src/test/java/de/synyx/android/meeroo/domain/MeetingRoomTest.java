@@ -166,4 +166,32 @@ public class MeetingRoomTest {
 
         assertThat(meetingRoom.getUpcomingReservation()).isEqualTo(upcomingReservation);
     }
+
+
+    @Test
+    public void getSecondUpcomingReservation_NullIfNoSecond() {
+
+        Reservation upcomingReservation = oneHourReservationBeginningAt(NOW.plusMillis(1));
+
+        MeetingRoom meetingRoom = new MeetingRoom();
+        meetingRoom.addReservation(new Reservation(NOW.minusHours(1), NOW));
+        meetingRoom.addReservation(upcomingReservation);
+
+        assertThat(meetingRoom.getSecondUpcomingReserveration()).isEqualTo(null);
+    }
+
+
+    @Test
+    public void getSecondUpcomingReservation() {
+
+        Reservation upcomingReservation = oneHourReservationBeginningAt(NOW.plusMillis(1));
+        Reservation secondUpcomingReservation = oneHourReservationBeginningAt(NOW.plusHours(1).plusMillis(1));
+
+        MeetingRoom meetingRoom = new MeetingRoom();
+        meetingRoom.addReservation(new Reservation(NOW.minusHours(1), NOW));
+        meetingRoom.addReservation(upcomingReservation);
+        meetingRoom.addReservation(secondUpcomingReservation);
+
+        assertThat(meetingRoom.getSecondUpcomingReserveration()).isEqualTo(secondUpcomingReservation);
+    }
 }
