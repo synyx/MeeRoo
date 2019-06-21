@@ -2,10 +2,11 @@
 <resources>
 
     <dimen name="header_height">110dp</dimen>
+    <dimen name="bottom_buttons_height">150dp</dimen>
 
     <dimen name="font_size_extra_large">80sp</dimen>
-    <dimen name="font_size_larger">40sp</dimen>
-    <dimen name="font_size_large">30sp</dimen>
+    <dimen name="font_size_larger">54sp</dimen>
+    <dimen name="font_size_large">36sp</dimen>
     <dimen name="font_size_medium">24sp</dimen>
     <dimen name="font_size_small">20sp</dimen>
     <dimen name="font_size_extra_small">12sp</dimen>
