@@ -32,16 +32,23 @@ import org.joda.time.Duration;
 
 import static android.support.design.widget.Snackbar.LENGTH_LONG;
 
+import static android.view.View.GONE;
+import static android.view.View.INVISIBLE;
+import static android.view.View.VISIBLE;
+
 import static de.synyx.android.meeroo.domain.RoomAvailability.AVAILABLE;
 
 
 public class StatusFragment extends Fragment {
 
     private MeetingRoomViewModel viewModel;
-    private TextView tvAvailability;
+    private TextView tvStatus;
     private TextView tvEventName;
-    private TextView tvEventDuration;
+    private TextView tvTimeInfo;
     private TextView tvNextEventName;
+    private TextView tvNextEventTime;
+    private TextView tvSecondNextEventName;
+    private TextView tvSecondNextEventTime;
     private Button btnBook15;
     private Button btnBook30;
     private Button btnBook60;
@@ -77,10 +84,12 @@ public class StatusFragment extends Fragment {
 
         fragmentContainer = view.findViewById(R.id.status_fragment_container);
 
-        tvAvailability = view.findViewById(R.id.status_text);
-        tvEventName = view.findViewById(R.id.next_event);
-        tvEventDuration = view.findViewById(R.id.time_info);
-        tvNextEventName = view.findViewById(R.id.second_next_event);
+        tvStatus = view.findViewById(R.id.status_text);
+        tvTimeInfo = view.findViewById(R.id.time_info);
+        tvNextEventName = view.findViewById(R.id.next_event);
+        tvNextEventTime = view.findViewById(R.id.next_event_time);
+        tvSecondNextEventName = view.findViewById(R.id.second_next_event);
+        tvSecondNextEventTime = view.findViewById(R.id.second_next_event_time);
 
         btnBook15 = view.findViewById(R.id.book_15);
         btnBook30 = view.findViewById(R.id.book_30);
@@ -112,12 +121,18 @@ public class StatusFragment extends Fragment {
         setupBookNowButton(roomAvailability, btnBook60);
         setupEndNowButton(roomAvailability);
 
-        tvAvailability.setText(roomAvailability.getStringRes());
-        tvEventDuration.setText(getTextForEventDuration(meetingRoom.getAvailabilityTime(), roomAvailability));
-        tvNextEventName.setText(getNextReservationText(meetingRoom));
+        tvStatus.setText(roomAvailability.getStringRes());
+        tvTimeInfo.setText(getTextForEventDuration(meetingRoom.getAvailabilityTime(), roomAvailability));
+        setNextEvent(meetingRoom);
+        setSecondNextEvent(meetingRoom);
+        // setCurrentMeeting(meetingRoom);
+    }
+
+
+    private void setCurrentMeeting(MeetingRoom meetingRoom) {
 
         String currentMeetingText = getCurrentMeetingText(meetingRoom);
-        tvEventName.setVisibility(currentMeetingText != null ? View.VISIBLE : View.GONE);
+        tvEventName.setVisibility(currentMeetingText != null ? VISIBLE : GONE);
 
         if (currentMeetingText != null) {
             tvEventName.setText(currentMeetingText);
@@ -149,27 +164,57 @@ public class StatusFragment extends Fragment {
 
         button.setTextColor(getActivity().getColor(roomAvailability.getColorRes()));
         button.setOnClickListener(view -> new BookNowDialogFragment().show(getFragmentManager(), "BookNowDialog"));
-        button.setVisibility(roomAvailability == AVAILABLE ? View.VISIBLE : View.GONE);
+        button.setVisibility(roomAvailability == AVAILABLE ? VISIBLE : GONE);
     }
 
 
     private void setupEndNowButton(RoomAvailability roomAvailability) {
 
         btnEndNow.setOnClickListener(view -> new EndNowDialogFragment().show(getFragmentManager(), "EndNowDialog"));
-        btnEndNow.setVisibility(roomAvailability == RoomAvailability.UNAVAILABLE ? View.VISIBLE : View.GONE);
+        btnEndNow.setVisibility(roomAvailability == RoomAvailability.UNAVAILABLE ? VISIBLE : GONE);
     }
 
 
-    private String getNextReservationText(MeetingRoom meetingRoom) {
+    private void setNextEvent(MeetingRoom meetingRoom) {
 
         Reservation upcomingReservation = meetingRoom.getUpcomingReservation();
 
-        if (upcomingReservation == null) {
+        tvNextEventTime.setVisibility(upcomingReservation == null ? GONE : VISIBLE);
+        tvNextEventTime.setText(getEventBegin(upcomingReservation));
+        tvNextEventName.setText(getEventName(upcomingReservation));
+    }
+
+
+    private void setSecondNextEvent(MeetingRoom meetingRoom) {
+
+        Reservation upcomingReservation = meetingRoom.getSecondUpcomingReserveration();
+
+        tvSecondNextEventTime.setVisibility(upcomingReservation == null ? GONE : VISIBLE);
+        tvSecondNextEventTime.setText(getEventBegin(upcomingReservation));
+        tvSecondNextEventName.setVisibility(upcomingReservation == null ? INVISIBLE : VISIBLE);
+        tvSecondNextEventName.setText(getEventName(upcomingReservation));
+    }
+
+
+    @NonNull
+    private String getEventName(Reservation reservation) {
+
+        if (reservation == null) {
             return getString(R.string.status_next_event_placeholder);
         }
 
-        return getString(R.string.status_next_event, upcomingReservation.getTitle(),
-                formatAsTime(upcomingReservation.begin));
+        return reservation.getTitle();
+    }
+
+
+    @NonNull
+    private String getEventBegin(Reservation reservation) {
+
+        if (reservation == null) {
+            return "";
+        }
+
+        return formatAsTime(reservation.getBegin());
     }
 
 
