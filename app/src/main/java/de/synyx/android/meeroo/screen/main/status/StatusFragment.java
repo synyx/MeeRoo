@@ -38,6 +38,9 @@ import static android.view.View.VISIBLE;
 
 import static de.synyx.android.meeroo.domain.RoomAvailability.AVAILABLE;
 
+import static org.joda.time.Duration.standardMinutes;
+import static org.joda.time.Minutes.minutes;
+
 
 public class StatusFragment extends Fragment {
 
@@ -115,9 +118,9 @@ public class StatusFragment extends Fragment {
         RoomAvailability roomAvailability = meetingRoom.getAvailability();
         fragmentContainer.setBackgroundColor(getActivity().getColor(roomAvailability.getColorRes()));
 
-        setupBookNowButton(roomAvailability, btnBook15);
-        setupBookNowButton(roomAvailability, btnBook30);
-        setupBookNowButton(roomAvailability, btnBook60);
+        setupBookNowButton(roomAvailability, btnBook15, standardMinutes(15));
+        setupBookNowButton(roomAvailability, btnBook30, standardMinutes(30));
+        setupBookNowButton(roomAvailability, btnBook60, standardMinutes(60));
         setupEndNowButton(roomAvailability);
 
         tvStatus.setText(roomAvailability.getStringRes());
@@ -158,10 +161,11 @@ public class StatusFragment extends Fragment {
     }
 
 
-    private void setupBookNowButton(RoomAvailability roomAvailability, Button button) {
+    private void setupBookNowButton(RoomAvailability roomAvailability, Button button, Duration minutes) {
 
         button.setTextColor(getActivity().getColor(roomAvailability.getColorRes()));
-        button.setOnClickListener(view -> new BookNowDialogFragment().show(getFragmentManager(), "BookNowDialog"));
+        button.setOnClickListener(view ->
+                new BookNowDialogFragment().addDuration(minutes).show(getFragmentManager(), "BookNowDialog"));
         button.setVisibility(roomAvailability == AVAILABLE ? VISIBLE : GONE);
     }
 

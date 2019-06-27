@@ -34,14 +34,14 @@ public class BookNowUseCase {
         attendeeRepository = Registry.get(AttendeeRepository.class);
     }
 
-    public BookingResult execute(long calendarId, MeetingRoom meetingRoom) {
+    public BookingResult execute(long calendarId, MeetingRoom meetingRoom, Duration duration) {
 
         Duration timeUntilNextMeeting = meetingRoom.getTimeUntilNextMeeting();
 
-        if (timeUntilNextMeeting == null || timeUntilNextMeeting.isLongerThan(standardMinutes(30))) {
+        if (timeUntilNextMeeting == null || timeUntilNextMeeting.isLongerThan(duration)) {
             DateTime start = timeProvider.now();
 
-            return bookMeetingRoom(calendarId, meetingRoom.getName(), start, start.plusMinutes(30));
+            return bookMeetingRoom(calendarId, meetingRoom.getName(), start, start.plus(duration));
         }
 
         if (timeUntilNextMeeting.isLongerThan(standardMinutes(15))) {

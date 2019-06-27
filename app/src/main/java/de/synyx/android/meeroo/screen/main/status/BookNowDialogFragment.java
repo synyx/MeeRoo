@@ -16,6 +16,8 @@ import android.support.v7.app.AlertDialog;
 
 import de.synyx.android.meeroo.R;
 
+import org.joda.time.Duration;
+
 
 /**
  * @author  Max Dobler - dobler@synyx.de
@@ -24,16 +26,26 @@ public class BookNowDialogFragment extends DialogFragment {
 
     BookNowDialogListener bookNowDialogListener;
 
+    private Duration duration;
+
+    public BookNowDialogFragment addDuration(Duration duration) {
+
+        this.duration = duration;
+
+        return this;
+    }
+
+
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
 
         return new AlertDialog.Builder(getActivity()) //
             .setTitle(R.string.book_now_dialog_title)
-            .setMessage(R.string.book_now_dialog_message)
-            .setPositiveButton(R.string.book_now_dialog_confirm, (dialog, which) -> bookNowDialogListener.bookNow())
-            .setNegativeButton(R.string.book_now_dialog_cancel, (dialog, which) -> { })
-            .create();
+            .setMessage(getString(R.string.book_now_dialog_message, duration.getStandardMinutes()))
+            .setPositiveButton(R.string.book_now_dialog_confirm,
+                    (dialog, which) -> bookNowDialogListener.bookNow(duration))
+            .setNegativeButton(R.string.book_now_dialog_cancel, (dialog, which) -> { }).create();
     }
 
 
@@ -60,7 +72,7 @@ public class BookNowDialogFragment extends DialogFragment {
 
     public interface BookNowDialogListener {
 
-        void bookNow();
+        void bookNow(Duration duration);
 
 
         void onBookNowDialogDismiss();

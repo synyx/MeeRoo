@@ -14,7 +14,7 @@
     <string name="time_suffix_minute">Minute</string>
     <string name="time_suffix_minutes">Minuten</string>
     <string name="book_now_dialog_title">Jetzt buchen?</string>
-    <string name="book_now_dialog_message">Willst du diesen Meeingraum ab sofort für 30 Minuten buchen?</string>
+    <string name="book_now_dialog_message">Willst du diesen Meeingraum ab sofort für %1$d Minuten buchen?</string>
     <string name="book_now_dialog_confirm">Ab sofort buchen</string>
     <string name="book_now_dialog_cancel">Abbrechen</string>
     <string name="end_now_dialog_title">Raum freigeben?</string>
