@@ -36,7 +36,7 @@
     <string name="time_suffix_minute">minute</string>
     <string name="time_suffix_minutes">minutes</string>
     <string name="book_now_dialog_title">Book now?</string>
-    <string name="book_now_dialog_message">Do you want to book this meeting room for 30 minutes starting now?</string>
+    <string name="book_now_dialog_message">Do you want to book this meeting room for %1$d minutes starting now?</string>
     <string name="book_now_dialog_confirm">Book now</string>
     <string name="book_now_dialog_cancel">Cancel</string>
     <string name="end_now_dialog_title">Release room?</string>

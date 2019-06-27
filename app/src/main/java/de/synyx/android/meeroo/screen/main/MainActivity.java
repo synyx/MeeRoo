@@ -31,6 +31,8 @@ import de.synyx.android.meeroo.screen.main.status.StatusFragment;
 import de.synyx.android.meeroo.screen.main.status.TimeTickReceiver;
 import de.synyx.android.meeroo.screen.settings.SettingsActivity;
 
+import org.joda.time.Duration;
+
 import java.text.SimpleDateFormat;
 
 import java.util.Date;
@@ -198,9 +200,9 @@ public class MainActivity extends FullscreenActivity implements LobbyFragment.Ro
 
 
     @Override
-    public void bookNow() {
+    public void bookNow(Duration duration) {
 
-        roomViewModel.bookNow();
+        roomViewModel.bookNow(duration);
     }
 
 

@@ -12,6 +12,8 @@ import de.synyx.android.meeroo.util.livedata.SingleEvent;
 
 import io.reactivex.disposables.Disposable;
 
+import org.joda.time.Duration;
+
 
 /**
  * @author  Julian Heetel - heetel@synyx.de
@@ -68,9 +70,7 @@ public class MeetingRoomViewModel extends ViewModel {
         }
 
         disposable = loadRoomUseCase.execute(calendarId)
-                .observeOn(schedulerFacade.io())
-                .subscribeOn(schedulerFacade.mainThread())
-                .subscribe(room::postValue);
+                .observeOn(schedulerFacade.io()).subscribeOn(schedulerFacade.mainThread()).subscribe(room::postValue);
     }
 
 
@@ -92,9 +92,9 @@ public class MeetingRoomViewModel extends ViewModel {
     }
 
 
-    public void bookNow() {
+    public void bookNow(Duration duration) {
 
-        BookingResult result = bookNowUseCase.execute(calendarId, room.getValue());
+        BookingResult result = bookNowUseCase.execute(calendarId, room.getValue(), duration);
         this.bookingResult.postValue(SingleEvent.withContent(result));
         tick();
     }
