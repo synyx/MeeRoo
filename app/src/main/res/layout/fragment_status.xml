@@ -19,6 +19,7 @@
         android:textColor="@android:color/white"
         android:textSize="@dimen/font_size_extra_large"
         android:textStyle="bold"
+        android:maxLines="2"
         app:layout_constraintBottom_toTopOf="@+id/time_info"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

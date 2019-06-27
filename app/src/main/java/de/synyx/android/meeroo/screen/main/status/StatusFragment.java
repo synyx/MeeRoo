@@ -43,7 +43,6 @@ public class StatusFragment extends Fragment {
 
     private MeetingRoomViewModel viewModel;
     private TextView tvStatus;
-    private TextView tvEventName;
     private TextView tvTimeInfo;
     private TextView tvNextEventName;
     private TextView tvNextEventTime;
@@ -125,17 +124,16 @@ public class StatusFragment extends Fragment {
         tvTimeInfo.setText(getTextForEventDuration(meetingRoom.getAvailabilityTime(), roomAvailability));
         setNextEvent(meetingRoom);
         setSecondNextEvent(meetingRoom);
-        // setCurrentMeeting(meetingRoom);
+        setCurrentMeeting(meetingRoom);
     }
 
 
     private void setCurrentMeeting(MeetingRoom meetingRoom) {
 
         String currentMeetingText = getCurrentMeetingText(meetingRoom);
-        tvEventName.setVisibility(currentMeetingText != null ? VISIBLE : GONE);
 
         if (currentMeetingText != null) {
-            tvEventName.setText(currentMeetingText);
+            tvStatus.setText(currentMeetingText);
         }
     }
 
