@@ -9,22 +9,32 @@
     tools:background="@color/room_status_available"
     tools:context="de.synyx.android.meeroo.screen.main.MainActivity">
 
-    <TextView
-        android:id="@+id/status_text"
+    <android.support.constraint.ConstraintLayout
+
+        android:id="@+id/status_text_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:gravity="bottom"
         android:paddingStart="20dp"
         android:paddingEnd="20dp"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/font_size_extra_large"
-        android:textStyle="bold"
-        android:maxLines="2"
         app:layout_constraintBottom_toTopOf="@+id/time_info"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Verfügbar" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/status_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/font_size_extra_large"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:text="Verfügbar" />
+
+    </android.support.constraint.ConstraintLayout>
+
 
     <TextView
         android:id="@+id/time_info"
@@ -37,7 +47,7 @@
         app:layout_constraintBottom_toTopOf="@id/next_event"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/status_text"
+        app:layout_constraintTop_toBottomOf="@id/status_text_container"
         tools:text="für 1 Stunde 25 Minuten" />
 
     <TextView
