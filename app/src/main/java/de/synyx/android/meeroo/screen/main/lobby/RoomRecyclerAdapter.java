@@ -1,12 +1,12 @@
 package de.synyx.android.meeroo.screen.main.lobby;
 
-import android.support.annotation.NonNull;
-
-import android.support.v7.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import de.synyx.android.meeroo.R;
 import de.synyx.android.meeroo.domain.MeetingRoom;

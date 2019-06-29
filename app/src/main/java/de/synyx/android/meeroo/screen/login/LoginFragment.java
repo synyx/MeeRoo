@@ -2,6 +2,8 @@ package de.synyx.android.meeroo.screen.login;
 
 import android.Manifest;
 
+import android.app.AlertDialog;
+
 import android.content.DialogInterface;
 import android.content.Intent;
 
@@ -13,19 +15,17 @@ import android.os.Bundle;
 
 import android.provider.Settings;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-
-import android.support.v4.app.Fragment;
-
-import android.support.v7.app.AlertDialog;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import androidx.fragment.app.Fragment;
 
 import de.synyx.android.meeroo.R;
 import de.synyx.android.meeroo.config.Registry;
@@ -105,9 +105,7 @@ public class LoginFragment extends Fragment implements LoginContract.LoginView {
 
         new AlertDialog.Builder(getActivity()).setTitle(R.string.selectAccount)
             .setItems(accounts, (dialog, which) -> presenter.onAccountSelected(accounts[which]))
-            .setCancelable(false)
-            .create()
-            .show();
+            .setCancelable(false).create().show();
     }
 
 
@@ -116,9 +114,7 @@ public class LoginFragment extends Fragment implements LoginContract.LoginView {
 
         new AlertDialog.Builder(getActivity()).setTitle(R.string.selectMode)
             .setItems(calenderModes, (dialog, which) -> presenter.onCalendarModeSelected(calenderModes[which]))
-            .setCancelable(false)
-            .create()
-            .show();
+            .setCancelable(false).create().show();
     }
 
 
@@ -128,9 +124,7 @@ public class LoginFragment extends Fragment implements LoginContract.LoginView {
         new AlertDialog.Builder(getActivity()).setMessage(getString(R.string.noCalendarsError))
             .setTitle(getString(R.string.calendarError))
             .setPositiveButton(R.string.close, ((dialog, which) -> presenter.onErrorDialogCloseButtonClicked()))
-            .setCancelable(false)
-            .create()
-            .show();
+            .setCancelable(false).create().show();
     }
 
 
@@ -235,9 +229,6 @@ public class LoginFragment extends Fragment implements LoginContract.LoginView {
         new AlertDialog.Builder(getActivity()).setTitle(title)
             .setMessage(message)
             .setPositiveButton(positiveButtonText, clickListener)
-            .setNegativeButton(negativeButtonText, clickListener)
-            .setCancelable(false)
-            .create()
-            .show();
+            .setNegativeButton(negativeButtonText, clickListener).setCancelable(false).create().show();
     }
 }

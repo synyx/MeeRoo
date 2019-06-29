@@ -2,7 +2,7 @@ package de.synyx.android.meeroo.util.rx;
 
 import android.database.Cursor;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import io.reactivex.functions.Consumer;
 

@@ -1,6 +1,6 @@
 package de.synyx.android.meeroo.domain;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import de.synyx.android.meeroo.config.Registry;
 import de.synyx.android.meeroo.util.TimeProvider;

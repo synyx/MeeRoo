@@ -1,6 +1,6 @@
 package de.synyx.android.meeroo.screen.main.lobby;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import de.synyx.android.meeroo.business.calendar.RoomCalendarModel;
 import de.synyx.android.meeroo.business.calendar.RoomCalendarRepository;

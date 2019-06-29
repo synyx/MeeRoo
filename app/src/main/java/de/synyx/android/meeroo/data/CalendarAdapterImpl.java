@@ -8,9 +8,9 @@ import android.database.Cursor;
 
 import android.provider.CalendarContract;
 
-import android.support.annotation.NonNull;
-
 import android.text.TextUtils;
+
+import androidx.annotation.NonNull;
 
 import de.synyx.android.meeroo.business.account.AccountService;
 import de.synyx.android.meeroo.business.calendar.CalendarModeService;

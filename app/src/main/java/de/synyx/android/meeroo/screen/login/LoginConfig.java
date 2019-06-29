@@ -2,7 +2,7 @@ package de.synyx.android.meeroo.screen.login;
 
 import android.content.Context;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import de.synyx.android.meeroo.config.Registry;
 
