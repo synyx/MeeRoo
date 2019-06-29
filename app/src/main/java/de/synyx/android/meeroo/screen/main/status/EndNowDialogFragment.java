@@ -1,5 +1,6 @@
 package de.synyx.android.meeroo.screen.main.status;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 
 import android.content.Context;
@@ -7,12 +8,10 @@ import android.content.DialogInterface;
 
 import android.os.Bundle;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
-import android.support.v4.app.DialogFragment;
-
-import android.support.v7.app.AlertDialog;
+import androidx.fragment.app.DialogFragment;
 
 import de.synyx.android.meeroo.R;
 
@@ -32,8 +31,7 @@ public class EndNowDialogFragment extends DialogFragment {
             .setTitle(R.string.end_now_dialog_title)
             .setMessage(R.string.end_now_dialog_message)
             .setPositiveButton(R.string.end_now_dialog_confirm, (dialog, which) -> endNowDialogListener.endNow())
-            .setNegativeButton(R.string.end_now_dialog_cancel, (dialog, which) -> { })
-            .create();
+            .setNegativeButton(R.string.end_now_dialog_cancel, (dialog, which) -> { }).create();
     }
 
 

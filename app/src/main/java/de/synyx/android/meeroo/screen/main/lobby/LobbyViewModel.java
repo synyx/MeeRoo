@@ -1,8 +1,8 @@
 package de.synyx.android.meeroo.screen.main.lobby;
 
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MutableLiveData;
-import android.arch.lifecycle.ViewModel;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 
 import de.synyx.android.meeroo.config.Registry;
 import de.synyx.android.meeroo.domain.MeetingRoom;
@@ -45,9 +45,7 @@ public class LobbyViewModel extends ViewModel {
     private void loadRooms() {
 
         disposable = loadVisibleRoomsUseCase.execute()
-                .observeOn(schedulerFacade.io())
-                .subscribeOn(schedulerFacade.mainThread())
-                .subscribe(rooms::postValue);
+                .observeOn(schedulerFacade.io()).subscribeOn(schedulerFacade.mainThread()).subscribe(rooms::postValue);
     }
 
 

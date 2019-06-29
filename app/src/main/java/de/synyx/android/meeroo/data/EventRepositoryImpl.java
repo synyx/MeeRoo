@@ -1,6 +1,6 @@
 package de.synyx.android.meeroo.data;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import de.synyx.android.meeroo.business.event.EventModel;
 import de.synyx.android.meeroo.business.event.EventRepository;
@@ -36,7 +36,8 @@ public class EventRepositoryImpl implements EventRepository {
     public Observable<EventModel> loadAllEventsForRoom(long roomId) {
 
         return eventAdapter.getEventsForRoom(roomId) //
-            .map(this::setEndIfCached).flatMap(loadAttendees());
+            .map(this::setEndIfCached)
+            .flatMap(loadAttendees());
     }
 
 
@@ -74,7 +75,6 @@ public class EventRepositoryImpl implements EventRepository {
         return
             event ->
                 attendeeAdapter.getAttendeesForEvent(event.getId())
-                .collectInto(event, EventModel::addAttendee)
-                .toObservable();
+                .collectInto(event, EventModel::addAttendee).toObservable();
     }
 }

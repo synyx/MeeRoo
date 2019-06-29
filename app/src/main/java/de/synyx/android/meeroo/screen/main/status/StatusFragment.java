@@ -1,15 +1,6 @@
 package de.synyx.android.meeroo.screen.main.status;
 
-import android.arch.lifecycle.ViewModelProviders;
-
 import android.os.Bundle;
-
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-
-import android.support.design.widget.Snackbar;
-
-import android.support.v4.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +8,15 @@ import android.view.ViewGroup;
 
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import androidx.fragment.app.Fragment;
+
+import androidx.lifecycle.ViewModelProviders;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import de.synyx.android.meeroo.R;
 import de.synyx.android.meeroo.domain.BookingResult;
@@ -30,16 +30,15 @@ import de.synyx.android.meeroo.util.livedata.SingleEvent;
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
 
-import static android.support.design.widget.Snackbar.LENGTH_LONG;
-
 import static android.view.View.GONE;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 
+import static android.widget.Toast.LENGTH_LONG;
+
 import static de.synyx.android.meeroo.domain.RoomAvailability.AVAILABLE;
 
 import static org.joda.time.Duration.standardMinutes;
-import static org.joda.time.Minutes.minutes;
 
 
 public class StatusFragment extends Fragment {

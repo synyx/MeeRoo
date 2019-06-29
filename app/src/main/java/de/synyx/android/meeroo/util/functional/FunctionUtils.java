@@ -1,6 +1,6 @@
 package de.synyx.android.meeroo.util.functional;
 
-import android.arch.core.util.Function;
+import androidx.arch.core.util.Function;
 
 import java.lang.reflect.Array;
 

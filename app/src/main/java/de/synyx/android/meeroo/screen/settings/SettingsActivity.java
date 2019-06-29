@@ -8,11 +8,11 @@ import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 
-import android.support.annotation.NonNull;
-
-import android.support.v7.app.ActionBar;
-
 import android.view.MenuItem;
+
+import androidx.annotation.NonNull;
+
+import androidx.appcompat.app.ActionBar;
 
 import de.synyx.android.meeroo.R;
 import de.synyx.android.meeroo.domain.MeetingRoom;
@@ -63,9 +63,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     private void setGeneralFragment() {
 
         this.getFragmentManager()
-            .beginTransaction()
-            .replace(android.R.id.content, new GeneralPreferenceFragment())
-            .commit();
+            .beginTransaction().replace(android.R.id.content, new GeneralPreferenceFragment()).commit();
     }
 
 

@@ -1,9 +1,9 @@
 package de.synyx.android.meeroo.screen;
 
-import android.support.v7.app.AppCompatActivity;
-
 import android.view.View;
 import android.view.WindowManager;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 
 /**

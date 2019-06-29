@@ -11,9 +11,9 @@ import android.net.Uri;
 import android.provider.CalendarContract.Events;
 import android.provider.CalendarContract.Instances;
 
-import android.support.annotation.NonNull;
-
 import android.util.Log;
+
+import androidx.annotation.NonNull;
 
 import de.synyx.android.meeroo.business.event.EventModel;
 import de.synyx.android.meeroo.config.Registry;

@@ -1,6 +1,6 @@
 package de.synyx.android.meeroo.screen.main.status;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import de.synyx.android.meeroo.business.event.EventRepository;
 import de.synyx.android.meeroo.config.Registry;

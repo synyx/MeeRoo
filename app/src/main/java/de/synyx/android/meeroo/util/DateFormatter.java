@@ -2,7 +2,7 @@ package de.synyx.android.meeroo.util;
 
 import android.content.Context;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import de.synyx.android.meeroo.R;
 
@@ -43,8 +43,7 @@ public class DateFormatter {
             .appendSeparator(" ")
             .appendMinutes()
             .appendSuffix(addSpaceBefore(context, R.string.time_suffix_minute),
-                addSpaceBefore(context, R.string.time_suffix_minutes))
-            .toFormatter();
+                addSpaceBefore(context, R.string.time_suffix_minutes)).toFormatter();
     }
 
 
@@ -60,11 +59,6 @@ public class DateFormatter {
         return new PeriodFormatterBuilder().appendDays()
             .appendSuffix(" d")
             .appendSeparator(" ")
-            .appendHours()
-            .appendSuffix(" h")
-            .appendSeparator(" ")
-            .appendMinutes()
-            .appendSuffix(" min")
-            .toFormatter();
+            .appendHours().appendSuffix(" h").appendSeparator(" ").appendMinutes().appendSuffix(" min").toFormatter();
     }
 }

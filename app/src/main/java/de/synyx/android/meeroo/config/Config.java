@@ -7,7 +7,7 @@ import android.content.SharedPreferences;
 
 import android.preference.PreferenceManager;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import de.synyx.android.meeroo.preferences.PreferencesService;
 import de.synyx.android.meeroo.preferences.PreferencesServiceImpl;
