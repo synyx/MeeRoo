@@ -1,25 +1,19 @@
 package de.synyx.android.meeroo.domain;
 
-import de.synyx.android.meeroo.config.Registry;
-import de.synyx.android.meeroo.util.TimeProvider;
-
 import org.joda.time.Duration;
-
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import de.synyx.android.meeroo.config.Registry;
+import de.synyx.android.meeroo.util.TimeProvider;
+
 import static de.synyx.android.meeroo.domain.Reservation.oneHourReservationBeginningAt;
 import static de.synyx.android.meeroo.domain.TimeProviderStub.NOW;
-
 import static org.assertj.core.api.Assertions.assertThat;
-
 import static org.joda.time.Duration.standardMinutes;
 
 
-/**
- * @author  Max Dobler - dobler@synyx.de
- */
 public class MeetingRoomTest {
 
     @BeforeClass
@@ -39,15 +33,21 @@ public class MeetingRoomTest {
     @Test
     public void isAvailable() {
 
-        MeetingRoom meetingRoom = new MeetingRoom();
+        MeetingRoom meetingRoom = createMeetingRoom();
         assertThat(meetingRoom.isAvailable()).isTrue();
+    }
+
+
+    private MeetingRoom createMeetingRoom() {
+
+        return new MeetingRoom(0, "room");
     }
 
 
     @Test
     public void isUnavailable() {
 
-        MeetingRoom meetingRoom = new MeetingRoom();
+        MeetingRoom meetingRoom = createMeetingRoom();
         meetingRoom.addReservation(oneHourReservationBeginningAt(NOW));
 
         assertThat(meetingRoom.isAvailable()).isFalse();
@@ -57,7 +57,7 @@ public class MeetingRoomTest {
     @Test
     public void getTimeUntilNextMeeting_ReturnNullIfNoReservationForThisDay() {
 
-        MeetingRoom meetingRoom = new MeetingRoom();
+        MeetingRoom meetingRoom = createMeetingRoom();
         assertThat(meetingRoom.getTimeUntilNextMeeting()).isNull();
     }
 
@@ -65,7 +65,7 @@ public class MeetingRoomTest {
     @Test
     public void getTimeUntilNextMeeting() {
 
-        MeetingRoom meetingRoom = new MeetingRoom();
+        MeetingRoom meetingRoom = createMeetingRoom();
         meetingRoom.addReservation(oneHourReservationBeginningAt(NOW.plusMinutes(10)));
 
         assertThat(meetingRoom.getTimeUntilNextMeeting()).isEqualTo(standardMinutes(10));
@@ -75,7 +75,7 @@ public class MeetingRoomTest {
     @Test
     public void timeUntilAvailableZeroIfCurrentlyAvailable() {
 
-        MeetingRoom meetingRoom = new MeetingRoom();
+        MeetingRoom meetingRoom = createMeetingRoom();
         assertThat(meetingRoom.getTimeUntilAvailable()).isEqualTo(Duration.ZERO);
     }
 
@@ -83,7 +83,7 @@ public class MeetingRoomTest {
     @Test
     public void timeUntilAvailable() {
 
-        MeetingRoom meetingRoom = new MeetingRoom();
+        MeetingRoom meetingRoom = createMeetingRoom();
         meetingRoom.addReservation(oneHourReservationBeginningAt(NOW));
         meetingRoom.addReservation(oneHourReservationBeginningAt(NOW.plusHours(1)));
 
@@ -97,7 +97,7 @@ public class MeetingRoomTest {
     @Test
     public void isNextMeetingInNearFuture_IsFalseIfNoReservations() {
 
-        MeetingRoom meetingRoom = new MeetingRoom();
+        MeetingRoom meetingRoom = createMeetingRoom();
         assertThat(meetingRoom.isNextMeetingInNearFuture()).isFalse();
     }
 
@@ -105,7 +105,7 @@ public class MeetingRoomTest {
     @Test
     public void isNextMeetingInNearFuture_IsFalseIfCurrentMeeting() {
 
-        MeetingRoom meetingRoom = new MeetingRoom();
+        MeetingRoom meetingRoom = createMeetingRoom();
         meetingRoom.addReservation(oneHourReservationBeginningAt(NOW));
 
         assertThat(meetingRoom.isNextMeetingInNearFuture()).isFalse();
@@ -115,7 +115,7 @@ public class MeetingRoomTest {
     @Test
     public void isNextMeetingInNearFuture_IsTrueIfNextMeetingIsOnly15minAway() {
 
-        MeetingRoom meetingRoom = new MeetingRoom();
+        MeetingRoom meetingRoom = createMeetingRoom();
 
         meetingRoom.addReservation(oneHourReservationBeginningAt(NOW.plusMinutes(16)));
         assertThat(meetingRoom.isNextMeetingInNearFuture()).isFalse();
@@ -128,7 +128,7 @@ public class MeetingRoomTest {
     @Test
     public void getCurrentMeeting_ReturnNullIfNoCurrentMeeting() {
 
-        MeetingRoom meetingRoom = new MeetingRoom();
+        MeetingRoom meetingRoom = createMeetingRoom();
         assertThat(meetingRoom.getCurrentMeeting()).isNull();
     }
 
@@ -138,7 +138,7 @@ public class MeetingRoomTest {
 
         Reservation currentMeeting = oneHourReservationBeginningAt(NOW);
 
-        MeetingRoom meetingRoom = new MeetingRoom();
+        MeetingRoom meetingRoom = createMeetingRoom();
         meetingRoom.addReservation(new Reservation(NOW.minusHours(1), NOW.minusMillis(1)));
         meetingRoom.addReservation(currentMeeting);
         meetingRoom.addReservation(oneHourReservationBeginningAt(NOW.plusHours(1)));
@@ -150,7 +150,7 @@ public class MeetingRoomTest {
     @Test
     public void getUpcomingReservation_NullIfNoUpcoming() {
 
-        MeetingRoom meetingRoom = new MeetingRoom();
+        MeetingRoom meetingRoom = createMeetingRoom();
         assertThat(meetingRoom.getUpcomingReservation()).isNull();
     }
 
@@ -160,7 +160,7 @@ public class MeetingRoomTest {
 
         Reservation upcomingReservation = oneHourReservationBeginningAt(NOW.plusMillis(1));
 
-        MeetingRoom meetingRoom = new MeetingRoom();
+        MeetingRoom meetingRoom = createMeetingRoom();
         meetingRoom.addReservation(new Reservation(NOW.minusHours(1), NOW));
         meetingRoom.addReservation(upcomingReservation);
 
@@ -173,7 +173,7 @@ public class MeetingRoomTest {
 
         Reservation upcomingReservation = oneHourReservationBeginningAt(NOW.plusMillis(1));
 
-        MeetingRoom meetingRoom = new MeetingRoom();
+        MeetingRoom meetingRoom = createMeetingRoom();
         meetingRoom.addReservation(new Reservation(NOW.minusHours(1), NOW));
         meetingRoom.addReservation(upcomingReservation);
 
@@ -187,7 +187,7 @@ public class MeetingRoomTest {
         Reservation upcomingReservation = oneHourReservationBeginningAt(NOW.plusMillis(1));
         Reservation secondUpcomingReservation = oneHourReservationBeginningAt(NOW.plusHours(1).plusMillis(1));
 
-        MeetingRoom meetingRoom = new MeetingRoom();
+        MeetingRoom meetingRoom = createMeetingRoom();
         meetingRoom.addReservation(new Reservation(NOW.minusHours(1), NOW));
         meetingRoom.addReservation(upcomingReservation);
         meetingRoom.addReservation(secondUpcomingReservation);
