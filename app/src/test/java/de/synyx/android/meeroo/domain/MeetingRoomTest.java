@@ -1,16 +1,19 @@
 package de.synyx.android.meeroo.domain;
 
+import de.synyx.android.meeroo.config.Registry;
+import de.synyx.android.meeroo.util.TimeProvider;
+
 import org.joda.time.Duration;
+
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import de.synyx.android.meeroo.config.Registry;
-import de.synyx.android.meeroo.util.TimeProvider;
-
 import static de.synyx.android.meeroo.domain.Reservation.oneHourReservationBeginningAt;
 import static de.synyx.android.meeroo.domain.TimeProviderStub.NOW;
+
 import static org.assertj.core.api.Assertions.assertThat;
+
 import static org.joda.time.Duration.standardMinutes;
 
 
@@ -91,6 +94,19 @@ public class MeetingRoomTest {
         meetingRoom.addReservation(oneHourReservationBeginningAt(NOW.plusHours(2).plusMillis(1)));
 
         assertThat(meetingRoom.getTimeUntilAvailable()).isEqualTo(Duration.standardHours(2));
+    }
+
+
+    @Test
+    public void timeUntilAvailable_OverlappingReservations() {
+
+        MeetingRoom meetingRoom = createMeetingRoom();
+        meetingRoom.addReservation(oneHourReservationBeginningAt(NOW.minusMinutes(30)));
+        meetingRoom.addReservation(oneHourReservationBeginningAt(NOW));
+
+        meetingRoom.addReservation(oneHourReservationBeginningAt(NOW.plusMinutes(10)));
+
+        assertThat(meetingRoom.getTimeUntilAvailable()).isEqualTo(Duration.standardMinutes(70));
     }
 
 
