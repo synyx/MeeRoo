@@ -1,9 +1,12 @@
 package de.synyx.android.meeroo.screen.main.status;
 
+import android.app.Application;
+
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
+import de.synyx.android.meeroo.R;
 import de.synyx.android.meeroo.config.Registry;
 import de.synyx.android.meeroo.domain.BookingResult;
 import de.synyx.android.meeroo.domain.MeetingRoom;
@@ -16,9 +19,9 @@ import org.joda.time.Duration;
 
 
 /**
- * @author  Julian Heetel - heetel@synyx.de
+ * @author Julian Heetel - heetel@synyx.de
  */
-public class MeetingRoomViewModel extends ViewModel {
+public class MeetingRoomViewModel extends AndroidViewModel {
 
     private MutableLiveData<MeetingRoom> room;
     private MutableLiveData<SingleEvent<BookingResult>> bookingResult;
@@ -31,7 +34,9 @@ public class MeetingRoomViewModel extends ViewModel {
     private long calendarId;
     private Disposable disposable;
 
-    public MeetingRoomViewModel() {
+    public MeetingRoomViewModel(Application application) {
+
+        super(application);
 
         loadRoomUseCase = new LoadRoomUseCase();
         bookNowUseCase = new BookNowUseCase();
@@ -47,7 +52,7 @@ public class MeetingRoomViewModel extends ViewModel {
     }
 
 
-    public LiveData<SingleEvent<BookingResult>> getBookingResult() {
+    LiveData<SingleEvent<BookingResult>> getBookingResult() {
 
         if (bookingResult == null) {
             bookingResult = new MutableLiveData<>();
@@ -94,7 +99,8 @@ public class MeetingRoomViewModel extends ViewModel {
 
     public void bookNow(Duration duration) {
 
-        BookingResult result = bookNowUseCase.execute(calendarId, room.getValue(), duration);
+        String eventTitle = getApplication().getString(R.string.book_now_event_title);
+        BookingResult result = bookNowUseCase.execute(calendarId, room.getValue(), duration, eventTitle);
         this.bookingResult.postValue(SingleEvent.withContent(result));
         tick();
     }

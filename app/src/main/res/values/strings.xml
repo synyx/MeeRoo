@@ -72,5 +72,6 @@
     <string name="noCalendarsError">No meeting room calendars found. Please ensure that an Account has been configured on this device and that a Calendar has been set to sync the meeting room calendars.</string>
     <string name="close">Close</string>
     <string name="calendarPending">Calendar pending…</string>
+    <string name="book_now_event_title">Reserved</string>
 
 </resources>

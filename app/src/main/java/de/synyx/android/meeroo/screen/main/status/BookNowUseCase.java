@@ -27,37 +27,39 @@ public class BookNowUseCase {
     private final TimeProvider timeProvider;
     private final AttendeeRepository attendeeRepository;
 
-    public BookNowUseCase() {
+    BookNowUseCase() {
 
         eventRepository = Registry.get(EventRepository.class);
         timeProvider = Registry.get(TimeProvider.class);
         attendeeRepository = Registry.get(AttendeeRepository.class);
     }
 
-    public BookingResult execute(long calendarId, MeetingRoom meetingRoom, Duration duration) {
+    public BookingResult execute(long calendarId, MeetingRoom meetingRoom, Duration duration, String eventTitle) {
 
         Duration timeUntilNextMeeting = meetingRoom.getTimeUntilNextMeeting();
 
         if (timeUntilNextMeeting == null || timeUntilNextMeeting.isLongerThan(duration)) {
             DateTime start = timeProvider.now();
 
-            return bookMeetingRoom(calendarId, meetingRoom.getName(), start, start.plus(duration));
+            return bookMeetingRoom(calendarId, eventTitle, meetingRoom.getName(), start, start.plus(duration));
         }
 
         if (timeUntilNextMeeting.isLongerThan(standardMinutes(15))) {
             Reservation upcomingReservation = meetingRoom.getUpcomingReservation();
 
-            return bookMeetingRoom(calendarId, meetingRoom.getName(), timeProvider.now(), upcomingReservation.begin);
+            return bookMeetingRoom(calendarId, eventTitle, meetingRoom.getName(), timeProvider.now(),
+                    upcomingReservation.begin);
         }
 
         return error("Meeting room is already reserved!");
     }
 
 
-    private BookingResult bookMeetingRoom(long calendarId, String attendeeName, DateTime start, DateTime end) {
+    private BookingResult bookMeetingRoom(long calendarId, String eventTitle, String attendeeName, DateTime start,
+        DateTime end) {
 
         Maybe<Long> eventId =
-            eventRepository.insertEvent(calendarId, "Reserved!", start, end) //
+            eventRepository.insertEvent(calendarId, eventTitle, start, end) //
             .doOnSuccess(id -> attendeeRepository.insertAttendeeForEvent(attendeeName, id));
 
         return mapToBookingResult(eventId);
@@ -67,7 +69,7 @@ public class BookNowUseCase {
     private BookingResult mapToBookingResult(Maybe<Long> eventId) {
 
         return eventId //
-            .map(ignored -> BookingResult.success()) //
+                .map(ignored -> BookingResult.success()) //
             .blockingGet(BookingResult.error("Error while reserving room. Please try again later."));
     }
 }
