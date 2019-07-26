@@ -4,8 +4,8 @@
     <dimen name="header_height">110dp</dimen>
     <dimen name="bottom_buttons_height">80dp</dimen>
 
-    <dimen name="font_size_extra_large">42sp</dimen>
-    <dimen name="font_size_larger">36sp</dimen>
+    <dimen name="font_size_extra_large">40sp</dimen>
+    <dimen name="font_size_larger">34sp</dimen>
     <dimen name="font_size_large">28sp</dimen>
     <dimen name="font_size_medium">18sp</dimen>
     <dimen name="font_size_small">16sp</dimen>
