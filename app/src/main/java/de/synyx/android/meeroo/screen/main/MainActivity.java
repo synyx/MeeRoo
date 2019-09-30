@@ -67,26 +67,13 @@ public class MainActivity extends FullscreenActivity implements LobbyFragment.Ro
 
         headerTitle = findViewById(R.id.header_title);
 
-        initNavigation();
-
-        initFragment(savedInstanceState);
+        initFragmentNavigation(savedInstanceState);
 
         setClock();
     }
 
 
-    private void initNavigation() {
-
-        navigationController = new MainNavigationController(this);
-
-        findViewById(R.id.menu_item_room_status).setOnClickListener(v -> navigationController.navigateStatus());
-        findViewById(R.id.menu_item_room_agenda).setOnClickListener(v -> navigationController.navigateAgenda());
-        findViewById(R.id.menu_item_all_rooms).setOnClickListener(v -> navigationController.navigateLobby());
-        findViewById(R.id.menu_item_settings).setOnClickListener(v -> navigationController.openSettings());
-    }
-
-
-    private void initFragment(Bundle savedInstanceState) {
+    private void initFragmentNavigation(Bundle savedInstanceState) {
 
         String selectedFragment = "";
 
@@ -94,13 +81,12 @@ public class MainActivity extends FullscreenActivity implements LobbyFragment.Ro
             selectedFragment = savedInstanceState.getString(KEY_SELECTED_MENU_ITEM);
         }
 
-        if (SELECTED_FRAGMENT_STATUS.equals(selectedFragment)) {
-            navigationController.navigateStatus();
-        } else if (SELECTED_FRAGMENT_AGENDA.equals(selectedFragment)) {
-            navigationController.navigateAgenda();
-        } else {
-            navigationController.navigateLobby();
-        }
+        navigationController = new MainNavigationController(this, selectedFragment);
+
+        findViewById(R.id.menu_item_room_status).setOnClickListener(v -> navigationController.navigateStatus());
+        findViewById(R.id.menu_item_room_agenda).setOnClickListener(v -> navigationController.navigateAgenda());
+        findViewById(R.id.menu_item_all_rooms).setOnClickListener(v -> navigationController.navigateLobby());
+        findViewById(R.id.menu_item_settings).setOnClickListener(v -> navigationController.openSettings());
     }
 
 
