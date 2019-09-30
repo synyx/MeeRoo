@@ -7,12 +7,7 @@ import android.content.IntentFilter;
 
 import android.os.Bundle;
 
-import android.view.View;
-
 import android.widget.TextView;
-
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import androidx.lifecycle.ViewModelProviders;
 
@@ -21,14 +16,11 @@ import de.synyx.android.meeroo.business.account.AccountService;
 import de.synyx.android.meeroo.config.Registry;
 import de.synyx.android.meeroo.preferences.PreferencesService;
 import de.synyx.android.meeroo.screen.FullscreenActivity;
-import de.synyx.android.meeroo.screen.main.agenda.AgendaFragment;
 import de.synyx.android.meeroo.screen.main.lobby.LobbyFragment;
 import de.synyx.android.meeroo.screen.main.status.BookNowDialogFragment;
 import de.synyx.android.meeroo.screen.main.status.EndNowDialogFragment;
 import de.synyx.android.meeroo.screen.main.status.MeetingRoomViewModel;
-import de.synyx.android.meeroo.screen.main.status.StatusFragment;
 import de.synyx.android.meeroo.screen.main.status.TimeTickReceiver;
-import de.synyx.android.meeroo.screen.settings.SettingsActivity;
 
 import org.joda.time.Duration;
 
@@ -37,17 +29,17 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import static de.synyx.android.meeroo.screen.main.MainNavigationController.SELECTED_FRAGMENT_AGENDA;
+import static de.synyx.android.meeroo.screen.main.MainNavigationController.SELECTED_FRAGMENT_LOBBY;
+import static de.synyx.android.meeroo.screen.main.MainNavigationController.SELECTED_FRAGMENT_STATUS;
+
 
 public class MainActivity extends FullscreenActivity implements LobbyFragment.RoomSelectionListener,
     BookNowDialogFragment.BookNowDialogListener, EndNowDialogFragment.EndNowOnDialogListener {
 
     private static final String KEY_SELECTED_MENU_ITEM = "key_selected_menu_item";
-    private static final String SELECTED_FRAGMENT_STATUS = "selected_status";
-    private static final String SELECTED_FRAGMENT_AGENDA = "selected_agenda";
-    private static final String SELECTED_FRAGMENT_LOBBY = "selected_lobby";
 
-    private PreferencesService preferencesService;
-    private String selectedFragment;
+    private MainNavigationController navigationController;
     private TextView headerTitle;
     protected MeetingRoomViewModel roomViewModel;
     private TimeTickReceiver timeTickReceiver;
@@ -59,8 +51,9 @@ public class MainActivity extends FullscreenActivity implements LobbyFragment.Ro
 
         super.onCreate(savedInstanceState);
 
-        preferencesService = Registry.get(PreferencesService.class);
         accountService = Registry.get(AccountService.class);
+
+        PreferencesService preferencesService = Registry.get(PreferencesService.class);
 
         roomViewModel = ViewModelProviders.of(this).get(MeetingRoomViewModel.class);
         roomViewModel.setCalendarId(preferencesService.getCalendarIdOfDefaultRoom());
@@ -74,24 +67,39 @@ public class MainActivity extends FullscreenActivity implements LobbyFragment.Ro
 
         headerTitle = findViewById(R.id.header_title);
 
+        initNavigation();
+
         initFragment(savedInstanceState);
 
         setClock();
     }
 
 
+    private void initNavigation() {
+
+        navigationController = new MainNavigationController(this);
+
+        findViewById(R.id.menu_item_room_status).setOnClickListener(v -> navigationController.navigateStatus());
+        findViewById(R.id.menu_item_room_agenda).setOnClickListener(v -> navigationController.navigateAgenda());
+        findViewById(R.id.menu_item_all_rooms).setOnClickListener(v -> navigationController.navigateLobby());
+        findViewById(R.id.menu_item_settings).setOnClickListener(v -> navigationController.openSettings());
+    }
+
+
     private void initFragment(Bundle savedInstanceState) {
+
+        String selectedFragment = "";
 
         if (savedInstanceState != null && savedInstanceState.containsKey(KEY_SELECTED_MENU_ITEM)) {
             selectedFragment = savedInstanceState.getString(KEY_SELECTED_MENU_ITEM);
         }
 
         if (SELECTED_FRAGMENT_STATUS.equals(selectedFragment)) {
-            replaceFragment(StatusFragment.newInstance());
+            navigationController.navigateStatus();
         } else if (SELECTED_FRAGMENT_AGENDA.equals(selectedFragment)) {
-            replaceFragment(AgendaFragment.newInstance());
+            navigationController.navigateAgenda();
         } else {
-            replaceFragment(LobbyFragment.newInstance());
+            navigationController.navigateLobby();
         }
     }
 
@@ -99,7 +107,7 @@ public class MainActivity extends FullscreenActivity implements LobbyFragment.Ro
     @Override
     protected void onSaveInstanceState(Bundle outState) {
 
-        outState.putString(KEY_SELECTED_MENU_ITEM, selectedFragment);
+        outState.putString(KEY_SELECTED_MENU_ITEM, navigationController.getSelectedFragment());
 
         super.onSaveInstanceState(outState);
     }
@@ -110,41 +118,6 @@ public class MainActivity extends FullscreenActivity implements LobbyFragment.Ro
         accountService.syncCalendar();
         roomViewModel.tick();
         setClock();
-    }
-
-
-    public void onNavigationSelect(View view) {
-
-        int id = view.getId();
-
-        if (id == R.id.menu_item_room_status) {
-            selectedFragment = SELECTED_FRAGMENT_STATUS;
-            replaceFragment(StatusFragment.newInstance());
-        }
-
-        if (id == R.id.menu_item_room_agenda) {
-            selectedFragment = SELECTED_FRAGMENT_AGENDA;
-            replaceFragment(AgendaFragment.newInstance());
-        }
-
-        if (id == R.id.menu_item_all_rooms) {
-            selectedFragment = SELECTED_FRAGMENT_LOBBY;
-            replaceFragment(LobbyFragment.newInstance());
-        }
-
-        if (id == R.id.menu_item_settings) {
-            startActivity(new Intent(this, SettingsActivity.class));
-        }
-    }
-
-
-    private void replaceFragment(Fragment fragment) {
-
-        getSupportFragmentManager() //
-        .beginTransaction() //
-        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN) //
-        .replace(R.id.content_main, fragment) //
-        .commit();
     }
 
 
@@ -187,8 +160,7 @@ public class MainActivity extends FullscreenActivity implements LobbyFragment.Ro
     public void onRoomSelected(long calendarId) {
 
         roomViewModel.setCalendarId(calendarId);
-        selectedFragment = SELECTED_FRAGMENT_STATUS;
-        replaceFragment(StatusFragment.newInstance());
+        navigationController.navigateStatus();
     }
 
 
@@ -213,12 +185,6 @@ public class MainActivity extends FullscreenActivity implements LobbyFragment.Ro
     }
 
 
-    public void openStatusFragment() {
-
-        replaceFragment(StatusFragment.newInstance());
-    }
-
-
     @Override
     public void endNow() {
 
@@ -230,5 +196,21 @@ public class MainActivity extends FullscreenActivity implements LobbyFragment.Ro
     public void onEndNowDialogDismiss() {
 
         enableFullscreen();
+    }
+
+
+    @Override
+    public void onBackPressed() {
+
+        switch (navigationController.getSelectedFragment()) {
+            case SELECTED_FRAGMENT_STATUS:
+            case SELECTED_FRAGMENT_AGENDA:
+                navigationController.navigateLobby();
+                break;
+
+            case SELECTED_FRAGMENT_LOBBY:
+            default:
+                super.onBackPressed();
+        }
     }
 }
