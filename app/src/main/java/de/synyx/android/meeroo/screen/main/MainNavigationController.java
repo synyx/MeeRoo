@@ -28,9 +28,17 @@ class MainNavigationController {
 
     private Context context;
 
-    MainNavigationController(Context context) {
+    MainNavigationController(Context context, String initialFragment) {
 
         this.context = context;
+
+        if (SELECTED_FRAGMENT_STATUS.equals(initialFragment)) {
+            navigateStatus();
+        } else if (SELECTED_FRAGMENT_AGENDA.equals(initialFragment)) {
+            navigateAgenda();
+        } else {
+            navigateLobby();
+        }
     }
 
     void navigateLobby() {
