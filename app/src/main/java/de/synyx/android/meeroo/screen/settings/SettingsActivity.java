@@ -7,6 +7,7 @@ import android.preference.MultiSelectListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
+import android.preference.SwitchPreference;
 
 import android.view.MenuItem;
 
@@ -102,6 +103,19 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
             setHasOptionsMenu(true);
             bindPreferenceSummaryToValue(setValuesForDefaultRoom());
+            bindPreferenceSummaryToValue(findPreference("auto_navigation_time"));
+
+            // enable/disable pref auto_navigation_time depending on pref enable_auto_navigation
+            SwitchPreference enableAutoNavigation = (SwitchPreference) findPreference("enable_auto_navigation");
+            enableAutoNavigation.setOnPreferenceChangeListener((preference, enabled) -> {
+                findPreference("auto_navigation_time").setEnabled((boolean) enabled);
+
+                return true;
+            });
+
+            if (!enableAutoNavigation.isChecked()) {
+                findPreference("auto_navigation_time").setEnabled(false);
+            }
         }
 
 

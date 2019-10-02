@@ -61,4 +61,8 @@
     <string name="dialog_contacts_permission_title">Berechtigungen für Lesen von Kontakten benötigt</string>
     <string name="navigation_item_settings">Einstellungen</string>
     <string name="book_now_event_title">Reserviert</string>
+    <string name="auto_navigate_to_status">Automatisch zur Status-Ansicht wechseln</string>
+    <string name="time_until_navigation_to_status">Zeit bis zum Wechseln zur Status-Ansicht</string>
+    <string name="auto_navigation">Auto-Navigation</string>
+    <string name="configuration">Konfiguration</string>
 </resources>

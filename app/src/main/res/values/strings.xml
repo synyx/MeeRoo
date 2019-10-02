@@ -73,5 +73,9 @@
     <string name="close">Close</string>
     <string name="calendarPending">Calendar pending…</string>
     <string name="book_now_event_title">Reserved</string>
+    <string name="auto_navigate_to_status">Auto navigate to status screen</string>
+    <string name="time_until_navigation_to_status">Time until navigation to status screen</string>
+    <string name="auto_navigation">Auto Navigation</string>
+    <string name="configuration">Configuration</string>
 
 </resources>

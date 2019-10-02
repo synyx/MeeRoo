@@ -29,9 +29,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import static de.synyx.android.meeroo.screen.main.MainNavigationController.SELECTED_FRAGMENT_AGENDA;
-import static de.synyx.android.meeroo.screen.main.MainNavigationController.SELECTED_FRAGMENT_LOBBY;
-import static de.synyx.android.meeroo.screen.main.MainNavigationController.SELECTED_FRAGMENT_STATUS;
+import static de.synyx.android.meeroo.screen.main.MainNavigationControllerImpl.SELECTED_FRAGMENT_AGENDA;
+import static de.synyx.android.meeroo.screen.main.MainNavigationControllerImpl.SELECTED_FRAGMENT_LOBBY;
+import static de.synyx.android.meeroo.screen.main.MainNavigationControllerImpl.SELECTED_FRAGMENT_STATUS;
 
 
 public class MainActivity extends FullscreenActivity implements LobbyFragment.RoomSelectionListener,
@@ -44,6 +44,7 @@ public class MainActivity extends FullscreenActivity implements LobbyFragment.Ro
     protected MeetingRoomViewModel roomViewModel;
     private TimeTickReceiver timeTickReceiver;
     private AccountService accountService;
+    private PreferencesService preferencesService;
 
     @SuppressLint("CheckResult")
     @Override
@@ -53,10 +54,9 @@ public class MainActivity extends FullscreenActivity implements LobbyFragment.Ro
 
         accountService = Registry.get(AccountService.class);
 
-        PreferencesService preferencesService = Registry.get(PreferencesService.class);
+        preferencesService = Registry.get(PreferencesService.class);
 
-        roomViewModel = ViewModelProviders.of(this).get(MeetingRoomViewModel.class);
-        roomViewModel.setCalendarId(preferencesService.getCalendarIdOfDefaultRoom());
+        initViewModel();
 
         timeTickReceiver = new TimeTickReceiver();
 
@@ -73,6 +73,21 @@ public class MainActivity extends FullscreenActivity implements LobbyFragment.Ro
     }
 
 
+    private void initViewModel() {
+
+        roomViewModel = ViewModelProviders.of(this).get(MeetingRoomViewModel.class);
+
+        Long defaultRoom = preferencesService.getCalendarIdOfDefaultRoom();
+
+        // if no default room set, use last selected room
+        if (defaultRoom == -1L) {
+            defaultRoom = preferencesService.getCalendarIdOfLastSelectedRoom();
+        }
+
+        roomViewModel.setCalendarId(defaultRoom);
+    }
+
+
     private void initFragmentNavigation(Bundle savedInstanceState) {
 
         String selectedFragment = "";
@@ -81,12 +96,34 @@ public class MainActivity extends FullscreenActivity implements LobbyFragment.Ro
             selectedFragment = savedInstanceState.getString(KEY_SELECTED_MENU_ITEM);
         }
 
-        navigationController = new MainNavigationController(this, selectedFragment);
+        boolean autoNavigationEnabled = preferencesService.isAutoNavigationEnabled();
+        int autoNavigationTime = preferencesService.getAutoNavigationTime();
 
-        findViewById(R.id.menu_item_room_status).setOnClickListener(v -> navigationController.navigateStatus());
-        findViewById(R.id.menu_item_room_agenda).setOnClickListener(v -> navigationController.navigateAgenda());
-        findViewById(R.id.menu_item_all_rooms).setOnClickListener(v -> navigationController.navigateLobby());
+        navigationController = new MainNavigationControllerImpl(this, selectedFragment, autoNavigationEnabled,
+                autoNavigationTime);
+
+        findViewById(R.id.menu_item_room_status).setOnClickListener(v -> navigationController.navigateToStatus());
+        findViewById(R.id.menu_item_room_agenda).setOnClickListener(v -> navigationController.navigateToAgenda());
+        findViewById(R.id.menu_item_all_rooms).setOnClickListener(v -> navigationController.navigateToLobby());
         findViewById(R.id.menu_item_settings).setOnClickListener(v -> navigationController.openSettings());
+
+        startNavigationController();
+    }
+
+
+    private void startNavigationController() {
+
+        Long calendarId = preferencesService.getCalendarIdOfDefaultRoom();
+
+        // if no default room set, use last selected room
+        if (calendarId == -1L) {
+            calendarId = preferencesService.getCalendarIdOfLastSelectedRoom();
+        }
+
+        // if no room has been selected before, dont start navigation countdown
+        if (calendarId != -1L) {
+            navigationController.start();
+        }
     }
 
 
@@ -131,6 +168,9 @@ public class MainActivity extends FullscreenActivity implements LobbyFragment.Ro
 
         super.onResume();
         registerToTimeTickIntent();
+        navigationController.onAutoNavigationEnabledChanged(preferencesService.isAutoNavigationEnabled());
+        navigationController.onAutonavigationTimeChanged(preferencesService.getAutoNavigationTime());
+        startNavigationController();
     }
 
 
@@ -139,6 +179,7 @@ public class MainActivity extends FullscreenActivity implements LobbyFragment.Ro
 
         super.onPause();
         unregisterReceiver(timeTickReceiver);
+        navigationController.stop();
     }
 
 
@@ -146,7 +187,8 @@ public class MainActivity extends FullscreenActivity implements LobbyFragment.Ro
     public void onRoomSelected(long calendarId) {
 
         roomViewModel.setCalendarId(calendarId);
-        navigationController.navigateStatus();
+        navigationController.navigateToStatus();
+        preferencesService.saveLastSelectedRoom(calendarId);
     }
 
 
@@ -191,7 +233,7 @@ public class MainActivity extends FullscreenActivity implements LobbyFragment.Ro
         switch (navigationController.getSelectedFragment()) {
             case SELECTED_FRAGMENT_STATUS:
             case SELECTED_FRAGMENT_AGENDA:
-                navigationController.navigateLobby();
+                navigationController.navigateToLobby();
                 break;
 
             case SELECTED_FRAGMENT_LOBBY:

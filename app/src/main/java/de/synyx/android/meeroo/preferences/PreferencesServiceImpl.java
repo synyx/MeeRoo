@@ -14,10 +14,12 @@ public class PreferencesServiceImpl implements PreferencesService {
 
     private static final String PREF_RESERVATION_ACCOUNT = "reservationAccount";
     private static final String PREF_ADDRESS_BOOK_OPTION = "addressBookOption";
+    private static final String PREF_ACCOUNT_TYPE = "accountType";
+    private static final String PREF_USER_ACCOUNT = "calendarAccount"; // TODO rename to "userAccount"
+    public static final String PREF_ENABLE_AUTO_NAVIGATION = "enable_auto_navigation";
 
     private static final String PREFERENCES_CALENDAR_MODE = "calendarMode";
-    private static final String PREF_USER_ACCOUNT = "calendarAccount"; // TODO rename to "userAccount"
-    private static final String PREF_ACCOUNT_TYPE = "accountType";
+    private static final String PREFERENCES_LAST_SELECTED_ROOM = "lastSelectedRoom";
     private SharedPreferences sharedPreferences;
     private SharedPreferences defaultPreferences;
     private SharedPreferences.Editor editor;
@@ -71,6 +73,14 @@ public class PreferencesServiceImpl implements PreferencesService {
 
 
     @Override
+    public void saveLastSelectedRoom(long calendarId) {
+
+        editor.putLong(PREFERENCES_LAST_SELECTED_ROOM, calendarId);
+        editor.apply();
+    }
+
+
+    @Override
     public String getSelectedCalenderMode() {
 
         return sharedPreferences.getString(PREFERENCES_CALENDAR_MODE, "");
@@ -94,9 +104,16 @@ public class PreferencesServiceImpl implements PreferencesService {
     @Override
     public Long getCalendarIdOfDefaultRoom() {
 
-        String calendarId = defaultPreferences.getString("defaultRoom", "0");
+        String calendarId = defaultPreferences.getString("defaultRoom", "-1");
 
         return Long.valueOf(calendarId);
+    }
+
+
+    @Override
+    public Long getCalendarIdOfLastSelectedRoom() {
+
+        return sharedPreferences.getLong(PREFERENCES_LAST_SELECTED_ROOM, -1L);
     }
 
 
@@ -104,5 +121,19 @@ public class PreferencesServiceImpl implements PreferencesService {
     public Set<String> getHiddenRoomIds() {
 
         return defaultPreferences.getStringSet("hidden_rooms", emptySet());
+    }
+
+
+    @Override
+    public boolean isAutoNavigationEnabled() {
+
+        return defaultPreferences.getBoolean(PREF_ENABLE_AUTO_NAVIGATION, true);
+    }
+
+
+    @Override
+    public int getAutoNavigationTime() {
+
+        return Integer.valueOf(defaultPreferences.getString("auto_navigation_time", "30"));
     }
 }
