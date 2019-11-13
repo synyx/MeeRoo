@@ -38,6 +38,7 @@ public class LoginPresenterImpl implements LoginPresenter {
     @Override
     public void askForPermissionsAgain() {
 
+        // TODO ask for permissions after account selected
         askForPermissions();
     }
 
@@ -47,10 +48,10 @@ public class LoginPresenterImpl implements LoginPresenter {
 
         if (hasFatalError()) {
             view.showErrorDialog();
-        } else if (!preferencesService.isLoggedIn()) {
-            checkAccounts();
-        } else {
-            calenderModeSelection();
+//        } else if (!preferencesService.isLoggedIn()) {
+//            checkAccounts();
+//        } else {
+//            calenderModeSelection();
         }
     }
 
@@ -58,7 +59,7 @@ public class LoginPresenterImpl implements LoginPresenter {
     @Override
     public void onAccountSelected(String account) {
 
-        saveSelectedAccount(account);
+//        saveSelectedAccount(account);
         calenderModeSelection();
     }
 
