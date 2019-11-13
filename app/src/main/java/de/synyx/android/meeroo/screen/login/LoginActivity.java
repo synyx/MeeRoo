@@ -1,11 +1,10 @@
 package de.synyx.android.meeroo.screen.login;
 
-import android.content.Context;
+import android.accounts.AccountManager;
+
 import android.content.Intent;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,26 +14,16 @@ import androidx.fragment.app.FragmentManager;
 import de.synyx.android.meeroo.R;
 import de.synyx.android.meeroo.config.Registry;
 import de.synyx.android.meeroo.domain.CalendarMode;
+import de.synyx.android.meeroo.preferences.PreferencesService;
 import de.synyx.android.meeroo.screen.main.MainActivity;
 
 
 public class LoginActivity extends AppCompatActivity implements LoginListener {
 
-    private static final int REQUEST_LOBBY = 0;
     private static final String FRAGMENT_TAG = "login-fragment";
-
-    /**
-     * Get an intent to create a new instance of this activity.
-     *
-     * @param  context  the package context
-     *
-     * @return  intent to call this activity
-     */
-    public static Intent getIntent(@NonNull Context context) {
-
-        return new Intent(context, LoginActivity.class);
-    }
-
+    private static final int REQUEST_ACCOUNT = 139;
+    private PreferencesService preferencesService;
+    private LoginContract.LoginPresenter presenter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -51,16 +40,23 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
         }
 
         LoginPresenterFactory presenterFactory = Registry.get(LoginPresenterFactory.class);
-        LoginContract.LoginPresenter presenter = presenterFactory.createPresenter((LoginContract.LoginView) fragment,
-                this);
+        presenter = presenterFactory.createPresenter((LoginContract.LoginView) fragment, this);
         ((LoginFragment) fragment).setPresenter(presenter);
+
+        preferencesService = Registry.get(PreferencesService.class);
+
+        if (preferencesService.isLoggedIn()) {
+            startMainActivty();
+        } else {
+            Intent accountIntent = AccountManager.newChooseAccountIntent(null, null, null, null, null, null, null);
+            startActivityForResult(accountIntent, REQUEST_ACCOUNT);
+        }
     }
 
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        super.onActivityResult(requestCode, resultCode, data);
         finish();
     }
 
@@ -75,7 +71,14 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
     @Override
     public void onCalenderModeClick(CalendarMode calendarMode) {
 
+        startMainActivty();
+    }
+
+
+    private void startMainActivty() {
+
         Intent intent = new Intent(this, MainActivity.class);
-        startActivityForResult(intent, REQUEST_LOBBY);
+        startActivity(intent);
+        finish();
     }
 }

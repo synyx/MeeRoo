@@ -19,7 +19,7 @@ import org.joda.time.Duration;
 
 
 /**
- * @author Julian Heetel - heetel@synyx.de
+ * @author  Julian Heetel - heetel@synyx.de
  */
 public class MeetingRoomViewModel extends AndroidViewModel {
 
@@ -93,7 +93,10 @@ public class MeetingRoomViewModel extends AndroidViewModel {
     protected void onCleared() {
 
         super.onCleared();
-        disposable.dispose();
+
+        if (disposable != null) {
+            disposable.dispose();
+        }
     }
 
 
