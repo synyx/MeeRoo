@@ -20,7 +20,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -41,7 +40,6 @@ public class LoginFragment extends Fragment implements LoginContract.LoginView {
 
     private static final int REQUEST_PERMISSION_SETTING = 1;
     private LoginContract.LoginPresenter presenter;
-    private TextView progressText;
     private ProgressBar progressBar;
 
     @Nullable
@@ -51,7 +49,6 @@ public class LoginFragment extends Fragment implements LoginContract.LoginView {
 
         View view = inflater.inflate(R.layout.fragment_login, container, false);
 
-        progressText = view.findViewById(R.id.login_progress_text);
         progressBar = view.findViewById(R.id.login_progress_bar);
 
         return view;
@@ -132,8 +129,8 @@ public class LoginFragment extends Fragment implements LoginContract.LoginView {
     public void showProgress() {
 
         progressBar.setVisibility(View.VISIBLE);
-        progressText.setVisibility(View.VISIBLE);
-        progressText.setText(getString(R.string.calendarPending));
+//        progressText.setVisibility(View.VISIBLE);
+//        progressText.setText(getString(R.string.calendarPending));
     }
 
 
