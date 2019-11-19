@@ -36,7 +36,7 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
 
         if (fragment == null) {
             fragment = new LoginFragment();
-            fragmentManager.beginTransaction().replace(R.id.relativeLayout1, fragment).commit();
+            fragmentManager.beginTransaction().replace(R.id.content_main, fragment).commit();
         }
 
         LoginPresenterFactory presenterFactory = Registry.get(LoginPresenterFactory.class);

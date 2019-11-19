@@ -24,16 +24,20 @@
             android:exported="true"
             android:label="@string/app_name"
             android:screenOrientation="sensorLandscape">
+
+        </activity>
+
+        <activity
+            android:name="de.synyx.android.meeroo.screen.main.MainActivity"
+            android:theme="@style/AppThemeDarkNoActionBar"/>
+        <activity android:name=".screen.login.mvvm.MVVMLoginActivity"
+            android:theme="@style/AppThemeDarkNoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity
-            android:name="de.synyx.android.meeroo.screen.main.MainActivity"
-            android:theme="@style/AppThemeDark" />
         <activity
             android:name="de.synyx.android.meeroo.screen.settings.SettingsActivity"
             android:label="@string/title_activity_settings" />

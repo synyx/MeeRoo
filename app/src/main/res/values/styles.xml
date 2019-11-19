@@ -3,9 +3,15 @@
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar" />
 
-    <style name="AppThemeDark" parent="Theme.AppCompat.NoActionBar" />
+    <style name="AppThemeDark" parent="Theme.AppCompat" />
 
-    <style name="BottomNav" parent="AppThemeDark">
+    <style name="AppThemeDarkNoActionBar" parent="Theme.AppCompat.NoActionBar">
+<!--        <item name="colorPrimary">#5eba2d</item>-->
+<!--        <item name="colorPrimaryDark">#4B9623</item>-->
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="BottomNav" parent="AppThemeDarkNoActionBar">
         <item name="android:colorPrimaryDark">#888</item>
     </style>
 
@@ -37,6 +43,21 @@
 
     <style name="UnavailableButton" parent="StatusButton">
         <item name="android:textColor">@color/room_status_unavailable</item>
+    </style>
+
+    <style name="TextStep" parent="TextAppearance.AppCompat">
+<!--        <item name="android:textColor">#fff</item>-->
+        <item name="android:textSize">28sp</item>
+        <item name="android:layout_marginBottom">16dp</item>
+        <item name="android:background">@drawable/state_list_step_circle</item>
+        <item name="android:paddingTop">6dp</item>
+        <item name="android:paddingStart">16dp</item>
+    </style>
+
+    <style name="TextStepDescription" parent="TextAppearance.AppCompat">
+<!--        <item name="android:textColor">#fff</item>-->
+        <item name="android:layout_marginTop">12dp</item>
+
     </style>
 
 </resources>
