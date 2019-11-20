@@ -3,24 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_black">
+    android:background="@color/background_black"
+    android:fitsSystemWindows="true">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/login_guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.3"/>
+        app:layout_constraintGuide_percent="0.3" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="0dp"
         android:layout_height="0dp"
+        app:cardBackgroundColor="@color/background_dark"
+        app:cardCornerRadius="0dp"
+        app:layout_constraintBottom_toTopOf="@id/login_guideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/login_guideline"
-        app:cardBackgroundColor="@color/background_dark"
-        app:cardCornerRadius="0dp">
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -29,79 +30,79 @@
             <View
                 android:layout_width="0dp"
                 android:layout_height="1dp"
-                app:layout_constraintStart_toEndOf="@id/step_1"
-                app:layout_constraintEnd_toStartOf="@id/step_3"
-                app:layout_constraintTop_toTopOf="@id/step_1"
+                android:background="#444"
                 app:layout_constraintBottom_toBottomOf="@id/step_1"
-                android:background="#444"/>
+                app:layout_constraintEnd_toStartOf="@id/step_3"
+                app:layout_constraintStart_toEndOf="@id/step_1"
+                app:layout_constraintTop_toTopOf="@id/step_1" />
 
             <TextView
                 android:id="@+id/step_1"
+                style="@style/TextStep"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="1"
-                style="@style/TextStep"
-                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/step_2"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/step_2"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/step_permissions"
+                style="@style/TextStepDescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Permissions"
-                style="@style/TextStepDescription"
-                app:layout_constraintTop_toBottomOf="@id/step_1"
+                app:layout_constraintEnd_toEndOf="@id/step_1"
                 app:layout_constraintStart_toStartOf="@id/step_1"
-                app:layout_constraintEnd_toEndOf="@id/step_1"/>
+                app:layout_constraintTop_toBottomOf="@id/step_1" />
 
             <TextView
                 android:id="@+id/step_2"
-                android:enabled="false"
+                style="@style/TextStep"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:enabled="false"
                 android:text="2"
-                style="@style/TextStep"
-                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/step_3"
                 app:layout_constraintStart_toEndOf="@id/step_1"
-                app:layout_constraintEnd_toStartOf="@id/step_3"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/step_account"
-                android:enabled="false"
+                style="@style/TextStepDescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:enabled="false"
                 android:text="Account"
-                style="@style/TextStepDescription"
-                app:layout_constraintTop_toBottomOf="@id/step_1"
+                app:layout_constraintEnd_toEndOf="@id/step_2"
                 app:layout_constraintStart_toStartOf="@id/step_2"
-                app:layout_constraintEnd_toEndOf="@id/step_2"/>
+                app:layout_constraintTop_toBottomOf="@id/step_1" />
 
             <TextView
                 android:id="@+id/step_3"
-                android:enabled="false"
+                style="@style/TextStep"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:enabled="false"
                 android:text="3"
-                style="@style/TextStep"
-                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/step_2"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintVertical_chainStyle="packed"/>
+                app:layout_constraintStart_toEndOf="@id/step_2"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
 
             <TextView
                 android:id="@+id/step_mode"
-                android:enabled="false"
+                style="@style/TextStepDescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:enabled="false"
                 android:text="Mode"
-                style="@style/TextStepDescription"
-                app:layout_constraintTop_toBottomOf="@id/step_3"
+                app:layout_constraintEnd_toEndOf="@id/step_3"
                 app:layout_constraintStart_toStartOf="@id/step_3"
-                app:layout_constraintEnd_toEndOf="@id/step_3"/>
+                app:layout_constraintTop_toBottomOf="@id/step_3" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -112,55 +113,101 @@
         android:id="@+id/login_progress_bar_helper_guideline"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginBottom="7dp"
         android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/login_guideline"
-        android:layout_marginBottom="7dp"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
 
     <ProgressBar
         android:id="@+id/login_progress_bar"
+        style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:indeterminate="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/login_progress_bar_helper_guideline"
-        android:indeterminate="true"
-        style="?android:attr/progressBarStyleHorizontal"/>
+        app:layout_constraintTop_toBottomOf="@id/login_progress_bar_helper_guideline" />
 
     <TextView
         android:id="@+id/login_error_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Something went wrong"
+        android:visibility="gone"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/login_guideline"
-        app:layout_constraintVertical_bias="0.2"/>
+        app:layout_constraintVertical_bias="0.2" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/login_error_exit_button"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:layout_marginEnd="12dp"
+        android:layout_marginEnd="18dp"
         android:text="Exit"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-        app:layout_constraintTop_toBottomOf="@id/login_error_text"
+        android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@+id/login_error_retry_button"
         app:layout_constraintStart_toStartOf="@id/login_error_text"
-        app:layout_constraintEnd_toStartOf="@+id/login_error_retry_button"/>
+        app:layout_constraintTop_toBottomOf="@id/login_error_text"
+        app:strokeColor="?attr/colorAccent"
+        app:strokeWidth="1dp" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/login_error_retry_button"
+        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Retry"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-        app:strokeColor="?attr/colorAccent"
-        app:strokeWidth="1dp"
-        app:layout_constraintTop_toTopOf="@id/login_error_exit_button"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@id/login_error_text"
         app:layout_constraintStart_toEndOf="@id/login_error_exit_button"
-        app:layout_constraintEnd_toEndOf="@id/login_error_text"/>
+        app:layout_constraintTop_toTopOf="@id/login_error_exit_button" />
+
+    <TextView
+        android:id="@+id/login_select_mode_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select calendar mode"
+        android:textSize="16sp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/login_guideline"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.2"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/login_mode_resources_button"
+        android:layout_width="@dimen/mode_selection_button_size"
+        android:layout_height="@dimen/mode_selection_button_size"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="18dp"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        app:strokeColor="@color/colorAccent"
+        app:strokeWidth="1dp"
+        android:visibility="gone"
+        android:text="Resources"
+        app:layout_constraintTop_toBottomOf="@id/login_select_mode_text"
+        app:layout_constraintStart_toStartOf="@id/login_select_mode_text"
+        app:layout_constraintEnd_toStartOf="@id/login_mode_calendar_button"
+        />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/login_mode_calendar_button"
+        android:layout_width="@dimen/mode_selection_button_size"
+        android:layout_height="@dimen/mode_selection_button_size"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        app:strokeColor="@color/colorAccent"
+        android:visibility="gone"
+        app:strokeWidth="1dp"
+        android:text="Calendars"
+        app:layout_constraintTop_toTopOf="@id/login_mode_resources_button"
+        app:layout_constraintStart_toEndOf="@id/login_mode_resources_button"
+        app:layout_constraintEnd_toEndOf="@id/login_select_mode_text" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
