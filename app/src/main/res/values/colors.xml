@@ -2,7 +2,8 @@
 <resources>
     <color name="colorPrimary">#5eba2d</color>
     <color name="colorPrimaryDark">#4B9623</color>
-    <color name="colorAccent">#a2e249</color>
+<!--    <color name="colorAccent">#a2e249</color>-->
+    <color name="colorAccent">#2979FF</color>
 
     <color name="lightgray">#d9d9d9</color>
     <color name="room_status_available">#7fb32b</color>
