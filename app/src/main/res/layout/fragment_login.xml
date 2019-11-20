@@ -128,4 +128,39 @@
         android:indeterminate="true"
         style="?android:attr/progressBarStyleHorizontal"/>
 
+    <TextView
+        android:id="@+id/login_error_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Something went wrong"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/login_guideline"
+        app:layout_constraintVertical_bias="0.2"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/login_error_exit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="12dp"
+        android:text="Exit"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        app:layout_constraintTop_toBottomOf="@id/login_error_text"
+        app:layout_constraintStart_toStartOf="@id/login_error_text"
+        app:layout_constraintEnd_toStartOf="@+id/login_error_retry_button"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/login_error_retry_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Retry"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        app:strokeColor="?attr/colorAccent"
+        app:strokeWidth="1dp"
+        app:layout_constraintTop_toTopOf="@id/login_error_exit_button"
+        app:layout_constraintStart_toEndOf="@id/login_error_exit_button"
+        app:layout_constraintEnd_toEndOf="@id/login_error_text"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
