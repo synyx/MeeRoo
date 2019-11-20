@@ -1,6 +1,5 @@
 <resources>
 
-
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar" />
 
     <style name="AppThemeDark" parent="Theme.AppCompat" />
@@ -9,6 +8,8 @@
         <item name="colorPrimary">#5eba2d</item>
         <item name="colorPrimaryDark">#4B9623</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
     </style>
 
     <style name="BottomNav" parent="AppThemeDarkNoActionBar">
@@ -55,7 +56,6 @@
 
     <style name="TextStepDescription" parent="TextAppearance.AppCompat">
         <item name="android:layout_marginTop">12dp</item>
-
     </style>
 
 </resources>

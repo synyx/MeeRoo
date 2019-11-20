@@ -7,5 +7,6 @@ enum LoginStep {
 
     PERMISSIONS,
     ACCOUNT,
-    MODE
+    MODE,
+    FINISHED
 }

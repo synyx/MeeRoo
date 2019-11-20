@@ -1,7 +1,5 @@
 package de.synyx.android.meeroo.screen.login.mvvm;
 
-import android.accounts.AccountManager;
-
 import android.content.Intent;
 
 import android.content.pm.PackageManager;
@@ -12,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -24,6 +23,8 @@ import androidx.lifecycle.ViewModelProviders;
 
 import de.synyx.android.meeroo.R;
 import de.synyx.android.meeroo.config.Registry;
+import de.synyx.android.meeroo.domain.CalendarMode;
+import de.synyx.android.meeroo.screen.main.MainActivity;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -34,7 +35,7 @@ import static android.app.Activity.RESULT_OK;
 public class MVVMLoginFragment extends Fragment {
 
     static final int PERMISSION_REQUEST_CODE = 1602;
-    private static final int REQUEST_ACCOUNT = 139;
+    static final int REQUEST_ACCOUNT = 139;
     private MVVMLoginViewModel viewModel;
 
     private TextView step2;
@@ -42,6 +43,12 @@ public class MVVMLoginFragment extends Fragment {
     private TextView step3;
     private TextView stepMode;
     private ProgressBar progressBar;
+    private TextView errorText;
+    private Button errorExitButton;
+    private Button errorRetryButton;
+    private TextView modeText;
+    private Button modeResourcesButton;
+    private Button modeCalendarButton;
 
     @Nullable
     @Override
@@ -56,6 +63,18 @@ public class MVVMLoginFragment extends Fragment {
         stepMode = view.findViewById(R.id.step_mode);
 
         progressBar = view.findViewById(R.id.login_progress_bar);
+
+        errorText = view.findViewById(R.id.login_error_text);
+        errorExitButton = view.findViewById(R.id.login_error_exit_button);
+        errorRetryButton = view.findViewById(R.id.login_error_retry_button);
+        errorExitButton.setOnClickListener(this::onExitClicked);
+        errorRetryButton.setOnClickListener(this::onRetryClicked);
+
+        modeText = view.findViewById(R.id.login_select_mode_text);
+        modeResourcesButton = view.findViewById(R.id.login_mode_resources_button);
+        modeCalendarButton = view.findViewById(R.id.login_mode_calendar_button);
+        modeResourcesButton.setOnClickListener(this::onModeResourcesClicked);
+        modeCalendarButton.setOnClickListener(this::onModeCalendarClicked);
 
         return view;
     }
@@ -73,25 +92,63 @@ public class MVVMLoginFragment extends Fragment {
     }
 
 
+    private void onRetryClicked(View view) {
+
+        displayProgress(true);
+        displayErrorRetry(false);
+
+        // post same value to retry step
+        viewModel.getLoginStep().postValue(viewModel.getLoginStep().getValue());
+    }
+
+
+    private void onExitClicked(View view) {
+
+        if (getActivity() != null) {
+            getActivity().finish();
+        }
+    }
+
+
+    private void onModeResourcesClicked(View view) {
+
+        viewModel.saveCalendarMode(CalendarMode.RESOURCES);
+    }
+
+
+    private void onModeCalendarClicked(View view) {
+
+        viewModel.saveCalendarMode(CalendarMode.CALENDAR);
+    }
+
+
     private void onLoginStepChanged(LoginStep loginStep) {
 
         if (LoginStep.PERMISSIONS == loginStep) {
-            setAccountStepEnabled(false);
-            setModeStepEnabled(false);
+            enableStepAccount(false);
+            enableStepMode(false);
             viewModel.askForPermissions(this);
         } else if (LoginStep.ACCOUNT == loginStep) {
-            setAccountStepEnabled(true);
-            setModeStepEnabled(false);
+            enableStepAccount(true);
+            enableStepMode(false);
+            viewModel.stepAccount(this);
         } else if (LoginStep.MODE == loginStep) {
-            setAccountStepEnabled(true);
-            setModeStepEnabled(true);
+            enableStepAccount(true);
+            enableStepMode(true);
             displayProgress(false);
+            viewModel.stepMode();
             displayModeSelection();
+        } else if (LoginStep.FINISHED == loginStep) {
+            onLoginFinished();
         }
     }
 
 
     private void displayModeSelection() {
+
+        modeText.setVisibility(View.VISIBLE);
+        modeResourcesButton.setVisibility(View.VISIBLE);
+        modeCalendarButton.setVisibility(View.VISIBLE);
     }
 
 
@@ -101,17 +158,17 @@ public class MVVMLoginFragment extends Fragment {
     }
 
 
-    private void setModeStepEnabled(boolean enabled) {
-
-        step3.setEnabled(enabled);
-        stepMode.setEnabled(enabled);
-    }
-
-
-    private void setAccountStepEnabled(boolean enabled) {
+    private void enableStepAccount(boolean enabled) {
 
         step2.setEnabled(enabled);
         stepAccount.setEnabled(enabled);
+    }
+
+
+    private void enableStepMode(boolean enabled) {
+
+        step3.setEnabled(enabled);
+        stepMode.setEnabled(enabled);
     }
 
 
@@ -141,15 +198,22 @@ public class MVVMLoginFragment extends Fragment {
     private void onPermissionDenied(String permission) {
 
         // TODO implement
+        displayProgress(false);
+        displayErrorRetry(true);
+    }
+
+
+    private void displayErrorRetry(boolean visible) {
+
+        errorText.setVisibility(visible ? View.VISIBLE : View.GONE);
+        errorExitButton.setVisibility(visible ? View.VISIBLE : View.GONE);
+        errorRetryButton.setVisibility(visible ? View.VISIBLE : View.GONE);
     }
 
 
     private void onAllPermissionsGranted() {
 
         viewModel.getLoginStep().postValue(LoginStep.ACCOUNT);
-
-        Intent accountIntent = AccountManager.newChooseAccountIntent(null, null, null, null, null, null, null);
-        startActivityForResult(accountIntent, REQUEST_ACCOUNT);
     }
 
 
@@ -160,8 +224,21 @@ public class MVVMLoginFragment extends Fragment {
             String accountName = data.getStringExtra("authAccount");
 
             viewModel.saveAccount(accountName);
+        } else if (requestCode == REQUEST_ACCOUNT) {
+            displayProgress(false);
+            displayErrorRetry(true);
         }
 
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+
+    private void onLoginFinished() {
+
+        if (getActivity() != null) {
+            Intent intent = new Intent(getActivity(), MainActivity.class);
+            startActivity(intent);
+            getActivity().finish();
+        }
     }
 }
