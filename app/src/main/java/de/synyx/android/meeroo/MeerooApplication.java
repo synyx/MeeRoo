@@ -6,7 +6,6 @@ import de.synyx.android.meeroo.business.calendar.CalendarModeService;
 import de.synyx.android.meeroo.config.MainConfig;
 import de.synyx.android.meeroo.config.Registry;
 import de.synyx.android.meeroo.preferences.PreferencesService;
-import de.synyx.android.meeroo.screen.login.mvvm.MVVMLoginConfig;
 import de.synyx.android.meeroo.screen.login.mvvm.MVVMLoginViewModelFactory;
 import de.synyx.android.meeroo.util.proxy.PermissionManager;
 import de.synyx.android.meeroo.util.proxy.ProxyConfig;
@@ -26,9 +25,9 @@ public class MeerooApplication extends Application {
         initConfig();
 
         // for login
-        MVVMLoginConfig loginConfig = new MVVMLoginConfig(Registry.get(PreferencesService.class),
-                Registry.get(PermissionManager.class), Registry.get(CalendarModeService.class));
-        Registry.put(MVVMLoginViewModelFactory.class, new MVVMLoginViewModelFactory(loginConfig));
+        Registry.put(MVVMLoginViewModelFactory.class,
+            new MVVMLoginViewModelFactory(Registry.get(PreferencesService.class),
+                Registry.get(PermissionManager.class), Registry.get(CalendarModeService.class)));
     }
 
 

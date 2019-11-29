@@ -5,23 +5,32 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
+import de.synyx.android.meeroo.business.calendar.CalendarModeService;
+import de.synyx.android.meeroo.preferences.PreferencesService;
+import de.synyx.android.meeroo.util.proxy.PermissionManager;
+
 
 /**
  * @author  Julian Heetel - heetel@synyx.de
  */
 public class MVVMLoginViewModelFactory implements ViewModelProvider.Factory {
 
-    private final MVVMLoginConfig loginConfig;
+    private final PreferencesService preferencesService;
+    private final PermissionManager permissionManager;
+    private final CalendarModeService calendarModeService;
 
-    public MVVMLoginViewModelFactory(MVVMLoginConfig loginConfig) {
+    public MVVMLoginViewModelFactory(PreferencesService preferencesService, PermissionManager permissionManager,
+        CalendarModeService calendarModeService) {
 
-        this.loginConfig = loginConfig;
+        this.preferencesService = preferencesService;
+        this.permissionManager = permissionManager;
+        this.calendarModeService = calendarModeService;
     }
 
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
 
-        return modelClass.cast(new MVVMLoginViewModel(loginConfig));
+        return modelClass.cast(new MVVMLoginViewModel(preferencesService, permissionManager, calendarModeService));
     }
 }
