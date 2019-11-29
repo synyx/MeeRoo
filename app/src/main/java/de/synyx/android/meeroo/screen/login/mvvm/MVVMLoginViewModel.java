@@ -11,7 +11,10 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import de.synyx.android.meeroo.business.calendar.CalendarModeService;
 import de.synyx.android.meeroo.domain.CalendarMode;
+import de.synyx.android.meeroo.preferences.PreferencesService;
+import de.synyx.android.meeroo.util.proxy.PermissionManager;
 
 import java.util.List;
 
@@ -23,12 +26,18 @@ import static de.synyx.android.meeroo.screen.login.mvvm.MVVMLoginFragment.PERMIS
  */
 public class MVVMLoginViewModel extends ViewModel {
 
-    private final MVVMLoginConfig config;
+    private final PreferencesService preferencesService;
+    private final PermissionManager permissionManager;
+    private final CalendarModeService calendarModeService;
     private final MutableLiveData<LoginStep> loginStep;
 
-    public MVVMLoginViewModel(MVVMLoginConfig config) {
+    public MVVMLoginViewModel(PreferencesService preferencesService, PermissionManager permissionManager,
+        CalendarModeService calendarModeService) {
 
-        this.config = config;
+        this.preferencesService = preferencesService;
+        this.permissionManager = permissionManager;
+        this.calendarModeService = calendarModeService;
+
         loginStep = new MutableLiveData<>();
 
         // start with permissions
@@ -37,21 +46,21 @@ public class MVVMLoginViewModel extends ViewModel {
 
     void askForPermissions(Fragment fragment) {
 
-        List<String> neededPermissions = config.getPermissionManager().getNeededPermissions();
+        List<String> neededPermissions = permissionManager.getNeededPermissions();
 
         if (neededPermissions.isEmpty()) {
             loginStep.postValue(LoginStep.ACCOUNT);
         } else {
             String[] permissions = new String[neededPermissions.size()];
-            config.getPermissionManager()
-                .requestPermission(fragment, neededPermissions.toArray(permissions), PERMISSION_REQUEST_CODE);
+            permissionManager.requestPermission(fragment, neededPermissions.toArray(permissions),
+                PERMISSION_REQUEST_CODE);
         }
     }
 
 
     void saveAccount(String accountName) {
 
-        config.getPreferencesService().saveLoginAccountAndType(accountName, accountName, accountName);
+        preferencesService.saveLoginAccountAndType(accountName, accountName, accountName);
         loginStep.postValue(LoginStep.MODE);
     }
 
@@ -64,7 +73,7 @@ public class MVVMLoginViewModel extends ViewModel {
 
     void stepAccount(Fragment fragment) {
 
-        if (!config.getPreferencesService().isLoggedIn()) {
+        if (!preferencesService.isLoggedIn()) {
             Intent accountIntent = AccountManager.newChooseAccountIntent(null, null, null, null, null, null, null);
             fragment.startActivityForResult(accountIntent, MVVMLoginFragment.REQUEST_ACCOUNT);
         } else {
@@ -75,7 +84,7 @@ public class MVVMLoginViewModel extends ViewModel {
 
     void stepMode() {
 
-        if (!TextUtils.isEmpty(config.getPreferencesService().getSelectedCalenderMode())) {
+        if (!TextUtils.isEmpty(preferencesService.getSelectedCalenderMode())) {
             loginStep.postValue(LoginStep.FINISHED);
         }
     }
@@ -83,8 +92,8 @@ public class MVVMLoginViewModel extends ViewModel {
 
     void saveCalendarMode(CalendarMode mode) {
 
-        String modeString = config.getCalendarModeService().getStringCalenderMode(mode);
-        config.getPreferencesService().saveCalendarMode(modeString);
+        String modeString = calendarModeService.getStringCalenderMode(mode);
+        preferencesService.saveCalendarMode(modeString);
         loginStep.postValue(LoginStep.FINISHED);
     }
 }
