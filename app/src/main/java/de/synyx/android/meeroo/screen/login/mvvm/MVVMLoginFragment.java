@@ -24,7 +24,6 @@ import androidx.lifecycle.ViewModelProviders;
 import de.synyx.android.meeroo.R;
 import de.synyx.android.meeroo.config.Registry;
 import de.synyx.android.meeroo.domain.CalendarMode;
-import de.synyx.android.meeroo.screen.main.MainActivity;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -236,9 +235,7 @@ public class MVVMLoginFragment extends Fragment {
     private void onLoginFinished() {
 
         if (getActivity() != null) {
-            Intent intent = new Intent(getActivity(), MainActivity.class);
-            startActivity(intent);
-            getActivity().finish();
+            ((MVVMLoginActivity) getActivity()).startMainActivity();
         }
     }
 }
