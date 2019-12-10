@@ -1,4 +1,4 @@
-package de.synyx.android.meeroo.screen.login.mvvm;
+package de.synyx.android.meeroo.screen.login;
 
 import androidx.annotation.NonNull;
 
@@ -13,13 +13,13 @@ import de.synyx.android.meeroo.util.proxy.PermissionManager;
 /**
  * @author  Julian Heetel - heetel@synyx.de
  */
-public class MVVMLoginViewModelFactory implements ViewModelProvider.Factory {
+public class LoginViewModelFactory implements ViewModelProvider.Factory {
 
     private final PreferencesService preferencesService;
     private final PermissionManager permissionManager;
     private final CalendarModeService calendarModeService;
 
-    public MVVMLoginViewModelFactory(PreferencesService preferencesService, PermissionManager permissionManager,
+    public LoginViewModelFactory(PreferencesService preferencesService, PermissionManager permissionManager,
         CalendarModeService calendarModeService) {
 
         this.preferencesService = preferencesService;
@@ -31,6 +31,6 @@ public class MVVMLoginViewModelFactory implements ViewModelProvider.Factory {
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
 
-        return modelClass.cast(new MVVMLoginViewModel(preferencesService, permissionManager, calendarModeService));
+        return modelClass.cast(new LoginViewModel(preferencesService, permissionManager, calendarModeService));
     }
 }

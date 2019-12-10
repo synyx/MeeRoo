@@ -1,10 +1,12 @@
 package de.synyx.android.meeroo.screen.login;
 
-import android.accounts.AccountManager;
-
 import android.content.Intent;
 
 import android.os.Bundle;
+
+import android.text.TextUtils;
+
+import androidx.annotation.Nullable;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,69 +15,52 @@ import androidx.fragment.app.FragmentManager;
 
 import de.synyx.android.meeroo.R;
 import de.synyx.android.meeroo.config.Registry;
-import de.synyx.android.meeroo.domain.CalendarMode;
 import de.synyx.android.meeroo.preferences.PreferencesService;
 import de.synyx.android.meeroo.screen.main.MainActivity;
+import de.synyx.android.meeroo.util.proxy.PermissionManager;
 
 
-public class LoginActivity extends AppCompatActivity implements LoginListener {
+/**
+ * @author  Julian Heetel - heetel@synyx.de
+ */
+public class LoginActivity extends AppCompatActivity {
 
-    private static final String FRAGMENT_TAG = "login-fragment";
-    private static final int REQUEST_ACCOUNT = 139;
-    private PreferencesService preferencesService;
-    private LoginContract.LoginPresenter presenter;
+    private static final String FRAGMENT_TAG = "mvvm-login-fragment";
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+
+        if (isSetupCompleted()) {
+            startMainActivity();
+
+            return;
+        }
+
         setContentView(R.layout.activity_login);
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        Fragment fragment = fragmentManager.findFragmentByTag(FRAGMENT_TAG);
+        FragmentManager manager = getSupportFragmentManager();
+        Fragment fragment = manager.findFragmentByTag(FRAGMENT_TAG);
 
         if (fragment == null) {
             fragment = new LoginFragment();
-            fragmentManager.beginTransaction().replace(R.id.content_main, fragment).commit();
-        }
-
-        LoginPresenterFactory presenterFactory = Registry.get(LoginPresenterFactory.class);
-        presenter = presenterFactory.createPresenter((LoginContract.LoginView) fragment, this);
-        ((LoginFragment) fragment).setPresenter(presenter);
-
-        preferencesService = Registry.get(PreferencesService.class);
-
-        if (preferencesService.isLoggedIn()) {
-            startMainActivty();
-        } else {
-            Intent accountIntent = AccountManager.newChooseAccountIntent(null, null, null, null, null, null, null);
-            startActivityForResult(accountIntent, REQUEST_ACCOUNT);
+            manager.beginTransaction().replace(R.id.content_main, fragment, FRAGMENT_TAG).commit();
         }
     }
 
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    private boolean isSetupCompleted() {
 
-        finish();
+        PreferencesService preferencesService = Registry.get(PreferencesService.class);
+        PermissionManager permissionManager = Registry.get(PermissionManager.class);
+
+        return preferencesService.isLoggedIn() && permissionManager.getNeededPermissions().isEmpty()
+            && !TextUtils.isEmpty(preferencesService.getSelectedCalenderMode());
     }
 
 
-    @Override
-    public void onErrorCloseButtonClick() {
-
-        finish();
-    }
-
-
-    @Override
-    public void onCalenderModeClick(CalendarMode calendarMode) {
-
-        startMainActivty();
-    }
-
-
-    private void startMainActivty() {
+    void startMainActivity() {
 
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
