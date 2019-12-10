@@ -73,5 +73,17 @@
     <string name="close">Close</string>
     <string name="calendarPending">Calendar pending…</string>
     <string name="book_now_event_title">Reserved</string>
+    <string name="_1" translatable="false">1</string>
+    <string name="permissions">Permissions</string>
+    <string name="_2" translatable="false">2</string>
+    <string name="account" translatable="false">Account</string>
+    <string name="_3" translatable="false">3</string>
+    <string name="mode">Mode</string>
+    <string name="something_went_wrong">Something went wrong</string>
+    <string name="exit">Exit</string>
+    <string name="retry">Retry</string>
+    <string name="select_calendar_mode">Select calendar mode</string>
+    <string name="resources">Resources</string>
+    <string name="calendars">Calendars</string>
 
 </resources>

@@ -61,4 +61,12 @@
     <string name="dialog_contacts_permission_title">Berechtigungen für Lesen von Kontakten benötigt</string>
     <string name="navigation_item_settings">Einstellungen</string>
     <string name="book_now_event_title">Reserviert</string>
+    <string name="permissions">Berechtigungen</string>
+    <string name="mode">Modus</string>
+    <string name="something_went_wrong">Ein Fehler ist aufgetreten.</string>
+    <string name="exit">Beenden</string>
+    <string name="retry">Erneut versuchen</string>
+    <string name="select_calendar_mode">Modus auswählen</string>
+    <string name="resources">Ressourcen</string>
+    <string name="calendars">Kalender</string>
 </resources>
