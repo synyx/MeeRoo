@@ -4,7 +4,7 @@
 
     <style name="AppThemeDark" parent="Theme.AppCompat" />
 
-    <style name="AppThemeDarkNoActionBar" parent="Theme.MaterialComponents.NoActionBar">
+    <style name="LoginTheme" parent="Theme.MaterialComponents.NoActionBar">
         <item name="colorPrimary">#5eba2d</item>
         <item name="colorPrimaryDark">#4B9623</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -12,7 +12,7 @@
         <item name="android:windowTranslucentStatus">true</item>
     </style>
 
-    <style name="BottomNav" parent="AppThemeDarkNoActionBar">
+    <style name="BottomNav" parent="LoginTheme">
         <item name="android:colorPrimaryDark">#888</item>
     </style>
 

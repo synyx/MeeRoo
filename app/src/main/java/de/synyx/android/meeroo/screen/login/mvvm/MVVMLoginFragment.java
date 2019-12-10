@@ -183,7 +183,7 @@ public class MVVMLoginFragment extends Fragment {
 
             for (int i = 0; i < permissions.length; i++) {
                 if (PackageManager.PERMISSION_DENIED == grantResults[i]) {
-                    onPermissionDenied(permissions[i]);
+                    onPermissionDenied();
 
                     return;
                 }
@@ -194,9 +194,8 @@ public class MVVMLoginFragment extends Fragment {
     }
 
 
-    private void onPermissionDenied(String permission) {
+    private void onPermissionDenied() {
 
-        // TODO implement
         displayProgress(false);
         displayErrorRetry(true);
     }
