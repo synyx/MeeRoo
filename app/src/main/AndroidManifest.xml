@@ -29,7 +29,7 @@
             android:theme="@style/AppThemeDark"/>
 
         <activity
-            android:name=".screen.login.mvvm.MVVMLoginActivity"
+            android:name=".screen.login.LoginActivity"
             android:theme="@style/LoginTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

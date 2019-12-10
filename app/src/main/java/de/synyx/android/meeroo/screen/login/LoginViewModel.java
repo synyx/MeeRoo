@@ -1,4 +1,4 @@
-package de.synyx.android.meeroo.screen.login.mvvm;
+package de.synyx.android.meeroo.screen.login;
 
 import android.accounts.AccountManager;
 
@@ -18,20 +18,20 @@ import de.synyx.android.meeroo.util.proxy.PermissionManager;
 
 import java.util.List;
 
-import static de.synyx.android.meeroo.screen.login.mvvm.MVVMLoginFragment.PERMISSION_REQUEST_CODE;
+import static de.synyx.android.meeroo.screen.login.LoginFragment.PERMISSION_REQUEST_CODE;
 
 
 /**
  * @author  Julian Heetel - heetel@synyx.de
  */
-public class MVVMLoginViewModel extends ViewModel {
+public class LoginViewModel extends ViewModel {
 
     private final PreferencesService preferencesService;
     private final PermissionManager permissionManager;
     private final CalendarModeService calendarModeService;
     private final MutableLiveData<LoginStep> loginStep;
 
-    public MVVMLoginViewModel(PreferencesService preferencesService, PermissionManager permissionManager,
+    public LoginViewModel(PreferencesService preferencesService, PermissionManager permissionManager,
         CalendarModeService calendarModeService) {
 
         this.preferencesService = preferencesService;
@@ -75,7 +75,7 @@ public class MVVMLoginViewModel extends ViewModel {
 
         if (!preferencesService.isLoggedIn()) {
             Intent accountIntent = AccountManager.newChooseAccountIntent(null, null, null, null, null, null, null);
-            fragment.startActivityForResult(accountIntent, MVVMLoginFragment.REQUEST_ACCOUNT);
+            fragment.startActivityForResult(accountIntent, LoginFragment.REQUEST_ACCOUNT);
         } else {
             loginStep.postValue(LoginStep.MODE);
         }
