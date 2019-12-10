@@ -1,9 +1,5 @@
 package de.synyx.android.meeroo.screen.login;
 
-import android.accounts.AccountManager;
-
-import android.content.Intent;
-
 import android.text.TextUtils;
 
 import androidx.fragment.app.Fragment;
@@ -24,14 +20,14 @@ import static de.synyx.android.meeroo.screen.login.LoginFragment.PERMISSION_REQU
 /**
  * @author  Julian Heetel - heetel@synyx.de
  */
-public class LoginViewModel extends ViewModel {
+class LoginViewModel extends ViewModel {
 
     private final PreferencesService preferencesService;
     private final PermissionManager permissionManager;
     private final CalendarModeService calendarModeService;
     private final MutableLiveData<LoginStep> loginStep;
 
-    public LoginViewModel(PreferencesService preferencesService, PermissionManager permissionManager,
+    LoginViewModel(PreferencesService preferencesService, PermissionManager permissionManager,
         CalendarModeService calendarModeService) {
 
         this.preferencesService = preferencesService;
@@ -71,11 +67,10 @@ public class LoginViewModel extends ViewModel {
     }
 
 
-    void stepAccount(Fragment fragment) {
+    void stepAccount(StartAccountSelectionListener startAccountSelectionListener) {
 
         if (!preferencesService.isLoggedIn()) {
-            Intent accountIntent = AccountManager.newChooseAccountIntent(null, null, null, null, null, null, null);
-            fragment.startActivityForResult(accountIntent, LoginFragment.REQUEST_ACCOUNT);
+            startAccountSelectionListener.startAccountSelection();
         } else {
             loginStep.postValue(LoginStep.MODE);
         }
@@ -95,5 +90,10 @@ public class LoginViewModel extends ViewModel {
         String modeString = calendarModeService.getStringCalenderMode(mode);
         preferencesService.saveCalendarMode(modeString);
         loginStep.postValue(LoginStep.FINISHED);
+    }
+
+    interface StartAccountSelectionListener {
+
+        void startAccountSelection();
     }
 }

@@ -1,5 +1,7 @@
 package de.synyx.android.meeroo.screen.login;
 
+import android.accounts.AccountManager;
+
 import android.content.Intent;
 
 import android.content.pm.PackageManager;
@@ -90,6 +92,13 @@ public class LoginFragment extends Fragment {
     }
 
 
+    private void startAccountSelection() {
+
+        Intent accountIntent = AccountManager.newChooseAccountIntent(null, null, null, null, null, null, null);
+        startActivityForResult(accountIntent, LoginFragment.REQUEST_ACCOUNT);
+    }
+
+
     private void onRetryClicked(View view) {
 
         displayProgress(true);
@@ -129,7 +138,7 @@ public class LoginFragment extends Fragment {
         } else if (LoginStep.ACCOUNT == loginStep) {
             enableStepAccount(true);
             enableStepMode(false);
-            viewModel.stepAccount(this);
+            viewModel.stepAccount(this::startAccountSelection);
         } else if (LoginStep.MODE == loginStep) {
             enableStepAccount(true);
             enableStepMode(true);
