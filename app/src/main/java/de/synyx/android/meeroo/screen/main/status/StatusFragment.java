@@ -34,8 +34,8 @@ import static android.view.View.GONE;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 
-import static android.widget.Toast.LENGTH_LONG;
 
+import static com.google.android.material.snackbar.Snackbar.LENGTH_LONG;
 import static de.synyx.android.meeroo.domain.RoomAvailability.AVAILABLE;
 
 import static org.joda.time.Duration.standardMinutes;

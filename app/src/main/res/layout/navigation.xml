@@ -9,7 +9,6 @@
         android:id="@+id/menu_item_room_status"
         style="@style/NavigationItem"
         android:drawableTop="@drawable/ic_navigation_status"
-        android:onClick="onNavigationSelect"
         android:text="@string/navigation_item_status"
         app:layout_constraintEnd_toStartOf="@id/menu_item_room_agenda"
         app:layout_constraintTop_toTopOf="parent" />
@@ -18,7 +17,6 @@
         android:id="@+id/menu_item_room_agenda"
         style="@style/NavigationItem"
         android:drawableTop="@drawable/ic_navigation_agenda"
-        android:onClick="onNavigationSelect"
         android:text="@string/navigation_item_agenda"
         app:layout_constraintEnd_toStartOf="@id/menu_item_all_rooms"
         app:layout_constraintTop_toTopOf="parent" />
@@ -27,7 +25,6 @@
         android:id="@+id/menu_item_all_rooms"
         style="@style/NavigationItem"
         android:drawableTop="@drawable/ic_navigation_rooms"
-        android:onClick="onNavigationSelect"
         android:text="@string/navigation_item_all_rooms"
         app:layout_constraintEnd_toStartOf="@id/menu_item_settings"
         app:layout_constraintTop_toTopOf="parent" />
@@ -36,7 +33,6 @@
         android:id="@+id/menu_item_settings"
         style="@style/NavigationItem"
         android:drawableTop="@drawable/ic_settings"
-        android:onClick="onNavigationSelect"
         android:text="@string/navigation_item_settings"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
