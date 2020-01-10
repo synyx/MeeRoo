@@ -1,3 +1,5 @@
+[![Build Status](https://github.com/synyx/MeeRoo/workflows/MeeRoo%20CI/badge.svg)](https://github.com/synyx/MeeRoo/actions?query=workflow%3A%22MeeRoo+CI%22)
+
 ![banner](meeroo_banner.png)
 
 # MeeRoo
