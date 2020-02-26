@@ -83,7 +83,10 @@
     <string name="exit">Exit</string>
     <string name="retry">Retry</string>
     <string name="select_calendar_mode">Select calendar mode</string>
-    <string name="resources">Resources</string>
-    <string name="calendars">Calendars</string>
+    <string name="resources">Resources will be used as rooms</string>
+    <string name="calendars">Calendars will be used as rooms</string>
+    <string name="confirm">Confirm</string>
+    <string name="recommended_for_google">Recommended for Google calender</string>
+    <string name="recommended_for_caldav">Recommended for CalDAV calender</string>
 
 </resources>

@@ -66,7 +66,10 @@
     <string name="something_went_wrong">Ein Fehler ist aufgetreten.</string>
     <string name="exit">Beenden</string>
     <string name="retry">Erneut versuchen</string>
-    <string name="select_calendar_mode">Modus auswählen</string>
-    <string name="resources">Ressourcen</string>
-    <string name="calendars">Kalender</string>
+    <string name="select_calendar_mode">Kalendermodus auswählen</string>
+    <string name="resources">Ressourcen als Räume verwenden</string>
+    <string name="calendars">Kalender als Räume verwenden</string>
+    <string name="confirm">Bestätigen</string>
+    <string name="recommended_for_google">Empfohlen für Google-Kalender</string>
+    <string name="recommended_for_caldav">Empfohlen für CalDAV-Kalender</string>
 </resources>

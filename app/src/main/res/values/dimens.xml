@@ -12,5 +12,7 @@
     <dimen name="font_size_extra_small">12sp</dimen>
     <dimen name="step_circle_size">48dp</dimen>
     <dimen name="mode_selection_button_size">150dp</dimen>
+    <dimen name="vertical_margin">16dp</dimen>
+    <dimen name="radio_button_label_margin">32dp</dimen>
 
 </resources>

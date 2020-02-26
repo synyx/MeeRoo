@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -23,15 +24,19 @@ import androidx.fragment.app.Fragment;
 
 import androidx.lifecycle.ViewModelProviders;
 
+import com.google.android.material.button.MaterialButton;
+
 import de.synyx.android.meeroo.R;
 import de.synyx.android.meeroo.config.Registry;
 import de.synyx.android.meeroo.domain.CalendarMode;
 
 import static android.app.Activity.RESULT_OK;
+import static de.synyx.android.meeroo.domain.CalendarMode.CALENDAR;
+import static de.synyx.android.meeroo.domain.CalendarMode.RESOURCES;
 
 
 /**
- * @author  Julian Heetel - heetel@synyx.de
+ * @author Julian Heetel - heetel@synyx.de
  */
 public class LoginFragment extends Fragment {
 
@@ -47,14 +52,14 @@ public class LoginFragment extends Fragment {
     private TextView errorText;
     private Button errorExitButton;
     private Button errorRetryButton;
-    private TextView modeText;
-    private Button modeResourcesButton;
-    private Button modeCalendarButton;
+    private ViewGroup modeSelectionForm;
+    private RadioGroup modeSelectionRadioGroup;
+    private Button modeSelectionConfirmButton;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-        @Nullable Bundle savedInstanceState) {
+                             @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_login, container, false);
 
@@ -71,11 +76,11 @@ public class LoginFragment extends Fragment {
         errorExitButton.setOnClickListener(this::onExitClicked);
         errorRetryButton.setOnClickListener(this::onRetryClicked);
 
-        modeText = view.findViewById(R.id.login_select_mode_text);
-        modeResourcesButton = view.findViewById(R.id.login_mode_resources_button);
-        modeCalendarButton = view.findViewById(R.id.login_mode_calendar_button);
-        modeResourcesButton.setOnClickListener(this::onModeResourcesClicked);
-        modeCalendarButton.setOnClickListener(this::onModeCalendarClicked);
+        modeSelectionForm = view.findViewById(R.id.login_select_mode_form);
+        modeSelectionRadioGroup = view.findViewById(R.id.login_mode_selection_radio_group);
+        modeSelectionRadioGroup.setOnCheckedChangeListener(this::onCalendarModeSelectionChanged);
+        modeSelectionConfirmButton = view.findViewById(R.id.login_mode_selection_confirm_button);
+        modeSelectionConfirmButton.setOnClickListener(this::onModeConfirmClicked);
 
         return view;
     }
@@ -116,16 +121,17 @@ public class LoginFragment extends Fragment {
         }
     }
 
+    private void onCalendarModeSelectionChanged(RadioGroup radioGroup, int id) {
 
-    private void onModeResourcesClicked(View view) {
-
-        viewModel.saveCalendarMode(CalendarMode.RESOURCES);
+        CalendarMode selectedMode = R.id.login_mode_resources_radio_button == id
+                ? RESOURCES : CALENDAR;
+        viewModel.getSelectedCalendarMode().setValue(selectedMode);
+        modeSelectionConfirmButton.setEnabled(true);
     }
 
+    private void onModeConfirmClicked(View view) {
 
-    private void onModeCalendarClicked(View view) {
-
-        viewModel.saveCalendarMode(CalendarMode.CALENDAR);
+        viewModel.saveCalendarMode();
     }
 
 
@@ -153,9 +159,7 @@ public class LoginFragment extends Fragment {
 
     private void displayModeSelection() {
 
-        modeText.setVisibility(View.VISIBLE);
-        modeResourcesButton.setVisibility(View.VISIBLE);
-        modeCalendarButton.setVisibility(View.VISIBLE);
+        modeSelectionForm.setVisibility(View.VISIBLE);
     }
 
 
@@ -181,7 +185,7 @@ public class LoginFragment extends Fragment {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-        @NonNull int[] grantResults) {
+                                           @NonNull int[] grantResults) {
 
         if (requestCode == PERMISSION_REQUEST_CODE) {
             if (permissions.length == 0) {
