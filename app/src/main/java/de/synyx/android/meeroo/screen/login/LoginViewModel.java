@@ -18,7 +18,7 @@ import static de.synyx.android.meeroo.screen.login.LoginFragment.PERMISSION_REQU
 
 
 /**
- * @author  Julian Heetel - heetel@synyx.de
+ * @author Julian Heetel - heetel@synyx.de
  */
 class LoginViewModel extends ViewModel {
 
@@ -26,9 +26,10 @@ class LoginViewModel extends ViewModel {
     private final PermissionManager permissionManager;
     private final CalendarModeService calendarModeService;
     private final MutableLiveData<LoginStep> loginStep;
+    private final MutableLiveData<CalendarMode> selectedCalendarMode = new MutableLiveData<>();
 
     LoginViewModel(PreferencesService preferencesService, PermissionManager permissionManager,
-        CalendarModeService calendarModeService) {
+                   CalendarModeService calendarModeService) {
 
         this.preferencesService = preferencesService;
         this.permissionManager = permissionManager;
@@ -49,7 +50,7 @@ class LoginViewModel extends ViewModel {
         } else {
             String[] permissions = new String[neededPermissions.size()];
             permissionManager.requestPermission(fragment, neededPermissions.toArray(permissions),
-                PERMISSION_REQUEST_CODE);
+                    PERMISSION_REQUEST_CODE);
         }
     }
 
@@ -85,12 +86,23 @@ class LoginViewModel extends ViewModel {
     }
 
 
-    void saveCalendarMode(CalendarMode mode) {
+    void saveCalendarMode() {
 
-        String modeString = calendarModeService.getStringCalenderMode(mode);
+        if (selectedCalendarMode.getValue() == null) {
+            return;
+        }
+
+        String modeString = calendarModeService.getStringCalenderMode(selectedCalendarMode.getValue());
         preferencesService.saveCalendarMode(modeString);
         loginStep.postValue(LoginStep.FINISHED);
     }
+
+
+    public MutableLiveData<CalendarMode> getSelectedCalendarMode() {
+
+        return selectedCalendarMode;
+    }
+
 
     interface StartAccountSelectionListener {
 
