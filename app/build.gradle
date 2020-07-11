@@ -56,7 +56,7 @@ dependencies {
     implementation 'joda-time:joda-time:2.10.1'
 
     //Tests
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13'
     testImplementation 'org.assertj:assertj-core:3.12.2'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
