@@ -20,6 +20,9 @@ public interface PreferencesService {
     void saveCalendarMode(String calendarMode);
 
 
+    void logout();
+
+
     String getSelectedCalenderMode();
 
 

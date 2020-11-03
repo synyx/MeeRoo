@@ -8,4 +8,8 @@
     <MultiSelectListPreference
         android:key="hidden_rooms"
         android:title="@string/settings_hidden_rooms_title" />
+
+    <Preference
+        android:key="logout"
+        android:title="Logout" />
 </PreferenceScreen>

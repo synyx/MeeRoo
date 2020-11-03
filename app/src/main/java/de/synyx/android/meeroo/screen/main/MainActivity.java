@@ -1,15 +1,18 @@
 package de.synyx.android.meeroo.screen.main;
 
 import android.annotation.SuppressLint;
-
 import android.content.Intent;
 import android.content.IntentFilter;
-
 import android.os.Bundle;
-
 import android.widget.TextView;
 
 import androidx.lifecycle.ViewModelProviders;
+
+import org.joda.time.Duration;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import de.synyx.android.meeroo.R;
 import de.synyx.android.meeroo.business.account.AccountService;
@@ -22,20 +25,13 @@ import de.synyx.android.meeroo.screen.main.status.EndNowDialogFragment;
 import de.synyx.android.meeroo.screen.main.status.MeetingRoomViewModel;
 import de.synyx.android.meeroo.screen.main.status.TimeTickReceiver;
 
-import org.joda.time.Duration;
-
-import java.text.SimpleDateFormat;
-
-import java.util.Date;
-import java.util.Locale;
-
 import static de.synyx.android.meeroo.screen.main.MainNavigationController.SELECTED_FRAGMENT_AGENDA;
 import static de.synyx.android.meeroo.screen.main.MainNavigationController.SELECTED_FRAGMENT_LOBBY;
 import static de.synyx.android.meeroo.screen.main.MainNavigationController.SELECTED_FRAGMENT_STATUS;
 
 
 public class MainActivity extends FullscreenActivity implements LobbyFragment.RoomSelectionListener,
-    BookNowDialogFragment.BookNowDialogListener, EndNowDialogFragment.EndNowOnDialogListener {
+        BookNowDialogFragment.BookNowDialogListener, EndNowDialogFragment.EndNowOnDialogListener {
 
     private static final String KEY_SELECTED_MENU_ITEM = "key_selected_menu_item";
 

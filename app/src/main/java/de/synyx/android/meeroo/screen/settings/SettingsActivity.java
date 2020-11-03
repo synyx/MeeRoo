@@ -1,5 +1,9 @@
 package de.synyx.android.meeroo.screen.settings;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.preference.ListPreference;
@@ -15,7 +19,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 
 import de.synyx.android.meeroo.R;
+import de.synyx.android.meeroo.config.Registry;
 import de.synyx.android.meeroo.domain.MeetingRoom;
+import de.synyx.android.meeroo.preferences.PreferencesService;
+import de.synyx.android.meeroo.preferences.PreferencesServiceImpl;
+import de.synyx.android.meeroo.screen.login.LoginActivity;
 
 import java.util.Map;
 
@@ -27,26 +35,26 @@ import static de.synyx.android.meeroo.util.functional.FunctionUtils.toMap;
 public class SettingsActivity extends AppCompatPreferenceActivity {
 
     private static Preference.OnPreferenceChangeListener sBindPreferenceSummaryToValueListener =
-        (preference, value) -> {
-        String stringValue = value.toString();
+            (preference, value) -> {
+                String stringValue = value.toString();
 
-        if (preference instanceof ListPreference) {
-            ListPreference listPreference = (ListPreference) preference;
-            int index = listPreference.findIndexOfValue(stringValue);
-            preference.setSummary(index >= 0 ? listPreference.getEntries()[index] : null);
-        } else {
-            preference.setSummary(stringValue);
-        }
+                if (preference instanceof ListPreference) {
+                    ListPreference listPreference = (ListPreference) preference;
+                    int index = listPreference.findIndexOfValue(stringValue);
+                    preference.setSummary(index >= 0 ? listPreference.getEntries()[index] : null);
+                } else {
+                    preference.setSummary(stringValue);
+                }
 
-        return true;
-    };
+                return true;
+            };
 
     private static void bindPreferenceSummaryToValue(Preference preference) {
 
         preference.setOnPreferenceChangeListener(sBindPreferenceSummaryToValueListener);
 
         sBindPreferenceSummaryToValueListener.onPreferenceChange(preference,
-            PreferenceManager.getDefaultSharedPreferences(preference.getContext()).getString(preference.getKey(), ""));
+                PreferenceManager.getDefaultSharedPreferences(preference.getContext()).getString(preference.getKey(), ""));
     }
 
 
@@ -63,7 +71,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     private void setGeneralFragment() {
 
         this.getFragmentManager()
-            .beginTransaction().replace(android.R.id.content, new GeneralPreferenceFragment()).commit();
+                .beginTransaction().replace(android.R.id.content, new GeneralPreferenceFragment()).commit();
     }
 
 
@@ -88,7 +96,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     protected boolean isValidFragment(String fragmentName) {
 
         return PreferenceFragment.class.getName().equals(fragmentName)
-            || GeneralPreferenceFragment.class.getName().equals(fragmentName);
+                || GeneralPreferenceFragment.class.getName().equals(fragmentName);
     }
 
     public static class GeneralPreferenceFragment extends PreferenceFragment {
@@ -102,6 +110,27 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
             setHasOptionsMenu(true);
             bindPreferenceSummaryToValue(setValuesForDefaultRoom());
+
+            Preference button = findPreference("logout");
+            button.setOnPreferenceClickListener(this::logout);
+        }
+
+        private boolean logout(Preference preference) {
+
+            Registry.get(PreferencesService.class).logout();
+            restartApplication();
+            return true;
+        }
+
+        private void restartApplication() {
+
+            Intent loginActivityIntent = new Intent(getContext(), LoginActivity.class);
+            int pendingIntentId = 123; // id not needed
+            PendingIntent pendingIntent = PendingIntent.getActivity(getContext(), pendingIntentId, loginActivityIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+            AlarmManager alarmManager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
+            final int delay = 150;
+            alarmManager.set(AlarmManager.RTC, System.currentTimeMillis() + delay, pendingIntent);
+            System.exit(0);
         }
 
 
@@ -113,9 +142,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
             LoadAllRoomsUseCase loadRoomUseCase = new LoadAllRoomsUseCase();
             Map<Long, String> roomValues =
-                loadRoomUseCase.execute() //
-                .map(rooms -> toMap(rooms, MeetingRoom::getCalendarId, MeetingRoom::getName)) //
-                .blockingGet();
+                    loadRoomUseCase.execute() //
+                            .map(rooms -> toMap(rooms, MeetingRoom::getCalendarId, MeetingRoom::getName)) //
+                            .blockingGet();
 
             String[] roomNames = toArray(roomValues.values(), String.class);
             defaultRoomPref.setEntries(roomNames);

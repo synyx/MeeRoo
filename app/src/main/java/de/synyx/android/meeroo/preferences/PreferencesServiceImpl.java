@@ -71,6 +71,13 @@ public class PreferencesServiceImpl implements PreferencesService {
 
 
     @Override
+    public void logout() {
+
+        editor.clear().commit();
+    }
+
+
+    @Override
     public String getSelectedCalenderMode() {
 
         return sharedPreferences.getString(PREFERENCES_CALENDAR_MODE, "");
