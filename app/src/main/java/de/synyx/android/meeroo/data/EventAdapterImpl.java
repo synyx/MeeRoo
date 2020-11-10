@@ -168,7 +168,7 @@ public class EventAdapterImpl implements EventAdapter {
     }
 
 
-    private Duration parseDuration(String durationString) {
+    private Duration parseDuration(String durationString) throws NumberFormatException {
 
         if (durationString == null) {
             return null;
