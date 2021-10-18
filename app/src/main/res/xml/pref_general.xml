@@ -1,11 +1,30 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <ListPreference
-        android:defaultValue="-1"
-        android:key="defaultRoom"
-        android:title="@string/pref_default_room_title" />
+    <PreferenceCategory
+        android:title="@string/configuration">
+        <ListPreference
+            android:defaultValue="-1"
+            android:key="defaultRoom"
+            android:title="@string/pref_default_room_title" />
 
-    <MultiSelectListPreference
-        android:key="hidden_rooms"
-        android:title="@string/settings_hidden_rooms_title" />
+        <MultiSelectListPreference
+            android:key="hidden_rooms"
+            android:title="@string/settings_hidden_rooms_title" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/auto_navigation">
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="enable_auto_navigation"
+            android:title="@string/auto_navigate_to_status" />
+
+        <ListPreference
+            android:defaultValue="30"
+            android:entries="@array/auto_navigation_time_names"
+            android:entryValues="@array/auto_navigation_time_values"
+            android:key="auto_navigation_time"
+            android:summary="return to status screen"
+            android:title="@string/time_until_navigation_to_status" />
+    </PreferenceCategory>
+
 </PreferenceScreen>

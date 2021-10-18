@@ -35,7 +35,7 @@
             android:theme="@style/AppThemeDark" />
         <activity
             android:name="de.synyx.android.meeroo.screen.settings.SettingsActivity"
-            android:label="@string/title_activity_settings" />
+            android:label="@string/title_activity_settings"/>
 
     </application>
 </manifest>

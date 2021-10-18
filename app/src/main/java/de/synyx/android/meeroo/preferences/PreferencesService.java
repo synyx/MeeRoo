@@ -20,6 +20,9 @@ public interface PreferencesService {
     void saveCalendarMode(String calendarMode);
 
 
+    void saveLastSelectedRoom(long calendarId);
+
+
     String getSelectedCalenderMode();
 
 
@@ -32,5 +35,14 @@ public interface PreferencesService {
     Long getCalendarIdOfDefaultRoom();
 
 
+    Long getCalendarIdOfLastSelectedRoom();
+
+
     Set<String> getHiddenRoomIds();
+
+
+    boolean isAutoNavigationEnabled();
+
+
+    int getAutoNavigationTime();
 }
