@@ -91,9 +91,9 @@ public class LoginFragment extends Fragment {
 
         super.onViewCreated(view, savedInstanceState);
 
-        viewModel = ViewModelProviders.of(this, Registry.get(LoginViewModelFactory.class)).get(LoginViewModel.class);
+        viewModel = ViewModelProviders.of(requireActivity(), Registry.get(LoginViewModelFactory.class)).get(LoginViewModel.class);
 
-        viewModel.getLoginStep().observe(this, this::onLoginStepChanged);
+        viewModel.getLoginStep().observe(getViewLifecycleOwner(), this::onLoginStepChanged);
     }
 
 
