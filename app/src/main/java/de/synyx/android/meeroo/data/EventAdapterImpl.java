@@ -1,43 +1,35 @@
 package de.synyx.android.meeroo.data;
 
+import static de.synyx.android.meeroo.util.rx.CursorIterable.closeCursorIfLast;
+import static de.synyx.android.meeroo.util.rx.CursorIterable.fromCursor;
+
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
-
 import android.database.Cursor;
-
 import android.net.Uri;
-
 import android.provider.CalendarContract.Events;
 import android.provider.CalendarContract.Instances;
-
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-
-import de.synyx.android.meeroo.business.event.EventModel;
-import de.synyx.android.meeroo.config.Registry;
-
-import io.reactivex.Maybe;
-import io.reactivex.Observable;
-
-import io.reactivex.functions.Function;
 
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
 import org.joda.time.LocalDateTime;
 
 import java.security.AccessControlException;
-
 import java.util.Date;
 import java.util.TimeZone;
 
-import static de.synyx.android.meeroo.util.rx.CursorIterable.closeCursorIfLast;
-import static de.synyx.android.meeroo.util.rx.CursorIterable.fromCursor;
+import de.synyx.android.meeroo.business.event.EventModel;
+import io.reactivex.Maybe;
+import io.reactivex.Observable;
+import io.reactivex.functions.Function;
 
 
 /**
- * @author  Max Dobler - dobler@synyx.de
+ * @author Max Dobler - dobler@synyx.de
  */
 public class EventAdapterImpl implements EventAdapter {
 
@@ -54,11 +46,12 @@ public class EventAdapterImpl implements EventAdapter {
     public Observable<EventModel> getEventsForRoom(long roomId) {
 
         String[] projection = {
-            Instances.EVENT_ID, //
-            Instances.TITLE, //
-            Instances.BEGIN, //
-            Instances.END, //
-            Instances.DURATION
+                Instances.EVENT_ID, //
+                Instances.TITLE, //
+                Instances.BEGIN, //
+                Instances.END, //
+                Instances.DURATION, //
+                Instances.STATUS
         };
         String selection = Instances.CALENDAR_ID + " = " + roomId;
         String sortChronological = Instances.BEGIN + " ASC";
@@ -66,8 +59,9 @@ public class EventAdapterImpl implements EventAdapter {
         Cursor result = contentResolver.query(constructContentUri(), projection, selection, null, sortChronological);
 
         return Observable.fromIterable(fromCursor(result)) //
-            .doAfterNext(closeCursorIfLast()) //
-            .map(toEvent());
+                .doAfterNext(closeCursorIfLast()) //
+                .map(toEvent())
+                .filter(eventModel -> eventModel.getStatus() != Instances.STATUS_CANCELED);
     }
 
 
@@ -158,18 +152,19 @@ public class EventAdapterImpl implements EventAdapter {
     private Function<Cursor, EventModel> toEvent() {
 
         return
-            cursor -> {
-            long eventId = cursor.getLong(cursor.getColumnIndex(Instances.EVENT_ID));
-            String title = cursor.getString(cursor.getColumnIndex(Instances.TITLE));
-            long beginMillis = cursor.getLong(cursor.getColumnIndex(Instances.BEGIN));
-            long endMillis = cursor.getLong(cursor.getColumnIndex(Instances.END));
-            String durationString = cursor.getString(cursor.getColumnIndex(Instances.DURATION));
+                cursor -> {
+                    long eventId = cursor.getLong(cursor.getColumnIndex(Instances.EVENT_ID));
+                    String title = cursor.getString(cursor.getColumnIndex(Instances.TITLE));
+                    long beginMillis = cursor.getLong(cursor.getColumnIndex(Instances.BEGIN));
+                    long endMillis = cursor.getLong(cursor.getColumnIndex(Instances.END));
+                    String durationString = cursor.getString(cursor.getColumnIndex(Instances.DURATION));
+                    int status = cursor.getInt(cursor.getColumnIndex(Instances.STATUS));
 
-            DateTime begin = new DateTime(beginMillis);
-            DateTime end = new DateTime(endMillis);
+                    DateTime begin = new DateTime(beginMillis);
+                    DateTime end = new DateTime(endMillis);
 
-            return new EventModel(eventId, title, begin, end, parseDuration(durationString));
-        };
+                    return new EventModel(eventId, title, begin, end, parseDuration(durationString), status);
+                };
     }
 
 

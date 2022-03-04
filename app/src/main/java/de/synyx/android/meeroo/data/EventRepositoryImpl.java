@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 
 import de.synyx.android.meeroo.business.event.EventModel;
 import de.synyx.android.meeroo.business.event.EventRepository;
-import de.synyx.android.meeroo.config.Registry;
 
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
@@ -47,7 +46,7 @@ public class EventRepositoryImpl implements EventRepository {
         DateTime end = eventEndCache.get(event.getId());
 
         if (end != null) {
-            return new EventModel(event.getId(), event.getName(), event.getBegin(), end, null);
+            return new EventModel(event.getId(), event.getName(), event.getBegin(), end, null, event.getStatus());
         }
 
         return event;

@@ -1,7 +1,5 @@
 package de.synyx.android.meeroo.business.event;
 
-import de.synyx.android.meeroo.domain.Attendee;
-
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
 import org.joda.time.LocalDate;
@@ -10,9 +8,11 @@ import org.joda.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.synyx.android.meeroo.domain.Attendee;
+
 
 /**
- * @author  Max Dobler - dobler@synyx.de
+ * @author Max Dobler - dobler@synyx.de
  */
 public class EventModel implements Comparable<EventModel> {
 
@@ -21,15 +21,17 @@ public class EventModel implements Comparable<EventModel> {
     private final DateTime begin;
     private final DateTime end;
     private final Duration duration;
+    private int status;
     private List<Attendee> attendees = new ArrayList<>();
 
-    public EventModel(Long id, String name, DateTime begin, DateTime end, Duration duration) {
+    public EventModel(Long id, String name, DateTime begin, DateTime end, Duration duration, int status) {
 
         this.id = id;
         this.name = name;
         this.begin = begin;
         this.end = end;
         this.duration = duration;
+        this.status = status;
     }
 
     public Long getId() {
@@ -75,6 +77,9 @@ public class EventModel implements Comparable<EventModel> {
         return new Period(DateTime.now(), begin);
     }
 
+    public int getStatus() {
+        return status;
+    }
 
     @Override
     public int compareTo(EventModel other) {
