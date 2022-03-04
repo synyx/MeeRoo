@@ -137,7 +137,10 @@ public class CalendarAdapterImpl implements CalendarAdapter {
     private static Function<Cursor, RoomCalendarModel> toRoomCalendar() {
 
         return
-                cursor -> new RoomCalendarModel(getIdFrom(cursor), getNameFrom(cursor), getOwnerAccountFrom(cursor), 0);
+                cursor -> {
+                    String name = getNameFrom(cursor).split("\\(")[0]; // Remove id from shared rooms
+                    return new RoomCalendarModel(getIdFrom(cursor), name, getOwnerAccountFrom(cursor), 0);
+                };
     }
 
 
