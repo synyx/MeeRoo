@@ -180,20 +180,21 @@ public class CalendarAdapterImpl implements CalendarAdapter {
 
     private static long getIdFrom(Cursor cursor) {
 
-        return cursor.getLong(cursor.getColumnIndex(CalendarContract.Calendars._ID));
+        return cursor.getLong(cursor.getColumnIndexOrThrow(CalendarContract.Calendars._ID));
     }
 
 
+    @SuppressLint("Range")
     private static String getOwnerAccountFrom(Cursor cursor) {
 
-        return cursor.getString(cursor.getColumnIndex(CalendarContract.Calendars.OWNER_ACCOUNT));
+        return cursor.getString(cursor.getColumnIndexOrThrow(CalendarContract.Calendars.OWNER_ACCOUNT));
     }
 
 
     private static String getNameFrom(Cursor cursor) {
 
-        String name = cursor.getString(cursor.getColumnIndex(CalendarContract.Calendars.NAME));
-        String displayName = cursor.getString(cursor.getColumnIndex(CalendarContract.Calendars.CALENDAR_DISPLAY_NAME));
+        String name = cursor.getString(cursor.getColumnIndexOrThrow(CalendarContract.Calendars.NAME));
+        String displayName = cursor.getString(cursor.getColumnIndexOrThrow(CalendarContract.Calendars.CALENDAR_DISPLAY_NAME));
 
 
         return displayName != null //

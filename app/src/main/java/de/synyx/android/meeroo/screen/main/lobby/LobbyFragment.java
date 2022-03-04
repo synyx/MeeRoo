@@ -84,7 +84,7 @@ public class LobbyFragment extends Fragment {
 
         observeItemClicks(roomRecyclerAdapter);
 
-        viewModel.getRooms().observe(this, roomRecyclerAdapter::updateRooms);
+        viewModel.getRooms().observe(getViewLifecycleOwner(), roomRecyclerAdapter::updateRooms);
     }
 
 

@@ -56,7 +56,7 @@ public class AgendaFragment extends Fragment {
     private void loadData() {
 
         viewModel.getRoom() //
-        .observe(this,
+        .observe(getViewLifecycleOwner(),
             meetingRoom -> {
                 reservationsRecyclerAdapter.updateReservations(meetingRoom.getReservations());
 

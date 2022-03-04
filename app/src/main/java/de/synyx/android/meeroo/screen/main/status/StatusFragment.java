@@ -79,9 +79,9 @@ public class StatusFragment extends Fragment {
 
         super.onViewCreated(view, savedInstanceState);
 
-        viewModel = ViewModelProviders.of(getActivity()).get(MeetingRoomViewModel.class);
-        viewModel.getRoom().observe(this, this::updateStatus);
-        viewModel.getBookingResult().observe(this, this::showSnackbarOnError);
+        viewModel = ViewModelProviders.of(requireActivity()).get(MeetingRoomViewModel.class);
+        viewModel.getRoom().observe(getViewLifecycleOwner(), this::updateStatus);
+        viewModel.getBookingResult().observe(getViewLifecycleOwner(), this::showSnackbarOnError);
 
         fragmentContainer = view.findViewById(R.id.status_fragment_container);
 

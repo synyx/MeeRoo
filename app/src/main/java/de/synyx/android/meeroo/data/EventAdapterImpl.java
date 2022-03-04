@@ -153,12 +153,12 @@ public class EventAdapterImpl implements EventAdapter {
 
         return
                 cursor -> {
-                    long eventId = cursor.getLong(cursor.getColumnIndex(Instances.EVENT_ID));
-                    String title = cursor.getString(cursor.getColumnIndex(Instances.TITLE));
-                    long beginMillis = cursor.getLong(cursor.getColumnIndex(Instances.BEGIN));
-                    long endMillis = cursor.getLong(cursor.getColumnIndex(Instances.END));
-                    String durationString = cursor.getString(cursor.getColumnIndex(Instances.DURATION));
-                    int status = cursor.getInt(cursor.getColumnIndex(Instances.STATUS));
+                    long eventId = cursor.getLong(cursor.getColumnIndexOrThrow(Instances.EVENT_ID));
+                    String title = cursor.getString(cursor.getColumnIndexOrThrow(Instances.TITLE));
+                    long beginMillis = cursor.getLong(cursor.getColumnIndexOrThrow(Instances.BEGIN));
+                    long endMillis = cursor.getLong(cursor.getColumnIndexOrThrow(Instances.END));
+                    String durationString = cursor.getString(cursor.getColumnIndexOrThrow(Instances.DURATION));
+                    int status = cursor.getInt(cursor.getColumnIndexOrThrow(Instances.STATUS));
 
                     DateTime begin = new DateTime(beginMillis);
                     DateTime end = new DateTime(endMillis);

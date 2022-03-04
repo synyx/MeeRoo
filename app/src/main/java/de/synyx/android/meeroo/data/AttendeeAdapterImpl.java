@@ -69,8 +69,8 @@ public class AttendeeAdapterImpl implements AttendeeAdapter {
 
         return
             cursor -> {
-            String name = cursor.getString(cursor.getColumnIndex(Attendees.ATTENDEE_NAME));
-            int status = cursor.getInt(cursor.getColumnIndex(Attendees.ATTENDEE_STATUS));
+            String name = cursor.getString(cursor.getColumnIndexOrThrow(Attendees.ATTENDEE_NAME));
+            int status = cursor.getInt(cursor.getColumnIndexOrThrow(Attendees.ATTENDEE_STATUS));
 
             return new Attendee(name, status);
         };
