@@ -1,39 +1,32 @@
 package de.synyx.android.meeroo.data;
 
+import static de.synyx.android.meeroo.util.rx.CursorIterable.closeCursorIfLast;
+import static de.synyx.android.meeroo.util.rx.CursorIterable.fromCursor;
+
 import android.annotation.SuppressLint;
-
 import android.content.ContentResolver;
-
 import android.database.Cursor;
-
 import android.provider.CalendarContract;
-
 import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
-
-import de.synyx.android.meeroo.business.account.AccountService;
-import de.synyx.android.meeroo.business.calendar.CalendarModeService;
-import de.synyx.android.meeroo.business.calendar.RoomCalendarModel;
-import de.synyx.android.meeroo.config.Registry;
-import de.synyx.android.meeroo.domain.CalendarMode;
-import de.synyx.android.meeroo.preferences.PreferencesService;
-
-import io.reactivex.Maybe;
-import io.reactivex.Observable;
-
-import io.reactivex.functions.Function;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import static de.synyx.android.meeroo.util.rx.CursorIterable.closeCursorIfLast;
-import static de.synyx.android.meeroo.util.rx.CursorIterable.fromCursor;
+import de.synyx.android.meeroo.business.account.AccountService;
+import de.synyx.android.meeroo.business.calendar.CalendarModeService;
+import de.synyx.android.meeroo.business.calendar.RoomCalendarModel;
+import de.synyx.android.meeroo.domain.CalendarMode;
+import de.synyx.android.meeroo.preferences.PreferencesService;
+import io.reactivex.Maybe;
+import io.reactivex.Observable;
+import io.reactivex.functions.Function;
 
 
 /**
- * @author  Max Dobler - dobler@synyx.de
+ * @author Max Dobler - dobler@synyx.de
  */
 public class CalendarAdapterImpl implements CalendarAdapter {
 
@@ -45,7 +38,7 @@ public class CalendarAdapterImpl implements CalendarAdapter {
     private final PreferencesService preferencesService;
 
     public CalendarAdapterImpl(PreferencesService preferencesService, ContentResolver contentResolver,
-        CalendarModeService calendarModeService, AccountService accountService) {
+                               CalendarModeService calendarModeService, AccountService accountService) {
 
         this.preferencesService = preferencesService;
         this.contentResolver = contentResolver;
@@ -70,9 +63,9 @@ public class CalendarAdapterImpl implements CalendarAdapter {
     private Observable<RoomCalendarModel> loadRooms(boolean visibleOnly) {
 
         return
-            Observable.fromIterable(fromCursor(loadRoomCalendars(visibleOnly))) //
-            .doAfterNext(closeCursorIfLast()) //
-            .map(toRoomCalendar());
+                Observable.fromIterable(fromCursor(loadRoomCalendars(visibleOnly))) //
+                        .doAfterNext(closeCursorIfLast()) //
+                        .map(toRoomCalendar());
     }
 
 
@@ -92,10 +85,10 @@ public class CalendarAdapterImpl implements CalendarAdapter {
     private Cursor loadRoomCalendars(boolean visibleOnly) {
 
         String[] mProjection = {
-            CalendarContract.Calendars._ID, //
-            CalendarContract.Calendars.OWNER_ACCOUNT, //
-            CalendarContract.Calendars.NAME, //
-            CalendarContract.Calendars.CALENDAR_DISPLAY_NAME
+                CalendarContract.Calendars._ID, //
+                CalendarContract.Calendars.OWNER_ACCOUNT, //
+                CalendarContract.Calendars.NAME, //
+                CalendarContract.Calendars.CALENDAR_DISPLAY_NAME
         };
 
         List<String> selectionClauses = new ArrayList<>();
@@ -116,14 +109,14 @@ public class CalendarAdapterImpl implements CalendarAdapter {
     private Cursor loadRoomCalendarById(long id) {
 
         String[] mProjection = {
-            CalendarContract.Calendars._ID, //
-            CalendarContract.Calendars.OWNER_ACCOUNT, //
-            CalendarContract.Calendars.NAME, //
-            CalendarContract.Calendars.CALENDAR_DISPLAY_NAME
+                CalendarContract.Calendars._ID, //
+                CalendarContract.Calendars.OWNER_ACCOUNT, //
+                CalendarContract.Calendars.NAME, //
+                CalendarContract.Calendars.CALENDAR_DISPLAY_NAME
         };
 
         String selection = CalendarContract.Calendars._ID + " = ?";
-        String[] selectionArgs = { String.valueOf(id) };
+        String[] selectionArgs = {String.valueOf(id)};
 
         return contentResolver.query(CalendarContract.Calendars.CONTENT_URI, mProjection, selection, selectionArgs,
                 null);
@@ -144,19 +137,13 @@ public class CalendarAdapterImpl implements CalendarAdapter {
     private static Function<Cursor, RoomCalendarModel> toRoomCalendar() {
 
         return
-            cursor -> {
-            String namePlusCapacity = getNameFrom(cursor);
-            String name = RegexMatcher.removeNumberInBracketsFromString(namePlusCapacity);
-            Integer capacity = RegexMatcher.getFirstNumberInBracketsFromString(namePlusCapacity);
-
-            return new RoomCalendarModel(getIdFrom(cursor), name, getOwnerAccountFrom(cursor), capacity);
-        };
+                cursor -> new RoomCalendarModel(getIdFrom(cursor), getNameFrom(cursor), getOwnerAccountFrom(cursor), 0);
     }
 
 
     @SuppressLint("MissingPermission")
     private Cursor queryCalendarProvider(String[] mProjection, List<String> mSelectionClauses,
-        List<String> selectionArgs) {
+                                         List<String> selectionArgs) {
 
         String selection = TextUtils.join(" AND ", mSelectionClauses);
 
@@ -203,9 +190,11 @@ public class CalendarAdapterImpl implements CalendarAdapter {
     private static String getNameFrom(Cursor cursor) {
 
         String name = cursor.getString(cursor.getColumnIndex(CalendarContract.Calendars.NAME));
+        String displayName = cursor.getString(cursor.getColumnIndex(CalendarContract.Calendars.CALENDAR_DISPLAY_NAME));
 
-        return name == null //
-            ? cursor.getString(cursor.getColumnIndex(CalendarContract.Calendars.CALENDAR_DISPLAY_NAME)) //
-            : name;
+
+        return displayName != null //
+                ? displayName //
+                : name;
     }
 }
