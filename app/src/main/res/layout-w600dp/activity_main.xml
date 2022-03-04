@@ -23,13 +23,15 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="16dp"
+        android:maxLines="1"
+        android:ellipsize="end"
         android:textColor="?android:attr/textColorPrimary"
         android:textSize="@dimen/font_size_large"
         app:layout_constraintEnd_toStartOf="@+id/header_navigation"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="All Rooms"
-        tools:textColor="#fff"/>
+        tools:textColor="#fff" />
 
     <TextView
         android:id="@+id/header_clock"
@@ -41,7 +43,7 @@
         app:layout_constraintStart_toStartOf="@+id/header_title"
         app:layout_constraintTop_toBottomOf="@+id/header_title"
         tools:text="05.07.18 | 08:25"
-        tools:textColor="#fff"/>
+        tools:textColor="#fff" />
 
     <include
         android:id="@+id/header_navigation"
