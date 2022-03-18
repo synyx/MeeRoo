@@ -157,25 +157,14 @@ public class EventAdapterImpl implements EventAdapter {
                     String title = cursor.getString(cursor.getColumnIndexOrThrow(Instances.TITLE));
                     long beginMillis = cursor.getLong(cursor.getColumnIndexOrThrow(Instances.BEGIN));
                     long endMillis = cursor.getLong(cursor.getColumnIndexOrThrow(Instances.END));
-                    String durationString = cursor.getString(cursor.getColumnIndexOrThrow(Instances.DURATION));
                     int status = cursor.getInt(cursor.getColumnIndexOrThrow(Instances.STATUS));
 
                     DateTime begin = new DateTime(beginMillis);
                     DateTime end = new DateTime(endMillis);
 
-                    return new EventModel(eventId, title, begin, end, parseDuration(durationString), status);
+                    Duration duration = new Duration(begin, end);
+
+                    return new EventModel(eventId, title, begin, end, duration, status);
                 };
-    }
-
-
-    private Duration parseDuration(String durationString) throws NumberFormatException {
-
-        if (durationString == null) {
-            return null;
-        }
-
-        String substring = durationString.substring(1, durationString.length() - 1);
-
-        return Duration.standardSeconds(Long.valueOf(substring));
     }
 }
