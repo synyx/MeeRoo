@@ -20,9 +20,9 @@ public class EventModel implements Comparable<EventModel> {
     private final String name;
     private final DateTime begin;
     private final DateTime end;
-    private int status;
+    private final int status;
     private final boolean isRecurring;
-    private List<Attendee> attendees = new ArrayList<>();
+    private final List<Attendee> attendees = new ArrayList<>();
 
     public EventModel(Long id, String name, DateTime begin, DateTime end, int status, boolean isRecurring) {
 
