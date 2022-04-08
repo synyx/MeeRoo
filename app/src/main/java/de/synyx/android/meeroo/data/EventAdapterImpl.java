@@ -51,7 +51,8 @@ public class EventAdapterImpl implements EventAdapter {
                 Instances.BEGIN, //
                 Instances.END, //
                 Instances.DURATION, //
-                Instances.STATUS
+                Instances.STATUS, //
+                Instances.RRULE
         };
         String selection = Instances.CALENDAR_ID + " = " + roomId;
         String sortChronological = Instances.BEGIN + " ASC";
@@ -157,14 +158,13 @@ public class EventAdapterImpl implements EventAdapter {
                     String title = cursor.getString(cursor.getColumnIndexOrThrow(Instances.TITLE));
                     long beginMillis = cursor.getLong(cursor.getColumnIndexOrThrow(Instances.BEGIN));
                     long endMillis = cursor.getLong(cursor.getColumnIndexOrThrow(Instances.END));
+                    String recurring = cursor.getString(cursor.getColumnIndexOrThrow(Instances.RRULE));
                     int status = cursor.getInt(cursor.getColumnIndexOrThrow(Instances.STATUS));
 
                     DateTime begin = new DateTime(beginMillis);
                     DateTime end = new DateTime(endMillis);
 
-                    Duration duration = new Duration(begin, end);
-
-                    return new EventModel(eventId, title, begin, end, duration, status);
+                    return new EventModel(eventId, title, begin, end, status, recurring != null);
                 };
     }
 }

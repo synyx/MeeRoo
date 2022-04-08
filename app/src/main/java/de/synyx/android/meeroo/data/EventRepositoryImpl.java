@@ -46,7 +46,7 @@ public class EventRepositoryImpl implements EventRepository {
         DateTime end = eventEndCache.get(event.getId());
 
         if (end != null) {
-            return new EventModel(event.getId(), event.getName(), event.getBegin(), end, null, event.getStatus());
+            return new EventModel(event.getId(), event.getName(), event.getBegin(), end, event.getStatus(), event.isRecurring());
         }
 
         return event;
