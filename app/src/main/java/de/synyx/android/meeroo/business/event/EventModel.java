@@ -20,18 +20,18 @@ public class EventModel implements Comparable<EventModel> {
     private final String name;
     private final DateTime begin;
     private final DateTime end;
-    private final Duration duration;
     private int status;
+    private final boolean isRecurring;
     private List<Attendee> attendees = new ArrayList<>();
 
-    public EventModel(Long id, String name, DateTime begin, DateTime end, Duration duration, int status) {
+    public EventModel(Long id, String name, DateTime begin, DateTime end, int status, boolean isRecurring) {
 
         this.id = id;
         this.name = name;
         this.begin = begin;
         this.end = end;
-        this.duration = duration;
         this.status = status;
+        this.isRecurring = isRecurring;
     }
 
     public Long getId() {
@@ -118,14 +118,8 @@ public class EventModel implements Comparable<EventModel> {
     }
 
 
-    public Duration getDuration() {
-
-        return duration;
-    }
-
-
     public boolean isRecurring() {
 
-        return duration != null;
+        return isRecurring;
     }
 }
