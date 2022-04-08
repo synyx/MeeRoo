@@ -3,6 +3,7 @@ package de.synyx.android.meeroo.data;
 import static de.synyx.android.meeroo.util.rx.CursorIterable.closeCursorIfLast;
 import static de.synyx.android.meeroo.util.rx.CursorIterable.fromCursor;
 
+import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -127,6 +128,7 @@ public class EventAdapterImpl implements EventAdapter {
     }
 
 
+    @SuppressLint("DefaultLocale")
     @NonNull
     private String getNewDuration(DateTime start, DateTime end) {
 
