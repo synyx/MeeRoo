@@ -110,9 +110,8 @@ public class EventAdapterImpl implements EventAdapter {
         ContentUris.appendId(eventUriBuilder, eventId);
 
         final Uri resultUri = contentResolver.insert(eventUriBuilder.build(), values);
-        Integer.parseInt(resultUri.getLastPathSegment());
 
-        return true;
+        return resultUri != null;
     }
 
 
