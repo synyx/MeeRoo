@@ -3,7 +3,7 @@ name: MeeRoo CI
 on: [push]
 
 jobs:
-  build:
+  build-and-test:
 
     runs-on: ubuntu-latest
 
@@ -15,3 +15,5 @@ jobs:
         java-version: 11
     - name: Build with Gradle
       run: ./gradlew build
+    - name: Run Unit Tests
+      run: ./gradlew testDebugUnitTest
