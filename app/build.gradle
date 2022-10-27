@@ -38,10 +38,10 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
     //ViewModel and LiveData (AAC)
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
-    implementation 'androidx.lifecycle:lifecycle-reactivestreams:2.4.1'
-    annotationProcessor 'androidx.lifecycle:lifecycle-compiler:2.4.1'
+    implementation 'androidx.lifecycle:lifecycle-reactivestreams:2.5.1'
+    annotationProcessor 'androidx.lifecycle:lifecycle-compiler:2.5.1'
 
     //rxjava2
     implementation 'io.reactivex.rxjava2:rxjava:2.2.2'
