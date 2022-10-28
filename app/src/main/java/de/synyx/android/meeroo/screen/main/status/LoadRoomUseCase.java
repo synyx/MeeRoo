@@ -28,24 +28,24 @@ public class LoadRoomUseCase {
     public Maybe<MeetingRoom> execute(long calendarId) {
 
         return roomCalendarRepository.loadRoom(calendarId)
-            .map(roomCalendar -> new MeetingRoom(roomCalendar.getCalendarId(), roomCalendar.getName()))
-            .flatMap(this::addReservations);
+                .map(roomCalendar -> new MeetingRoom(roomCalendar.getCalendarId(), roomCalendar.getName()))
+                .flatMap(this::loadReservations);
     }
 
 
-    private Maybe<MeetingRoom> addReservations(MeetingRoom meetingRoom) {
+    private Maybe<MeetingRoom> loadReservations(MeetingRoom meetingRoom) {
 
         return loadEventsFor(meetingRoom) //
-            .map(event ->
+                .map(event ->
                         new Reservation(event.getId(), event.getName(), event.getBegin(), event.getEnd(),
-                            event.isRecurring())) //
-            .collectInto(meetingRoom, MeetingRoom::addReservation) //
-            .toMaybe();
+                                event.isRecurring())) //
+                .collectInto(meetingRoom, MeetingRoom::addReservation) //
+                .toMaybe();
     }
 
 
     private Observable<EventModel> loadEventsFor(MeetingRoom meetingRoom) {
 
-        return eventRepository.loadAllEventsForRoom(meetingRoom.getCalendarId());
+        return eventRepository.loadAllEventsForRoom(meetingRoom.getCalendarId(), 2);
     }
 }

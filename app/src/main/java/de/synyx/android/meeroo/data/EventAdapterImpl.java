@@ -44,7 +44,7 @@ public class EventAdapterImpl implements EventAdapter {
     }
 
     @Override
-    public Observable<EventModel> getEventsForRoom(long roomId) {
+    public Observable<EventModel> getEventsForRoom(long roomId, int days) {
 
         String[] projection = {
                 Instances.EVENT_ID, //
@@ -58,7 +58,7 @@ public class EventAdapterImpl implements EventAdapter {
         String selection = Instances.CALENDAR_ID + " = " + roomId;
         String sortChronological = Instances.BEGIN + " ASC";
 
-        Cursor result = contentResolver.query(constructContentUri(), projection, selection, null, sortChronological);
+        Cursor result = contentResolver.query(constructContentUri(days), projection, selection, null, sortChronological);
 
         return Observable.fromIterable(fromCursor(result)) //
                 .doAfterNext(closeCursorIfLast()) //
@@ -138,11 +138,15 @@ public class EventAdapterImpl implements EventAdapter {
     }
 
 
-    private Uri constructContentUri() {
+    private Uri constructContentUri(int days) {
 
         Uri.Builder builder = Instances.CONTENT_URI.buildUpon();
         long now = new Date().getTime();
-        long endOfDay = LocalDateTime.now().withTime(23, 59, 59, 999).toDate().getTime();
+        long endOfDay = LocalDateTime
+                .now()
+                .plusDays(days - 1)
+                .withTime(23, 59, 59, 999)
+                .toDate().getTime();
         ContentUris.appendId(builder, now);
         ContentUris.appendId(builder, endOfDay);
 

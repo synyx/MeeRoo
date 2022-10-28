@@ -2,21 +2,19 @@ package de.synyx.android.meeroo.data;
 
 import androidx.annotation.NonNull;
 
-import de.synyx.android.meeroo.business.event.EventModel;
-import de.synyx.android.meeroo.business.event.EventRepository;
-
-import io.reactivex.Maybe;
-import io.reactivex.Observable;
-
-import io.reactivex.functions.Function;
-
 import org.joda.time.DateTime;
 
 import java.util.concurrent.ConcurrentHashMap;
 
+import de.synyx.android.meeroo.business.event.EventModel;
+import de.synyx.android.meeroo.business.event.EventRepository;
+import io.reactivex.Maybe;
+import io.reactivex.Observable;
+import io.reactivex.functions.Function;
+
 
 /**
- * @author  Max Dobler - dobler@synyx.de
+ * @author Max Dobler - dobler@synyx.de
  */
 public class EventRepositoryImpl implements EventRepository {
 
@@ -35,11 +33,17 @@ public class EventRepositoryImpl implements EventRepository {
     @Override
     public Observable<EventModel> loadAllEventsForRoom(long roomId) {
 
-        return eventAdapter.getEventsForRoom(roomId) //
-            .map(this::setEndIfCached)
-            .flatMap(loadAttendees());
+        return loadAllEventsForRoom(roomId, 1);
     }
 
+
+    @Override
+    public Observable<EventModel> loadAllEventsForRoom(long roomId, int days) {
+
+        return eventAdapter.getEventsForRoom(roomId, days) //
+                .map(this::setEndIfCached)
+                .flatMap(loadAttendees());
+    }
 
     private EventModel setEndIfCached(EventModel event) {
 
@@ -73,8 +77,8 @@ public class EventRepositoryImpl implements EventRepository {
     private Function<EventModel, Observable<EventModel>> loadAttendees() {
 
         return
-            event ->
-                attendeeAdapter.getAttendeesForEvent(event.getId())
-                .collectInto(event, EventModel::addAttendee).toObservable();
+                event ->
+                        attendeeAdapter.getAttendeesForEvent(event.getId())
+                                .collectInto(event, EventModel::addAttendee).toObservable();
     }
 }
