@@ -3,8 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="16dp"
-    android:paddingBottom="16dp">
+    android:background="@color/background_dark"
+    android:paddingVertical="16dp"
+    android:paddingHorizontal="32dp"
+    android:layout_marginVertical="1dp">
 
     <TextView
         android:id="@+id/reservation_title"

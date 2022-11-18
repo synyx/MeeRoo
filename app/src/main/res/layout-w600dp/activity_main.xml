@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="0dp"
-    android:background="@color/background_dark"
+    android:background="@color/background_black"
     android:padding="0dp"
     tools:context="de.synyx.android.meeroo.screen.main.MainActivity">
 
@@ -21,7 +21,7 @@
         android:id="@+id/header_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
         android:maxLines="1"
         android:ellipsize="end"
