@@ -88,5 +88,7 @@
     <string name="confirm">Confirm</string>
     <string name="recommended_for_google">Recommended for Google calender</string>
     <string name="recommended_for_caldav">Recommended for CalDAV calender</string>
+    <string name="today">Today</string>
+    <string name="tomorrow">Tomorrow</string>
 
 </resources>

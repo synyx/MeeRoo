@@ -49,11 +49,11 @@ class Agenda {
     fun getCurrentMeeting() = reservations.firstOrNull { it.isCurrentlyActive }
 
 
-    fun getUpcomingReservation() = reservations.firstOrNull { it.isUpcoming }
+    fun getUpcomingReservation() = getReservationsToday().firstOrNull { it.isUpcoming }
 
 
     fun getSecondUpcomingReservation() =
-            reservations
+      getReservationsToday()
                     .filter { it.isUpcoming }
                     .drop(1)
                     .firstOrNull()
@@ -68,14 +68,16 @@ class Agenda {
     fun getReservations(): List<Reservation> = unmodifiableList<Reservation>(reservations)
 
 
-    fun hasCurrentReservation() = reservations.any { it.isCurrentlyActive }
+  fun hasCurrentReservation() = reservations.any { it.isCurrentlyActive }
 
 
-    private fun sumTimeOfOngoingReservations(): (TimeSpan, TimeSpan) -> TimeSpan {
+  private fun sumTimeOfOngoingReservations(): (TimeSpan, TimeSpan) -> TimeSpan {
 
-        return { available, nextTimeSpan ->
-            if (nextTimeSpan.begin.isAfter(available.end)) available
-            else TimeSpan(available.begin, nextTimeSpan.end)
-        }
+    return { available, nextTimeSpan ->
+      if (nextTimeSpan.begin.isAfter(available.end)) available
+      else TimeSpan(available.begin, nextTimeSpan.end)
     }
+  }
+
+  public fun getReservationsToday() = reservations.filter { it.isToday }
 }

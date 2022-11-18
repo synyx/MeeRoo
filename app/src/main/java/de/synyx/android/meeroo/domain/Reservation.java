@@ -110,6 +110,10 @@ public class Reservation extends TimeSpan implements Comparable<Reservation> {
         return begin.isAfter(timeProvider.now());
     }
 
+    public boolean isToday() {
+        return begin.withTimeAtStartOfDay().equals(timeProvider.now().withTimeAtStartOfDay());
+    }
+
 
     public String getTitle() {
 

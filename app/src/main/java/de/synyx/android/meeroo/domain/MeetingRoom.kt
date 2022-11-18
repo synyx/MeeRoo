@@ -42,7 +42,7 @@ class MeetingRoom(val calendarId: Long, val name: String) {
     fun getUpcomingReservation(): Reservation? = agenda.getUpcomingReservation()
 
 
-    fun getReservations(): List<Reservation> = agenda.getReservations();
+    fun getReservations(): List<Reservation> = agenda.getReservations()
 
 
     fun getAvailabilityTime(): Duration? {

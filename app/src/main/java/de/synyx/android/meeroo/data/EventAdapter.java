@@ -13,7 +13,7 @@ import org.joda.time.DateTime;
  */
 public interface EventAdapter {
 
-    Observable<EventModel> getEventsForRoom(long roomId);
+    Observable<EventModel> getEventsForRoom(long roomId, int days);
 
 
     Maybe<Long> insertEvent(long calendarId, DateTime start, DateTime end, String title);
