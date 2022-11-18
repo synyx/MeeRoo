@@ -6,6 +6,7 @@ import de.synyx.android.meeroo.domain.Reservation
 import android.widget.TextView
 import de.synyx.android.meeroo.R
 import org.joda.time.DateTime
+import org.joda.time.LocalDate
 import org.joda.time.format.DateTimeFormat
 
 /**
@@ -37,6 +38,12 @@ class ReservationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) 
 class DateHeaderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
   fun bind(dateHeader: AgendaListItem.DateHeader) {
-    itemView.findViewById<TextView>(R.id.date_header).text = dateHeader.dateTime.toString()
+    val label = when (dateHeader.dateTime) {
+      LocalDate() -> itemView.context.getString(R.string.today)
+      LocalDate().plusDays(1) -> itemView.context.getString(R.string.tomorrow)
+      else -> DateTimeFormat.fullDate().print(dateHeader.dateTime)
+    }
+
+    itemView.findViewById<TextView>(R.id.date_header).text = label
   }
 }
