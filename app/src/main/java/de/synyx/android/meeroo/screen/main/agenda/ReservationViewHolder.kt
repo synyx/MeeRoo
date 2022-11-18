@@ -12,9 +12,9 @@ import org.joda.time.format.DateTimeFormat
  * @author  Max Dobler - dobler@synyx.de
  */
 class ReservationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-  fun bind(reservation: Reservation) {
-    setTitle(reservation)
-    setTimespan(reservation)
+  fun bind(item: AgendaListItem.ReservationItem) {
+    setTitle(item.reservation)
+    setTimespan(item.reservation)
   }
 
   private fun setTitle(reservation: Reservation) {
@@ -31,5 +31,12 @@ class ReservationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) 
 
   private fun formatTime(dateTime: DateTime): String {
     return DateTimeFormat.forPattern("HH:mm").print(dateTime)
+  }
+}
+
+class DateHeaderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+  fun bind(dateHeader: AgendaListItem.DateHeader) {
+    itemView.findViewById<TextView>(R.id.date_header).text = dateHeader.dateTime.toString()
   }
 }
