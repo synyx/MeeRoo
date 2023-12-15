@@ -1,5 +1,8 @@
 package de.synyx.android.meeroo.screen.settings;
 
+import static android.app.PendingIntent.FLAG_MUTABLE;
+import static android.content.Context.ALARM_SERVICE;
+
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -126,8 +129,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
             Intent loginActivityIntent = new Intent(getContext(), LoginActivity.class);
             int pendingIntentId = 123; // id not needed
-            PendingIntent pendingIntent = PendingIntent.getActivity(getContext(), pendingIntentId, loginActivityIntent, PendingIntent.FLAG_CANCEL_CURRENT);
-            AlarmManager alarmManager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
+            PendingIntent pendingIntent = PendingIntent.getActivity(getContext(), pendingIntentId, loginActivityIntent, FLAG_MUTABLE);
+            AlarmManager alarmManager = (AlarmManager) getContext().getSystemService(ALARM_SERVICE);
             final int delay = 150;
             alarmManager.set(AlarmManager.RTC, System.currentTimeMillis() + delay, pendingIntent);
             System.exit(0);
