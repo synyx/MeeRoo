@@ -1,35 +1,28 @@
 package de.synyx.android.meeroo.screen.settings;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Context;
+import static de.synyx.android.meeroo.util.functional.FunctionUtils.mapToArray;
+import static de.synyx.android.meeroo.util.functional.FunctionUtils.toArray;
+import static de.synyx.android.meeroo.util.functional.FunctionUtils.toMap;
+
 import android.content.Intent;
 import android.os.Bundle;
-
 import android.preference.ListPreference;
 import android.preference.MultiSelectListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
-
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
-
 import androidx.appcompat.app.ActionBar;
+
+import java.util.Map;
 
 import de.synyx.android.meeroo.R;
 import de.synyx.android.meeroo.config.Registry;
 import de.synyx.android.meeroo.domain.MeetingRoom;
 import de.synyx.android.meeroo.preferences.PreferencesService;
-import de.synyx.android.meeroo.preferences.PreferencesServiceImpl;
 import de.synyx.android.meeroo.screen.login.LoginActivity;
-
-import java.util.Map;
-
-import static de.synyx.android.meeroo.util.functional.FunctionUtils.mapToArray;
-import static de.synyx.android.meeroo.util.functional.FunctionUtils.toArray;
-import static de.synyx.android.meeroo.util.functional.FunctionUtils.toMap;
 
 
 public class SettingsActivity extends AppCompatPreferenceActivity {
@@ -118,19 +111,14 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         private boolean logout(Preference preference) {
 
             Registry.get(PreferencesService.class).logout();
-            restartApplication();
+            navigateToLogin();
             return true;
         }
 
-        private void restartApplication() {
-
-            Intent loginActivityIntent = new Intent(getContext(), LoginActivity.class);
-            int pendingIntentId = 123; // id not needed
-            PendingIntent pendingIntent = PendingIntent.getActivity(getContext(), pendingIntentId, loginActivityIntent, PendingIntent.FLAG_CANCEL_CURRENT);
-            AlarmManager alarmManager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
-            final int delay = 150;
-            alarmManager.set(AlarmManager.RTC, System.currentTimeMillis() + delay, pendingIntent);
-            System.exit(0);
+        private void navigateToLogin() {
+            Intent intent = new Intent(getContext(), LoginActivity.class);
+            getContext().startActivity(intent);
+            getActivity().finish();
         }
 
 
