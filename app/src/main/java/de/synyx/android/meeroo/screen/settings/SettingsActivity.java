@@ -1,38 +1,31 @@
 package de.synyx.android.meeroo.screen.settings;
 
 import static android.app.PendingIntent.FLAG_MUTABLE;
-import static android.content.Context.ALARM_SERVICE;
+import static de.synyx.android.meeroo.util.functional.FunctionUtils.mapToArray;
+import static de.synyx.android.meeroo.util.functional.FunctionUtils.toArray;
+import static de.synyx.android.meeroo.util.functional.FunctionUtils.toMap;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-
 import android.preference.ListPreference;
 import android.preference.MultiSelectListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
-
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
-
 import androidx.appcompat.app.ActionBar;
+
+import java.util.Map;
 
 import de.synyx.android.meeroo.R;
 import de.synyx.android.meeroo.config.Registry;
 import de.synyx.android.meeroo.domain.MeetingRoom;
 import de.synyx.android.meeroo.preferences.PreferencesService;
-import de.synyx.android.meeroo.preferences.PreferencesServiceImpl;
 import de.synyx.android.meeroo.screen.login.LoginActivity;
-
-import java.util.Map;
-
-import static de.synyx.android.meeroo.util.functional.FunctionUtils.mapToArray;
-import static de.synyx.android.meeroo.util.functional.FunctionUtils.toArray;
-import static de.synyx.android.meeroo.util.functional.FunctionUtils.toMap;
 
 
 public class SettingsActivity extends AppCompatPreferenceActivity {
