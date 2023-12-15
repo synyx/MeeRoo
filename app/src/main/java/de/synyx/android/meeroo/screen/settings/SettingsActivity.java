@@ -1,12 +1,9 @@
 package de.synyx.android.meeroo.screen.settings;
 
-import static android.app.PendingIntent.FLAG_MUTABLE;
 import static de.synyx.android.meeroo.util.functional.FunctionUtils.mapToArray;
 import static de.synyx.android.meeroo.util.functional.FunctionUtils.toArray;
 import static de.synyx.android.meeroo.util.functional.FunctionUtils.toMap;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.ListPreference;
@@ -114,19 +111,14 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         private boolean logout(Preference preference) {
 
             Registry.get(PreferencesService.class).logout();
-            restartApplication();
+            navigateToLogin();
             return true;
         }
 
-        private void restartApplication() {
-
-            Intent loginActivityIntent = new Intent(getContext(), LoginActivity.class);
-            int pendingIntentId = 123; // id not needed
-            PendingIntent pendingIntent = PendingIntent.getActivity(getContext(), pendingIntentId, loginActivityIntent, FLAG_MUTABLE);
-            AlarmManager alarmManager = (AlarmManager) getContext().getSystemService(ALARM_SERVICE);
-            final int delay = 150;
-            alarmManager.set(AlarmManager.RTC, System.currentTimeMillis() + delay, pendingIntent);
-            System.exit(0);
+        private void navigateToLogin() {
+            Intent intent = new Intent(getContext(), LoginActivity.class);
+            getContext().startActivity(intent);
+            getActivity().finish();
         }
 
 
