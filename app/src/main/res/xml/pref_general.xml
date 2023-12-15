@@ -1,15 +1,24 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <ListPreference
-        android:defaultValue="-1"
-        android:key="defaultRoom"
-        android:title="@string/pref_default_room_title" />
+    <PreferenceCategory android:title="@string/settings_general">
+        <ListPreference
+            android:defaultValue="-1"
+            android:key="defaultRoom"
+            android:title="@string/pref_default_room_title" />
 
-    <MultiSelectListPreference
-        android:key="hidden_rooms"
-        android:title="@string/settings_hidden_rooms_title" />
+        <MultiSelectListPreference
+            android:key="hidden_rooms"
+            android:title="@string/settings_hidden_rooms_title" />
 
-    <Preference
-        android:key="logout"
-        android:title="Logout" />
+        <Preference
+            android:key="logout"
+            android:title="Logout" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/settings_about">
+        <Preference
+            android:key="version"
+            android:title="Version"
+            android:selectable="false"></Preference>
+    </PreferenceCategory>
 </PreferenceScreen>

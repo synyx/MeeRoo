@@ -1,5 +1,6 @@
 package de.synyx.android.meeroo.screen.settings;
 
+import static de.synyx.android.meeroo.BuildConfig.VERSION_NAME;
 import static de.synyx.android.meeroo.util.functional.FunctionUtils.mapToArray;
 import static de.synyx.android.meeroo.util.functional.FunctionUtils.toArray;
 import static de.synyx.android.meeroo.util.functional.FunctionUtils.toMap;
@@ -106,6 +107,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
             Preference button = findPreference("logout");
             button.setOnPreferenceClickListener(this::logout);
+
+            findPreference("version").setSummary(VERSION_NAME);
         }
 
         private boolean logout(Preference preference) {
