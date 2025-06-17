@@ -61,7 +61,7 @@ dependencies {
     implementation 'com.squareup.sqlbrite3:sqlbrite:3.2.0'
     implementation 'com.jakewharton.rxbinding2:rxbinding-appcompat-v7:2.2.0'
 
-    implementation 'joda-time:joda-time:2.12.6'
+    implementation 'joda-time:joda-time:2.14.0'
 
     //Tests
     testImplementation 'junit:junit:4.13.2'
