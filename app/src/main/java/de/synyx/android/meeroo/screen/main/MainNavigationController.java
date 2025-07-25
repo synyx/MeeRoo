@@ -25,8 +25,7 @@ class MainNavigationController {
     static final String SELECTED_FRAGMENT_LOBBY = "selected_lobby";
 
     private String selectedFragment;
-
-    private Context context;
+    private final Context context;
 
     MainNavigationController(Context context, String initialFragment) {
 
@@ -41,27 +40,31 @@ class MainNavigationController {
         }
     }
 
+
     void navigateLobby() {
 
-        selectedFragment = SELECTED_FRAGMENT_LOBBY;
-
-        replaceFragment(LobbyFragment.newInstance());
+        if(!SELECTED_FRAGMENT_LOBBY.equals(selectedFragment)) {
+            selectedFragment = SELECTED_FRAGMENT_LOBBY;
+            replaceFragment(LobbyFragment.newInstance());
+        }
     }
 
 
     void navigateAgenda() {
 
-        selectedFragment = SELECTED_FRAGMENT_AGENDA;
-
-        replaceFragment(AgendaFragment.newInstance());
+        if(!SELECTED_FRAGMENT_AGENDA.equals(selectedFragment)) {
+            selectedFragment = SELECTED_FRAGMENT_AGENDA;
+            replaceFragment(AgendaFragment.newInstance());
+        }
     }
 
 
     void navigateStatus() {
 
-        selectedFragment = SELECTED_FRAGMENT_STATUS;
-
-        replaceFragment(StatusFragment.newInstance());
+        if(!SELECTED_FRAGMENT_STATUS.equals(selectedFragment)) {
+            selectedFragment = SELECTED_FRAGMENT_STATUS;
+            replaceFragment(StatusFragment.newInstance());
+        }
     }
 
 
