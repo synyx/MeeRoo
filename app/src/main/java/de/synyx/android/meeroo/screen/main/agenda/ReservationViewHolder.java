@@ -12,6 +12,7 @@ import de.synyx.android.meeroo.R;
 import de.synyx.android.meeroo.domain.Reservation;
 
 import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 
 import static java.lang.String.format;
@@ -52,6 +53,11 @@ class ReservationViewHolder extends RecyclerView.ViewHolder {
 
     private String formatTime(DateTime dateTime) {
 
-        return DateTimeFormat.forPattern("HH:mm").print(dateTime);
+        if(dateTime.toLocalDate().equals(LocalDate.now())){
+            return DateTimeFormat.forPattern("HH:mm").print(dateTime);
+        }else{
+            return DateTimeFormat.forPattern("d.MM HH:mm").print(dateTime);
+        }
+
     }
 }
