@@ -4,9 +4,9 @@ import android.database.Cursor;
 
 import androidx.annotation.NonNull;
 
-import io.reactivex.functions.Consumer;
-
 import java.util.Iterator;
+
+import io.reactivex.rxjava3.functions.Consumer;
 
 
 /**

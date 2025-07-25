@@ -23,8 +23,8 @@ import de.synyx.android.meeroo.R;
 import de.synyx.android.meeroo.screen.ScreenSize;
 import de.synyx.android.meeroo.screen.main.MainActivity;
 import de.synyx.android.meeroo.screen.main.status.TimeTickReceiver;
+import io.reactivex.rxjava3.disposables.Disposable;
 
-import io.reactivex.disposables.Disposable;
 
 import static de.synyx.android.meeroo.util.ui.ScreenUtil.getSizeOfScreen;
 

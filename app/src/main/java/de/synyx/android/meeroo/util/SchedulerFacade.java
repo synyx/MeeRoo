@@ -1,6 +1,6 @@
 package de.synyx.android.meeroo.util;
 
-import io.reactivex.Scheduler;
+import io.reactivex.rxjava3.core.Scheduler;
 
 
 /**

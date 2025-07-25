@@ -24,9 +24,9 @@ import java.util.Date;
 import java.util.TimeZone;
 
 import de.synyx.android.meeroo.business.event.EventModel;
-import io.reactivex.Maybe;
-import io.reactivex.Observable;
-import io.reactivex.functions.Function;
+import io.reactivex.rxjava3.core.Maybe;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.functions.Function;
 
 
 /**

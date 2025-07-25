@@ -1,8 +1,7 @@
 package de.synyx.android.meeroo.data;
 
 import de.synyx.android.meeroo.domain.Attendee;
-
-import io.reactivex.Observable;
+import io.reactivex.rxjava3.core.Observable;
 
 
 /**

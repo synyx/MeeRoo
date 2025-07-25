@@ -9,9 +9,8 @@ import de.synyx.android.meeroo.business.event.EventRepository;
 import de.synyx.android.meeroo.config.Registry;
 import de.synyx.android.meeroo.domain.MeetingRoom;
 import de.synyx.android.meeroo.domain.Reservation;
-
-import io.reactivex.Observable;
-import io.reactivex.Single;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.Single;
 
 import java.util.ArrayList;
 import java.util.List;
