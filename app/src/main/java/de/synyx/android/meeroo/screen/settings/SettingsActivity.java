@@ -129,20 +129,5 @@ public class SettingsActivity extends FullscreenActivity {
 
             return defaultRoomPref;
         }
-
-
-        @Override
-        public boolean onOptionsItemSelected(MenuItem item) {
-
-            int id = item.getItemId();
-
-            if (id == android.R.id.home) {
-                getActivity().onBackPressed();
-
-                return true;
-            }
-
-            return super.onOptionsItemSelected(item);
-        }
     }
 }
