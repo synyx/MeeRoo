@@ -53,7 +53,6 @@ dependencies {
     //rxjava2
     implementation 'io.reactivex.rxjava2:rxjava:2.2.21'
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
-    implementation 'com.squareup.sqlbrite3:sqlbrite:3.2.0'
     implementation 'com.jakewharton.rxbinding2:rxbinding-appcompat-v7:2.2.0'
 
     implementation 'joda-time:joda-time:2.14.0'
