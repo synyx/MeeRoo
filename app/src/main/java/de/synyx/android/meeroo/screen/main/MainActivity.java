@@ -1,5 +1,7 @@
 package de.synyx.android.meeroo.screen.main;
 
+import static org.joda.time.Duration.standardMinutes;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -9,6 +11,7 @@ import android.widget.TextView;
 import androidx.lifecycle.ViewModelProviders;
 
 import org.joda.time.Duration;
+import org.joda.time.Instant;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -40,6 +43,8 @@ public class MainActivity extends FullscreenActivity implements LobbyFragment.Ro
     protected MeetingRoomViewModel roomViewModel;
     private TimeTickReceiver timeTickReceiver;
     private AccountService accountService;
+
+    private Instant lastUserInteraction = Instant.now();
 
     @SuppressLint("CheckResult")
     @Override
@@ -100,6 +105,13 @@ public class MainActivity extends FullscreenActivity implements LobbyFragment.Ro
         accountService.syncCalendar();
         roomViewModel.tick();
         setClock();
+        navigateToStatusOnInactivity();
+    }
+
+    private void navigateToStatusOnInactivity() {
+        if(roomViewModel.getRoom().getValue()!=null && lastUserInteraction.isBefore(Instant.now().minus(standardMinutes(1)))){
+            navigationController.navigateStatus();
+        }
     }
 
 
@@ -137,6 +149,11 @@ public class MainActivity extends FullscreenActivity implements LobbyFragment.Ro
         unregisterReceiver(timeTickReceiver);
     }
 
+    @Override
+    public void onUserInteraction() {
+        super.onUserInteraction();
+        lastUserInteraction = Instant.now();
+    }
 
     @Override
     public void onRoomSelected(long calendarId) {
