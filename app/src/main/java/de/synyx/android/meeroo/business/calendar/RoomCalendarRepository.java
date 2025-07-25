@@ -1,8 +1,8 @@
 package de.synyx.android.meeroo.business.calendar;
 
-import io.reactivex.Maybe;
-import io.reactivex.Observable;
 
+import io.reactivex.rxjava3.core.Maybe;
+import io.reactivex.rxjava3.core.Observable;
 
 /**
  * @author  Max Dobler - dobler@synyx.de

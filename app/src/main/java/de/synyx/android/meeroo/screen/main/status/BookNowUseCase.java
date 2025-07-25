@@ -7,8 +7,7 @@ import de.synyx.android.meeroo.domain.BookingResult;
 import de.synyx.android.meeroo.domain.MeetingRoom;
 import de.synyx.android.meeroo.domain.Reservation;
 import de.synyx.android.meeroo.util.TimeProvider;
-
-import io.reactivex.Maybe;
+import io.reactivex.rxjava3.core.Maybe;
 
 import org.joda.time.DateTime;
 import org.joda.time.Duration;

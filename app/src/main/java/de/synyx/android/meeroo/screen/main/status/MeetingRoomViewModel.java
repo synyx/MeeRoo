@@ -12,8 +12,7 @@ import de.synyx.android.meeroo.domain.BookingResult;
 import de.synyx.android.meeroo.domain.MeetingRoom;
 import de.synyx.android.meeroo.util.SchedulerFacade;
 import de.synyx.android.meeroo.util.livedata.SingleEvent;
-
-import io.reactivex.disposables.Disposable;
+import io.reactivex.rxjava3.disposables.Disposable;
 
 import org.joda.time.Duration;
 

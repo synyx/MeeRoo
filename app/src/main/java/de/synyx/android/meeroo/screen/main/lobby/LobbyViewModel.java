@@ -7,8 +7,7 @@ import androidx.lifecycle.ViewModel;
 import de.synyx.android.meeroo.config.Registry;
 import de.synyx.android.meeroo.domain.MeetingRoom;
 import de.synyx.android.meeroo.util.SchedulerFacade;
-
-import io.reactivex.disposables.Disposable;
+import io.reactivex.rxjava3.disposables.Disposable;
 
 import java.util.List;
 

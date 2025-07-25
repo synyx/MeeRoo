@@ -7,12 +7,9 @@ import android.database.Cursor;
 
 import android.provider.CalendarContract.Attendees;
 
-import de.synyx.android.meeroo.config.Registry;
 import de.synyx.android.meeroo.domain.Attendee;
-
-import io.reactivex.Observable;
-
-import io.reactivex.functions.Function;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.functions.Function;
 
 import static de.synyx.android.meeroo.util.rx.CursorIterable.closeCursorIfLast;
 import static de.synyx.android.meeroo.util.rx.CursorIterable.fromCursor;

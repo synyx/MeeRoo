@@ -7,15 +7,17 @@ import static de.synyx.android.meeroo.util.functional.FunctionUtils.toMap;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.preference.ListPreference;
-import android.preference.MultiSelectListPreference;
-import android.preference.Preference;
-import android.preference.PreferenceFragment;
-import android.preference.PreferenceManager;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.Toolbar;
+import androidx.preference.ListPreference;
+import androidx.preference.MultiSelectListPreference;
+import androidx.preference.Preference;
+import androidx.preference.PreferenceFragmentCompat;
+import androidx.preference.PreferenceManager;
 
 import java.util.Map;
 
@@ -23,17 +25,36 @@ import de.synyx.android.meeroo.R;
 import de.synyx.android.meeroo.config.Registry;
 import de.synyx.android.meeroo.domain.MeetingRoom;
 import de.synyx.android.meeroo.preferences.PreferencesService;
+import de.synyx.android.meeroo.screen.FullscreenActivity;
 import de.synyx.android.meeroo.screen.login.LoginActivity;
 
 
-public class SettingsActivity extends AppCompatPreferenceActivity {
+public class SettingsActivity extends FullscreenActivity {
 
-    private static Preference.OnPreferenceChangeListener sBindPreferenceSummaryToValueListener =
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_settings);
+
+        Toolbar toolbar = findViewById(R.id.settings_toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar supportActionBar = getSupportActionBar();
+        if(supportActionBar!=null) {
+            supportActionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.settings, new GeneralPreferenceFragment())
+                .commit();
+    }
+
+
+    private static final Preference.OnPreferenceChangeListener sBindPreferenceSummaryToValueListener =
             (preference, value) -> {
                 String stringValue = value.toString();
 
-                if (preference instanceof ListPreference) {
-                    ListPreference listPreference = (ListPreference) preference;
+                if (preference instanceof ListPreference listPreference) {
                     int index = listPreference.findIndexOfValue(stringValue);
                     preference.setSummary(index >= 0 ? listPreference.getEntries()[index] : null);
                 } else {
@@ -53,58 +74,19 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-
-        super.onCreate(savedInstanceState);
-
-        setupActionBar();
-        setGeneralFragment();
-    }
-
-
-    private void setGeneralFragment() {
-
-        this.getFragmentManager()
-                .beginTransaction().replace(android.R.id.content, new GeneralPreferenceFragment()).commit();
-    }
-
-
-    private void setupActionBar() {
-
-        ActionBar actionBar = getSupportActionBar();
-
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
+    public static class GeneralPreferenceFragment extends PreferenceFragmentCompat {
 
-    @Override
-    public boolean onIsMultiPane() {
-
-        return false;
-    }
-
-
-    @Override
-    protected boolean isValidFragment(String fragmentName) {
-
-        return PreferenceFragment.class.getName().equals(fragmentName)
-                || GeneralPreferenceFragment.class.getName().equals(fragmentName);
-    }
-
-    public static class GeneralPreferenceFragment extends PreferenceFragment {
-
-        @Override
-        public void onCreate(Bundle savedInstanceState) {
-
-            super.onCreate(savedInstanceState);
-
-            addPreferencesFromResource(R.xml.pref_general);
-
-            setHasOptionsMenu(true);
+        public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
+            setPreferencesFromResource(R.xml.pref_general, rootKey);
             bindPreferenceSummaryToValue(setValuesForDefaultRoom());
-
             Preference button = findPreference("logout");
             button.setOnPreferenceClickListener(this::logout);
 
@@ -128,8 +110,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         @NonNull
         private ListPreference setValuesForDefaultRoom() {
 
-            ListPreference defaultRoomPref = (ListPreference) findPreference("defaultRoom");
-            MultiSelectListPreference hiddenRooms = (MultiSelectListPreference) findPreference("hidden_rooms");
+            ListPreference defaultRoomPref = findPreference("defaultRoom");
+            MultiSelectListPreference hiddenRooms = findPreference("hidden_rooms");
 
             LoadAllRoomsUseCase loadRoomUseCase = new LoadAllRoomsUseCase();
             Map<Long, String> roomValues =
@@ -146,21 +128,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             hiddenRooms.setEntryValues(roomCalendarIds);
 
             return defaultRoomPref;
-        }
-
-
-        @Override
-        public boolean onOptionsItemSelected(MenuItem item) {
-
-            int id = item.getItemId();
-
-            if (id == android.R.id.home) {
-                getActivity().onBackPressed();
-
-                return true;
-            }
-
-            return super.onOptionsItemSelected(item);
         }
     }
 }

@@ -20,9 +20,9 @@ import de.synyx.android.meeroo.business.calendar.CalendarModeService;
 import de.synyx.android.meeroo.business.calendar.RoomCalendarModel;
 import de.synyx.android.meeroo.domain.CalendarMode;
 import de.synyx.android.meeroo.preferences.PreferencesService;
-import io.reactivex.Maybe;
-import io.reactivex.Observable;
-import io.reactivex.functions.Function;
+import io.reactivex.rxjava3.core.Maybe;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.functions.Function;
 
 
 /**

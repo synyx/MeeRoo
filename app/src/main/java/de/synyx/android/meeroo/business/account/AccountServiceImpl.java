@@ -8,8 +8,7 @@ import android.content.Context;
 import android.os.Bundle;
 
 import de.synyx.android.meeroo.preferences.PreferencesService;
-
-import io.reactivex.Observable;
+import io.reactivex.rxjava3.core.Observable;
 
 import static android.content.ContentResolver.requestSync;
 

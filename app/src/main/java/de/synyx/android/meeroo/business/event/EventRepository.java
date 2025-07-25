@@ -1,9 +1,9 @@
 package de.synyx.android.meeroo.business.event;
 
-import io.reactivex.Maybe;
-import io.reactivex.Observable;
-
 import org.joda.time.DateTime;
+
+import io.reactivex.rxjava3.core.Maybe;
+import io.reactivex.rxjava3.core.Observable;
 
 
 /**

@@ -8,8 +8,7 @@ import de.synyx.android.meeroo.config.Registry;
 import de.synyx.android.meeroo.domain.MeetingRoom;
 import de.synyx.android.meeroo.screen.main.status.LoadRoomUseCase;
 import de.synyx.android.meeroo.util.SchedulerFacade;
-
-import io.reactivex.disposables.Disposable;
+import io.reactivex.rxjava3.disposables.Disposable;
 
 
 public class AgendaViewModel extends ViewModel {

@@ -1,9 +1,8 @@
 package de.synyx.android.meeroo.data;
 
 import de.synyx.android.meeroo.business.calendar.RoomCalendarModel;
-
-import io.reactivex.Maybe;
-import io.reactivex.Observable;
+import io.reactivex.rxjava3.core.Maybe;
+import io.reactivex.rxjava3.core.Observable;
 
 
 /**
