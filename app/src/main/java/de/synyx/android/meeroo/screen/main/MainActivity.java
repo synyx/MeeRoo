@@ -6,6 +6,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.lifecycle.ViewModelProviders;
 
 import org.joda.time.Duration;
@@ -83,6 +84,24 @@ public class MainActivity extends FullscreenActivity implements LobbyFragment.Ro
         findViewById(R.id.menu_item_room_agenda).setOnClickListener(v -> navigationController.navigateAgenda());
         findViewById(R.id.menu_item_all_rooms).setOnClickListener(v -> navigationController.navigateLobby());
         findViewById(R.id.menu_item_settings).setOnClickListener(v -> navigationController.openSettings());
+
+        getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                switch (navigationController.getSelectedFragment()) {
+                    case SELECTED_FRAGMENT_STATUS:
+                    case SELECTED_FRAGMENT_AGENDA:
+                        navigationController.navigateLobby();
+                        break;
+
+                    case SELECTED_FRAGMENT_LOBBY:
+                    default: {
+                        setEnabled(false);
+                        getOnBackPressedDispatcher().onBackPressed();
+                    }
+                }
+            }
+        });
     }
 
 
@@ -178,21 +197,5 @@ public class MainActivity extends FullscreenActivity implements LobbyFragment.Ro
     public void onEndNowDialogDismiss() {
 
         enableFullscreen();
-    }
-
-
-    @Override
-    public void onBackPressed() {
-
-        switch (navigationController.getSelectedFragment()) {
-            case SELECTED_FRAGMENT_STATUS:
-            case SELECTED_FRAGMENT_AGENDA:
-                navigationController.navigateLobby();
-                break;
-
-            case SELECTED_FRAGMENT_LOBBY:
-            default:
-                super.onBackPressed();
-        }
     }
 }
