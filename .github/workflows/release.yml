@@ -30,7 +30,7 @@ jobs:
           alias: ${{ secrets.ANDROID_KEY_ALIAS }}
           keyStorePassword: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
           keyPassword: ${{ secrets.ANDROID_KEY_PASSWORD }}
-#      - name: Create Release
-#        uses: softprops/action-gh-release@v1
-#        with:
-#          files: ${{steps.sign_app.outputs.signedReleaseFile}}
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: ${{steps.sign_app.outputs.signedReleaseFile}}
