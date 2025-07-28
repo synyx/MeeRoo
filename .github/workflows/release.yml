@@ -22,14 +22,15 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew buildRelease
       - name: Sign app
-        uses: ilharp/sign-android-release@v1
+        uses: r0adkll/sign-android-release@v1
         id: sign_app
         with:
-          keyAlias: ${{ secrets.ANDROID_KEY_ALIAS }}
-          keyPassword: ${{ secrets.ANDROID_KEY_PASSWORD }}
+          releaseDirectory: app/build/outputs/apk/release
+          signingKeyBase64: ${{ secrets.ANDROID_SIGNING_KEY }}
+          alias: ${{ secrets.ANDROID_KEY_ALIAS }}
           keyStorePassword: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
-          signingKey: ${{ secrets.ANDROID_SIGNING_KEY }}
-      - name: Create Release
-        uses: softprops/action-gh-release@v1
-        with:
-          files: ${{steps.sign_app.outputs.signedFile}}
+          keyPassword: ${{ secrets.ANDROID_KEY_PASSWORD }}
+#      - name: Create Release
+#        uses: softprops/action-gh-release@v1
+#        with:
+#          files: ${{steps.sign_app.outputs.signedReleaseFile}}
