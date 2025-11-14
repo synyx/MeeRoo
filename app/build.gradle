@@ -35,6 +35,13 @@ android {
         sourceCompatibility JavaVersion.VERSION_21
         targetCompatibility JavaVersion.VERSION_21
     }
+
+    dependenciesInfo {
+        // Disable including dependency metadata when building APKs
+        includeInApk = false
+        // Disable including dependency metadata when building Android App Bundles
+        includeInBundle = false
+    }
 }
 
 dependencies {
