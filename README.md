@@ -1,4 +1,6 @@
 [![Build Status](https://github.com/synyx/MeeRoo/workflows/MeeRoo%20CI/badge.svg)](https://github.com/synyx/MeeRoo/actions?query=workflow%3A%22MeeRoo+CI%22)
+[![RB Status](https://shields.rbtlog.dev/simple/de.synyx.android.meetingroom)](https://shields.rbtlog.dev/de.synyx.android.meetingroom)
+![IzzyOnDroid](https://img.shields.io/endpoint?url=https://apt.izzysoft.de/fdroid/api/v1/shield/de.synyx.android.meetingroom&label=IzzyOnDroid)
 
 ![banner](meeroo_banner.png)
 
