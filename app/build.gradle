@@ -62,7 +62,7 @@ dependencies {
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.2'
     implementation 'com.jakewharton.rxbinding4:rxbinding-appcompat:4.0.0'
 
-    implementation 'joda-time:joda-time:2.14.0'
+    implementation 'joda-time:joda-time:2.14.1'
 
     //Tests
     testImplementation 'junit:junit:4.13.2'
